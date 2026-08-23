@@ -76,7 +76,18 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border/70 pt-8 text-sm text-muted md:flex-row md:items-center md:justify-between">
-          <p>© {new Date().getFullYear()} {siteConfig.expert}. Все права защищены.</p>
+          <p className="flex items-center gap-2">
+            <span>
+              © {new Date().getFullYear()} {siteConfig.expert}. Все права защищены.
+            </span>
+            <Link
+              href="/admin"
+              aria-label="Вход в админку"
+              className="text-[10px] tracking-wide text-muted/25 transition-colors hover:text-muted/60"
+            >
+              ·
+            </Link>
+          </p>
           <p>Обучение и оплата проходят на платформе GetCourse</p>
         </div>
       </Container>
