@@ -12,6 +12,8 @@
   --color-card: #ffffff;
   --color-warm: #f5f0e8;
   --color-gold: #b8956b;
+  --color-chocolate: #5c4033;
+  --color-chocolate-light: #7a5c4a;
 
   --font-display: "Cormorant Garamond", Georgia, serif;
   --font-body: "Source Sans 3", system-ui, sans-serif;
@@ -62,5 +64,40 @@
 
   .container-padding {
     @apply px-5 sm:px-6 lg:px-8;
+  }
+
+  .line-draw {
+    stroke-dasharray: 1200;
+    stroke-dashoffset: 1200;
+    animation: line-draw 2.4s ease forwards;
+  }
+
+  .line-draw-1 {
+    animation-delay: 0.2s;
+  }
+
+  .line-draw-2 {
+    animation-delay: 0.5s;
+  }
+
+  .line-draw-3 {
+    animation-delay: 0.8s;
+  }
+
+  .line-draw-4 {
+    animation-delay: 1.1s;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .line-draw {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+@keyframes line-draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }

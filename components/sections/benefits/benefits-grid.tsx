@@ -6,7 +6,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 
 export function BenefitsGrid() {
   return (
-    <Section tone="warm">
+    <Section tone="warm" lines="left">
       <SectionHeader
         eyebrow="Почему можно доверять"
         title="Опыт, метод и профессиональный подход"

@@ -8,7 +8,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 
 export function DirectionsCards() {
   return (
-    <Section>
+    <Section lines="right">
       <SectionHeader
         eyebrow="Направления"
         title="Выберите запрос, с которого хотите начать"

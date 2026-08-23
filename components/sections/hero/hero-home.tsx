@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CurvedLines } from "@/components/decor/curved-lines";
 import { SiteImage } from "@/components/ui/site-image";
 import { philosophyQuote, siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ export function HeroHome() {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_#e8f0ec_0%,_transparent_45%),radial-gradient(circle_at_bottom_left,_#f5f0e8_0%,_transparent_40%)]" />
+      <CurvedLines variant="hero" className="-z-[5] opacity-90" />
 
       <Container className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <motion.div

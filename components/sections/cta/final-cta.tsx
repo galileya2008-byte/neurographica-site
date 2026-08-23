@@ -1,14 +1,16 @@
 import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
+import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
 
 export function FinalCta() {
   return (
-    <Section tone="warm">
-      <div className="overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-card">
-        <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
-          <div className="flex flex-col justify-center p-8 md:p-12 lg:p-14">
+    <Section tone="warm" lines="right">
+      <div className="relative overflow-hidden rounded-[2rem] border border-border/70 bg-card shadow-card">
+        <CurvedLines variant="cta" className="opacity-80" />
+        <div className="relative grid lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="relative z-10 flex flex-col justify-center p-8 md:p-12 lg:p-14">
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
               Следующий шаг
             </p>

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { legalNavigation, navigation, siteConfig } from "@/config/site";
+import { CurvedLines } from "@/components/decor/curved-lines";
 import { Container } from "./container";
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-warm">
-      <Container className="section-padding !py-16">
+    <footer className="relative overflow-hidden border-t border-border bg-warm">
+      <CurvedLines variant="footer" className="opacity-70" />
+      <Container className="section-padding relative z-10 !py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <p className="font-display text-2xl text-foreground">{siteConfig.brand}</p>

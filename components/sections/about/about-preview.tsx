@@ -5,7 +5,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 
 export function AboutPreview() {
   return (
-    <Section tone="accent">
+    <Section tone="accent" lines="right">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
           <SiteImage

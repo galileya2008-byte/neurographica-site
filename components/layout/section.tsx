@@ -1,10 +1,12 @@
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
+import { CurvedLines } from "@/components/decor/curved-lines";
 
 type SectionProps = React.HTMLAttributes<HTMLElement> & {
   id?: string;
   tone?: "default" | "warm" | "accent";
   containerSize?: "default" | "narrow" | "wide";
+  lines?: "left" | "right" | "none";
 };
 
 const toneClasses = {
@@ -17,15 +19,20 @@ export function Section({
   className,
   tone = "default",
   containerSize = "default",
+  lines = "none",
   children,
   ...props
 }: SectionProps) {
   return (
     <section
-      className={cn("section-padding", toneClasses[tone], className)}
+      className={cn("section-padding relative overflow-hidden", toneClasses[tone], className)}
       {...props}
     >
-      <Container size={containerSize}>{children}</Container>
+      {lines === "left" ? <CurvedLines variant="section-left" /> : null}
+      {lines === "right" ? <CurvedLines variant="section-right" /> : null}
+      <Container size={containerSize} className="relative z-10">
+        {children}
+      </Container>
     </section>
   );
 }
