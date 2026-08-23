@@ -4,7 +4,9 @@ export const siteConfig = {
   title: "От намерения к действию — Галина Оноприенко",
   description:
     "Мастер-классы и программы по нейрографике. 17 лет онлайн-обучения, 1000+ мастер-классов. Осознанный подход к целям, намерению и изменениям.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://galileya2008-byte.github.io/neurographica-site",
   locale: "ru_RU",
   email: "galileya2008@yandex.ru",
   social: {

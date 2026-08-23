@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -47,16 +48,25 @@ export function Button({
   const classes = cn(buttonVariants({ variant, size, className }));
 
   if (href) {
-    const isExternal = href.startsWith("http");
+    const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+
+    if (isExternal) {
+      return (
+        <a
+          href={href}
+          className={classes}
+          target={target ?? (href.startsWith("http") ? "_blank" : undefined)}
+          rel={rel ?? (href.startsWith("http") ? "noopener noreferrer" : undefined)}
+        >
+          {children}
+        </a>
+      );
+    }
+
     return (
-      <a
-        href={href}
-        className={classes}
-        target={target ?? (isExternal ? "_blank" : undefined)}
-        rel={rel ?? (isExternal ? "noopener noreferrer" : undefined)}
-      >
+      <Link href={href} className={classes}>
         {children}
-      </a>
+      </Link>
     );
   }
 
