@@ -2,6 +2,7 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Button } from "@/components/ui/button";
+import { MarkdownContent } from "@/components/ui/markdown-content";
 import { SiteImage } from "@/components/ui/site-image";
 import { materialTypeLabels, type Material } from "@/types/material";
 
@@ -44,11 +45,7 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
           </div>
         ) : null}
 
-        <div className="mt-10 space-y-5 text-base leading-relaxed text-muted md:text-lg">
-          {material.content.map((paragraph) => (
-            <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-          ))}
-        </div>
+        <MarkdownContent content={material.content} className="mt-10" />
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border/70 pt-8 sm:flex-row">
           <Button href="/materials" variant="secondary">

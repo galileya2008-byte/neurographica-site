@@ -20,7 +20,8 @@ export type Material = {
   type: MaterialType;
   title: string;
   excerpt: string;
-  content: string[];
+  /** Markdown: заголовки, курсив, ссылки, цитаты, списки */
+  content: string;
   cover?: string;
   publishedAt: string;
   readingMinutes: number;

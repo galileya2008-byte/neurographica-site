@@ -42,7 +42,11 @@ export const materialSchema = z.object({
   type: z.enum(materialTypeIds),
   title: z.string().min(1),
   excerpt: z.string().min(1),
-  content: z.array(z.string()).min(1),
+  content: z
+    .union([z.string().min(1), z.array(z.string()).min(1)])
+    .transform((value) =>
+      typeof value === "string" ? value.trim() : value.join("\n\n").trim(),
+    ),
   cover: z.string().optional(),
   publishedAt: z.string().min(1),
   readingMinutes: z.number().positive(),

@@ -31,7 +31,7 @@ export function materialToForm(material: Material): MaterialFormState {
     slug: material.slug,
     type: material.type,
     excerpt: material.excerpt,
-    contentText: material.content.join("\n\n"),
+    contentText: material.content,
     cover: material.cover ?? "",
     readingMinutes: String(material.readingMinutes),
   };
@@ -45,13 +45,9 @@ export function formToMaterial(
   if (!form.slug.trim()) throw new Error("Укажите slug (латиницей)");
   if (!form.excerpt.trim()) throw new Error("Укажите краткое описание");
 
-  const content = form.contentText
-    .split(/\n\s*\n/)
-    .map((block) => block.replace(/\s+/g, " ").trim())
-    .filter(Boolean);
-
-  if (!content.length) {
-    throw new Error("Добавьте хотя бы один абзац текста");
+  const content = form.contentText.trim();
+  if (!content) {
+    throw new Error("Добавьте текст материала");
   }
 
   const readingMinutes = Number(form.readingMinutes.replace(",", "."));

@@ -47,6 +47,7 @@ import {
   type ProductFormat,
   type ProductLevel,
 } from "@/types/product";
+import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
@@ -80,6 +81,10 @@ export function AdminApp() {
   const [slugLocked, setSlugLocked] = useState(false);
   const [loading, setLoading] = useState(false);
   const [uploadingCover, setUploadingCover] = useState(false);
+  const [pendingCoverFile, setPendingCoverFile] = useState<File | null>(null);
+  const [pendingCoverPreview, setPendingCoverPreview] = useState<string | null>(
+    null,
+  );
   const [covers, setCovers] = useState<string[]>([...adminConfig.covers]);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -90,7 +95,19 @@ export function AdminApp() {
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (pendingCoverPreview) URL.revokeObjectURL(pendingCoverPreview);
+    };
+  }, [pendingCoverPreview]);
+
   const canSave = useMemo(() => token.trim().length > 0, [token]);
+
+  function clearPendingCover() {
+    if (pendingCoverPreview) URL.revokeObjectURL(pendingCoverPreview);
+    setPendingCoverFile(null);
+    setPendingCoverPreview(null);
+  }
 
   async function refreshCovers(currentToken = token) {
     if (!currentToken.trim()) {
@@ -190,9 +207,46 @@ export function AdminApp() {
     setEditingSha(undefined);
     setEditingPublishedAt(undefined);
     setSlugLocked(false);
+    clearPendingCover();
     setMessage(null);
     setError(null);
     void refreshList(token, next);
+  }
+
+  function selectExistingCover(path: string) {
+    clearPendingCover();
+    if (section === "masterclasses") {
+      setMasterclassForm((prev) => ({ ...prev, cover: path }));
+    } else {
+      setMaterialForm((prev) => ({ ...prev, cover: path }));
+    }
+  }
+
+  async function ensureCoverUploaded(preferredName: string): Promise<string | undefined> {
+    if (!pendingCoverFile) {
+      return section === "masterclasses"
+        ? masterclassForm.cover
+        : materialForm.cover || undefined;
+    }
+
+    setUploadingCover(true);
+    try {
+      const path = await uploadCover(
+        token.trim(),
+        pendingCoverFile,
+        preferredName,
+      );
+      setCovers((prev) => Array.from(new Set([path, ...prev])));
+      if (section === "masterclasses") {
+        setMasterclassForm((prev) => ({ ...prev, cover: path }));
+      } else {
+        setMaterialForm((prev) => ({ ...prev, cover: path }));
+      }
+      clearPendingCover();
+      return path;
+    } finally {
+      setUploadingCover(false);
+    }
   }
 
   async function handleCoverUpload(file: File | null) {
@@ -202,28 +256,14 @@ export function AdminApp() {
       return;
     }
 
-    const preferredName =
-      section === "masterclasses"
-        ? masterclassForm.slug || masterclassForm.title || file.name
-        : materialForm.slug || materialForm.title || file.name;
-
-    setUploadingCover(true);
+    clearPendingCover();
+    const previewUrl = URL.createObjectURL(file);
+    setPendingCoverFile(file);
+    setPendingCoverPreview(previewUrl);
     setError(null);
-    setMessage(null);
-    try {
-      const path = await uploadCover(token.trim(), file, preferredName);
-      setCovers((prev) => Array.from(new Set([path, ...prev])));
-      if (section === "masterclasses") {
-        setMasterclassForm((prev) => ({ ...prev, cover: path }));
-      } else {
-        setMaterialForm((prev) => ({ ...prev, cover: path }));
-      }
-      setMessage("Обложка загружена. После сохранения сайт обновится за 1–2 минуты.");
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Не удалось загрузить обложку");
-    } finally {
-      setUploadingCover(false);
-    }
+    setMessage(
+      "Обложка выбрана. Она загрузится на сайт вместе с нажатием «Сохранить».",
+    );
   }
 
   function startCreate() {
@@ -231,6 +271,7 @@ export function AdminApp() {
     setEditingSha(undefined);
     setEditingPublishedAt(undefined);
     setSlugLocked(false);
+    clearPendingCover();
     if (section === "masterclasses") {
       setMasterclassForm(emptyMasterclassForm(adminConfig.covers[0]));
     } else {
@@ -243,6 +284,7 @@ export function AdminApp() {
   async function startEdit(item: ListItem) {
     setLoading(true);
     setError(null);
+    clearPendingCover();
     try {
       if (section === "masterclasses") {
         const { product, sha } = await getMasterclass(token.trim(), item.name);
@@ -281,10 +323,18 @@ export function AdminApp() {
 
     try {
       setLoading(true);
+
       if (section === "masterclasses") {
-        const product = formToProduct(masterclassForm, {
-          publishedAt: editingPublishedAt,
-        });
+        const coverPath = await ensureCoverUploaded(
+          masterclassForm.slug || masterclassForm.title || "cover",
+        );
+        if (!coverPath) {
+          throw new Error("Выберите или загрузите обложку");
+        }
+        const product = formToProduct(
+          { ...masterclassForm, cover: coverPath },
+          { publishedAt: editingPublishedAt },
+        );
         await saveMasterclass(token.trim(), product, editingSha);
         setMessage(
           mode === "create"
@@ -292,9 +342,13 @@ export function AdminApp() {
             : "Изменения сохранены. Сайт обновится через 1–2 минуты.",
         );
       } else {
-        const material = formToMaterial(materialForm, {
-          publishedAt: editingPublishedAt,
-        });
+        const coverPath = await ensureCoverUploaded(
+          materialForm.slug || materialForm.title || "cover",
+        );
+        const material = formToMaterial(
+          { ...materialForm, cover: coverPath ?? "" },
+          { publishedAt: editingPublishedAt },
+        );
         await saveMaterial(token.trim(), material, editingSha);
         setMessage(
           mode === "create"
@@ -533,12 +587,15 @@ export function AdminApp() {
             slugLocked={slugLocked}
             setSlugLocked={setSlugLocked}
             covers={covers}
-            uploadingCover={uploadingCover}
+            pendingCoverPreview={pendingCoverPreview}
+            uploadingCover={uploadingCover || loading}
             canSave={canSave}
             loading={loading}
-            onCoverUpload={handleCoverUpload}
+            onCoverSelect={selectExistingCover}
+            onCoverUpload={(file) => void handleCoverUpload(file)}
             onSave={handleSave}
             onCancel={() => {
+              clearPendingCover();
               setMode("list");
               setError(null);
             }}
@@ -551,12 +608,19 @@ export function AdminApp() {
             slugLocked={slugLocked}
             setSlugLocked={setSlugLocked}
             covers={covers}
-            uploadingCover={uploadingCover}
+            pendingCoverPreview={pendingCoverPreview}
+            uploadingCover={uploadingCover || loading}
             canSave={canSave}
             loading={loading}
-            onCoverUpload={handleCoverUpload}
+            onCoverSelect={selectExistingCover}
+            onCoverClear={() => {
+              clearPendingCover();
+              setMaterialForm((prev) => ({ ...prev, cover: "" }));
+            }}
+            onCoverUpload={(file) => void handleCoverUpload(file)}
             onSave={handleSave}
             onCancel={() => {
+              clearPendingCover();
               setMode("list");
               setError(null);
             }}
@@ -606,9 +670,11 @@ function MasterclassEditor({
   slugLocked,
   setSlugLocked,
   covers,
+  pendingCoverPreview,
   uploadingCover,
   canSave,
   loading,
+  onCoverSelect,
   onCoverUpload,
   onSave,
   onCancel,
@@ -619,9 +685,11 @@ function MasterclassEditor({
   slugLocked: boolean;
   setSlugLocked: (value: boolean) => void;
   covers: string[];
+  pendingCoverPreview: string | null;
   uploadingCover: boolean;
   canSave: boolean;
   loading: boolean;
+  onCoverSelect: (cover: string) => void;
   onCoverUpload: (file: File | null) => void;
   onSave: (event: React.FormEvent) => void;
   onCancel: () => void;
@@ -716,10 +784,11 @@ function MasterclassEditor({
 
       <CoverPicker
         cover={form.cover}
+        pendingPreview={pendingCoverPreview}
         covers={covers}
         uploadingCover={uploadingCover}
         canSave={canSave}
-        onSelect={(cover) => setForm((prev) => ({ ...prev, cover }))}
+        onSelect={onCoverSelect}
         onUpload={onCoverUpload}
       />
 
@@ -881,9 +950,12 @@ function MaterialEditor({
   slugLocked,
   setSlugLocked,
   covers,
+  pendingCoverPreview,
   uploadingCover,
   canSave,
   loading,
+  onCoverSelect,
+  onCoverClear,
   onCoverUpload,
   onSave,
   onCancel,
@@ -894,9 +966,12 @@ function MaterialEditor({
   slugLocked: boolean;
   setSlugLocked: (value: boolean) => void;
   covers: string[];
+  pendingCoverPreview: string | null;
   uploadingCover: boolean;
   canSave: boolean;
   loading: boolean;
+  onCoverSelect: (cover: string) => void;
+  onCoverClear: () => void;
   onCoverUpload: (file: File | null) => void;
   onSave: (event: React.FormEvent) => void;
   onCancel: () => void;
@@ -987,27 +1062,27 @@ function MaterialEditor({
         />
       </Field>
 
-      <Field label="Текст материала (абзацы разделяйте пустой строкой)">
-        <textarea
+      <div>
+        <p className="mb-2 text-sm font-medium">Текст материала</p>
+        <MarkdownEditor
           required
-          rows={12}
+          rows={14}
           value={form.contentText}
-          onChange={(e) =>
-            setForm((prev) => ({ ...prev, contentText: e.target.value }))
+          onChange={(contentText) =>
+            setForm((prev) => ({ ...prev, contentText }))
           }
-          className={textareaClass}
-          placeholder={"Первый абзац.\n\nВторой абзац.\n\nТретий абзац."}
         />
-      </Field>
+      </div>
 
       <CoverPicker
         cover={form.cover}
+        pendingPreview={pendingCoverPreview}
         covers={covers}
         uploadingCover={uploadingCover}
         canSave={canSave}
         optional
-        onSelect={(cover) => setForm((prev) => ({ ...prev, cover }))}
-        onClear={() => setForm((prev) => ({ ...prev, cover: "" }))}
+        onSelect={onCoverSelect}
+        onClear={onCoverClear}
         onUpload={onCoverUpload}
       />
 
@@ -1018,6 +1093,7 @@ function MaterialEditor({
 
 function CoverPicker({
   cover,
+  pendingPreview,
   covers,
   uploadingCover,
   canSave,
@@ -1027,6 +1103,7 @@ function CoverPicker({
   onUpload,
 }: {
   cover: string;
+  pendingPreview?: string | null;
   covers: string[];
   uploadingCover: boolean;
   canSave: boolean;
@@ -1035,6 +1112,8 @@ function CoverPicker({
   onClear?: () => void;
   onUpload: (file: File | null) => void;
 }) {
+  const previewSrc = pendingPreview || (cover ? coverPreviewSrc(cover) : null);
+
   return (
     <div className="space-y-4 rounded-3xl border border-border/70 bg-warm/40 p-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -1043,20 +1122,21 @@ function CoverPicker({
             Обложка{optional ? " (необязательно)" : ""}
           </p>
           <p className="mt-1 text-sm text-muted">
-            JPG, PNG или WEBP до 5 МБ. Можно выбрать готовую или загрузить новую.
+            JPG, PNG или WEBP до 5 МБ. Файл отправится на сайт при нажатии
+            «Сохранить».
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          {optional && cover ? (
+          {optional && (cover || pendingPreview) ? (
             <Button type="button" variant="ghost" size="sm" onClick={onClear}>
               Убрать обложку
             </Button>
           ) : null}
           <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground">
-            {uploadingCover ? "Загрузка…" : "Загрузить обложку"}
+            {uploadingCover ? "Загрузка…" : "Выбрать файл"}
             <input
               type="file"
-              accept="image/jpeg,image/png,image/webp"
+              accept="image/jpeg,image/jpg,image/png,image/webp,.jpg,.jpeg,.png,.webp"
               className="hidden"
               disabled={uploadingCover || !canSave}
               onChange={(e) => {
@@ -1069,20 +1149,26 @@ function CoverPicker({
         </div>
       </div>
 
-      {cover ? (
+      {previewSrc ? (
         <div className="relative aspect-[4/3] max-w-sm overflow-hidden rounded-2xl border border-border bg-card">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={coverPreviewSrc(cover)}
+            src={previewSrc}
             alt="Выбранная обложка"
             className="h-full w-full object-cover"
           />
         </div>
       ) : null}
 
+      {pendingPreview ? (
+        <p className="text-sm text-accent">
+          Новый файл готов к загрузке — нажмите «Сохранить».
+        </p>
+      ) : null}
+
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
         {covers.map((item) => {
-          const active = cover === item;
+          const active = !pendingPreview && cover === item;
           return (
             <button
               key={item}
@@ -1148,6 +1234,9 @@ function Field({
 }
 
 function coverPreviewSrc(path: string): string {
+  if (path.startsWith("blob:") || path.startsWith("data:") || path.startsWith("http")) {
+    return path;
+  }
   const { owner, repo, branch } = adminConfig.github;
   if (path.startsWith("/images/")) {
     return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/public${path}`;

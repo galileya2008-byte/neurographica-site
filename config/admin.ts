@@ -22,6 +22,6 @@ export const adminConfig = {
   ],
   coverUpload: {
     maxBytes: 5 * 1024 * 1024,
-    accept: ["image/jpeg", "image/png", "image/webp"],
+    accept: ["image/jpeg", "image/jpg", "image/png", "image/webp"],
   },
 } as const;

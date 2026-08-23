@@ -68,11 +68,36 @@ async function githubFetch(path: string, token: string, init?: RequestInit) {
     } catch {
       // ignore
     }
+
+    if (response.status === 401 || response.status === 403) {
+      throw new Error(
+        "GitHub не принял токен. Нужен Personal Access Token (classic) с правом repo.",
+      );
+    }
+    if (response.status === 404) {
+      throw new Error(
+        "Репозиторий или путь не найден. Проверьте доступ токена к neurographica-site.",
+      );
+    }
     throw new Error(message);
   }
 
   if (response.status === 204) return null;
   return response.json();
+}
+
+function resolveImageExtension(file: File): "jpg" | "png" | "webp" {
+  const type = file.type.toLowerCase();
+  if (type === "image/png") return "png";
+  if (type === "image/webp") return "webp";
+  if (type === "image/jpeg" || type === "image/jpg") return "jpg";
+
+  const name = file.name.toLowerCase();
+  if (name.endsWith(".png")) return "png";
+  if (name.endsWith(".webp")) return "webp";
+  if (name.endsWith(".jpg") || name.endsWith(".jpeg")) return "jpg";
+
+  throw new Error("Допустимы только JPG, PNG или WEBP");
 }
 
 export async function listMasterclassFiles(token: string): Promise<GithubContentFile[]> {
@@ -116,28 +141,20 @@ export async function uploadCover(
   file: File,
   preferredName?: string,
 ): Promise<string> {
-  const { maxBytes, accept } = adminConfig.coverUpload;
-  if (!(accept as readonly string[]).includes(file.type)) {
-    throw new Error("Допустимы только JPG, PNG или WEBP");
-  }
+  const { maxBytes } = adminConfig.coverUpload;
   if (file.size > maxBytes) {
     throw new Error("Файл слишком большой. Максимум 5 МБ");
   }
 
-  const extension =
-    file.type === "image/png"
-      ? "png"
-      : file.type === "image/webp"
-        ? "webp"
-        : "jpg";
-
+  const extension = resolveImageExtension(file);
   const baseName =
     slugify(preferredName || file.name.replace(/\.[^.]+$/, "")) || "cover";
   const filename = `${baseName}-${Date.now()}.${extension}`;
   const { coversRepoPath, coversPublicPath, branch } = adminConfig.github;
   const content = await fileToBase64(file);
+  const repoPath = `${coversRepoPath}/${filename}`;
 
-  await githubFetch(`/contents/${coversRepoPath}/${filename}`, token, {
+  await githubFetch(`/contents/${repoPath}`, token, {
     method: "PUT",
     body: JSON.stringify({
       message: `Add cover image: ${filename}`,
@@ -145,6 +162,12 @@ export async function uploadCover(
       branch,
     }),
   });
+
+  // Убеждаемся, что файл реально появился в репозитории
+  const verify = await githubFetch(`/contents/${repoPath}?ref=${branch}`, token);
+  if (!verify || typeof verify !== "object" || !("sha" in verify)) {
+    throw new Error("Обложка не сохранилась в GitHub. Попробуйте ещё раз.");
+  }
 
   return `${coversPublicPath}/${filename}`;
 }
