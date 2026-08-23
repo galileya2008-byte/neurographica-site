@@ -18,6 +18,9 @@ export function buildPageMetadata({
 }: PageMetadataOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
   const fullTitle = path === "" || path === "/" ? siteConfig.title : `${title} | ${siteConfig.brand}`;
+  const imageUrl = image.startsWith("http")
+    ? image
+    : `${siteConfig.url}${image.startsWith("/") ? image : `/${image}`}`;
 
   return {
     title: fullTitle,
@@ -35,7 +38,7 @@ export function buildPageMetadata({
       siteName: siteConfig.brand,
       images: [
         {
-          url: image,
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: `${siteConfig.expert} — ${siteConfig.brand}`,
@@ -46,7 +49,7 @@ export function buildPageMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: [image],
+      images: [imageUrl],
     },
     robots: noIndex
       ? { index: false, follow: false }

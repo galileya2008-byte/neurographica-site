@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Section } from "@/components/layout/section";
@@ -30,7 +30,7 @@ export function FinalCta() {
           </div>
 
           <div className="relative min-h-[280px] lg:min-h-full">
-            <Image
+            <SiteImage
               src="/images/galina/with-pavel-piskarev.png"
               alt={`${siteConfig.expert} с Павлом Пискарёвым, создателем метода нейрографики`}
               fill

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/layout/container";
+import { SiteImage } from "@/components/ui/site-image";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -27,7 +27,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
-              <Image
+              <SiteImage
                 src="/images/galina/portrait-premium.png"
                 alt={siteConfig.expert}
                 fill
@@ -43,7 +43,7 @@ export default function AboutPage() {
       <section className="section-padding bg-warm">
         <Container className="grid gap-12 lg:grid-cols-2">
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
-            <Image
+            <SiteImage
               src="/images/galina/at-work.png"
               alt={`${siteConfig.expert} за работой`}
               fill
@@ -80,7 +80,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] shadow-card">
-            <Image
+            <SiteImage
               src="/images/galina/with-pavel-piskarev.png"
               alt={`${siteConfig.expert} с Павлом Пискарёвым`}
               fill

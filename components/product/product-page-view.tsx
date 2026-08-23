@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { Section, SectionHeader } from "@/components/layout/section";
@@ -6,6 +5,7 @@ import { ProductCard } from "@/components/catalog/product-card";
 import { BuyButton } from "@/components/product/buy-button";
 import { ProductFaq } from "@/components/product/product-faq";
 import { JsonLd } from "@/components/seo/json-ld";
+import { SiteImage } from "@/components/ui/site-image";
 import { getCatalogHref } from "@/lib/domain/products";
 import { getDirectionLabel } from "@/lib/domain/products";
 import {
@@ -59,7 +59,7 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
 
           <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
-              <Image
+              <SiteImage
                 src={product.cover}
                 alt={product.title}
                 fill

@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { formatLabels, levelLabels, type Product } from "@/types/product";
 import { getDirectionLabel, getProductHref } from "@/lib/domain/products";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { SiteImage } from "@/components/ui/site-image";
 
 type ProductCardProps = {
   product: Product;
@@ -17,7 +17,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border/70 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-card">
       <Link href={href} className="relative block aspect-[4/3] overflow-hidden">
-        <Image
+        <SiteImage
           src={product.cover}
           alt={product.title}
           fill

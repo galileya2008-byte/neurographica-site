@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { philosophyQuote, siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
@@ -52,7 +52,7 @@ export function HeroHome() {
           className="relative"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
-            <Image
+            <SiteImage
               src="/images/galina/portrait-premium.png"
               alt={`${siteConfig.expert} — инструктор нейрографики`}
               fill

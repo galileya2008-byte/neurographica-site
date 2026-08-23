@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Section, SectionHeader } from "@/components/layout/section";
@@ -8,7 +8,7 @@ export function AboutPreview() {
     <Section tone="accent">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
-          <Image
+          <SiteImage
             src="/images/galina/at-work.png"
             alt={`${siteConfig.expert} проводит занятие по нейрографике`}
             fill
