@@ -1,4 +1,5 @@
 import { adminConfig } from "@/config/admin";
+import type { Material } from "@/types/material";
 import type { Product } from "@/types/product";
 import { slugify } from "@/lib/admin/slugify";
 
@@ -197,6 +198,72 @@ export async function deleteMasterclass(
     method: "DELETE",
     body: JSON.stringify({
       message: `Delete masterclass: ${slug}`,
+      sha,
+      branch,
+    }),
+  });
+}
+
+export async function listMaterialFiles(token: string): Promise<GithubContentFile[]> {
+  const { materialsPath, branch } = adminConfig.github;
+  const data = await githubFetch(
+    `/contents/${materialsPath}?ref=${branch}`,
+    token,
+  );
+
+  if (!Array.isArray(data)) return [];
+  return data.filter((item: GithubContentFile) => item.name.endsWith(".json"));
+}
+
+export async function getMaterial(
+  token: string,
+  filename: string,
+): Promise<{ material: Material; sha: string }> {
+  const { materialsPath, branch } = adminConfig.github;
+  const data = (await githubFetch(
+    `/contents/${materialsPath}/${filename}?ref=${branch}`,
+    token,
+  )) as GithubFileResponse;
+
+  return {
+    material: JSON.parse(decodeBase64Utf8(data.content)) as Material,
+    sha: data.sha,
+  };
+}
+
+export async function saveMaterial(
+  token: string,
+  material: Material,
+  sha?: string,
+): Promise<void> {
+  const { materialsPath, branch } = adminConfig.github;
+  const filename = `${material.slug}.json`;
+  const content = encodeBase64Utf8(`${JSON.stringify(material, null, 2)}\n`);
+
+  await githubFetch(`/contents/${materialsPath}/${filename}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: sha
+        ? `Update material: ${material.title}`
+        : `Add material: ${material.title}`,
+      content,
+      branch,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+}
+
+export async function deleteMaterial(
+  token: string,
+  slug: string,
+  sha: string,
+): Promise<void> {
+  const { materialsPath, branch } = adminConfig.github;
+
+  await githubFetch(`/contents/${materialsPath}/${slug}.json`, token, {
+    method: "DELETE",
+    body: JSON.stringify({
+      message: `Delete material: ${slug}`,
       sha,
       branch,
     }),
