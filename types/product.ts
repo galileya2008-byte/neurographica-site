@@ -6,6 +6,10 @@ export const directionIds = [
   "relationships",
   "finance",
   "beginners",
+  "clarity",
+  "desires",
+  "body",
+  "love",
 ] as const;
 
 export type DirectionId = (typeof directionIds)[number];

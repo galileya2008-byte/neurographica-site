@@ -52,6 +52,7 @@ export const benefits = [
   },
 ] as const;
 
+/** Короткие ярлыки для каталога и админки */
 export const directions = [
   {
     id: "intention",
@@ -87,6 +88,81 @@ export const directions = [
     id: "beginners",
     label: "Для новичков",
     description: "Мягкое знакомство с методом нейрографики.",
+  },
+  {
+    id: "clarity",
+    label: "Ясность",
+    description: "Навести порядок в мыслях и внутреннем шуме.",
+  },
+  {
+    id: "desires",
+    label: "Желания",
+    description: "Лучше понять свои желания и внутренние опоры.",
+  },
+  {
+    id: "body",
+    label: "Стройность",
+    description: "Осознанная работа с телом, образом себя и привычками.",
+  },
+  {
+    id: "love",
+    label: "Любовь и сексуальность",
+    description: "Бережная работа с близостью, чувствами и телесностью.",
+  },
+] as const;
+
+/**
+ * Карточки на главной: практика по запросу пользователя.
+ * directionId — фильтр каталога мастер-классов.
+ */
+export const practiceRequests = [
+  {
+    id: "self-understanding",
+    directionId: "self-realization",
+    title: "Хочу разобраться в себе",
+    description: "Увидеть свои опоры, внутренние противоречия и то, что действительно важно.",
+  },
+  {
+    id: "goals",
+    directionId: "intention",
+    title: "Хочу двигаться к своей цели",
+    description: "Сформулировать намерение и перейти от мысли к конкретным шагам.",
+  },
+  {
+    id: "thoughts",
+    directionId: "clarity",
+    title: "Хочу навести порядок в мыслях",
+    description: "Снять внутренний шум и вернуть ясность через практику линии.",
+  },
+  {
+    id: "motivation-request",
+    directionId: "motivation",
+    title: "Хочу работать с мотивацией",
+    description: "Найти ресурс для действия без давления и «волшебных обещаний».",
+  },
+  {
+    id: "desires-request",
+    directionId: "desires",
+    title: "Хочу лучше понять свои желания",
+    description: "Отличить чужие ожидания от своих истинных запросов.",
+  },
+  {
+    id: "beginners-request",
+    directionId: "beginners",
+    title: "Хочу познакомиться с нейрографикой",
+    description: "Мягкий старт: понять метод и попробовать первую практику.",
+  },
+  {
+    id: "body-request",
+    directionId: "body",
+    title: "Хочу работать со стройностью",
+    description: "Осознанный взгляд на тело, привычки и отношение к себе — без жёстких обещаний.",
+  },
+  {
+    id: "love-request",
+    directionId: "love",
+    title: "Хочу глубже понять любовь и сексуальность",
+    description: "Бережная работа с близостью, чувствами и внутренней свободой.",
   },
 ] as const;
 
