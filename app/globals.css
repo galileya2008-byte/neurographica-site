@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fafaf8;
+  --color-foreground: #1a1a1a;
+  --color-muted: #6b7280;
+  --color-muted-foreground: #6b7280;
+  --color-accent: #2d4a3e;
+  --color-accent-foreground: #f8faf9;
+  --color-accent-light: #e8f0ec;
+  --color-border: #e5e7eb;
+  --color-card: #ffffff;
+  --color-warm: #f5f0e8;
+  --color-gold: #b8956b;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Source Sans 3", system-ui, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-soft: 0 4px 24px -4px rgb(26 26 26 / 0.06);
+  --shadow-card: 0 8px 32px -8px rgb(26 26 26 / 0.08);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    @apply font-medium tracking-tight text-foreground;
+  }
+
+  ::selection {
+    @apply bg-accent-light text-accent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  .container-padding {
+    @apply px-5 sm:px-6 lg:px-8;
+  }
+}
