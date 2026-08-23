@@ -1,11 +1,13 @@
 import { adminConfig } from "@/config/admin";
 import type { Product } from "@/types/product";
+import { slugify } from "@/lib/admin/slugify";
 
 type GithubContentFile = {
   name: string;
   path: string;
   sha: string;
   download_url: string | null;
+  type?: string;
 };
 
 type GithubFileResponse = {
@@ -31,6 +33,17 @@ function encodeBase64Utf8(text: string): string {
   bytes.forEach((byte) => {
     binary += String.fromCharCode(byte);
   });
+  return btoa(binary);
+}
+
+async function fileToBase64(file: File): Promise<string> {
+  const buffer = await file.arrayBuffer();
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  }
   return btoa(binary);
 }
 
@@ -70,6 +83,69 @@ export async function listMasterclassFiles(token: string): Promise<GithubContent
 
   if (!Array.isArray(data)) return [];
   return data.filter((item: GithubContentFile) => item.name.endsWith(".json"));
+}
+
+export async function listCoverPaths(token: string): Promise<string[]> {
+  const { coversRepoPath, coversPublicPath, branch } = adminConfig.github;
+  try {
+    const data = await githubFetch(
+      `/contents/${coversRepoPath}?ref=${branch}`,
+      token,
+    );
+
+    if (!Array.isArray(data)) return [...adminConfig.covers];
+
+    const uploaded = data
+      .filter(
+        (item: GithubContentFile) =>
+          item.type === "file" &&
+          /\.(png|jpe?g|webp)$/i.test(item.name) &&
+          item.name !== ".gitkeep",
+      )
+      .map((item: GithubContentFile) => `${coversPublicPath}/${item.name}`);
+
+    return Array.from(new Set([...adminConfig.covers, ...uploaded]));
+  } catch {
+    return [...adminConfig.covers];
+  }
+}
+
+export async function uploadCover(
+  token: string,
+  file: File,
+  preferredName?: string,
+): Promise<string> {
+  const { maxBytes, accept } = adminConfig.coverUpload;
+  if (!(accept as readonly string[]).includes(file.type)) {
+    throw new Error("Допустимы только JPG, PNG или WEBP");
+  }
+  if (file.size > maxBytes) {
+    throw new Error("Файл слишком большой. Максимум 5 МБ");
+  }
+
+  const extension =
+    file.type === "image/png"
+      ? "png"
+      : file.type === "image/webp"
+        ? "webp"
+        : "jpg";
+
+  const baseName =
+    slugify(preferredName || file.name.replace(/\.[^.]+$/, "")) || "cover";
+  const filename = `${baseName}-${Date.now()}.${extension}`;
+  const { coversRepoPath, coversPublicPath, branch } = adminConfig.github;
+  const content = await fileToBase64(file);
+
+  await githubFetch(`/contents/${coversRepoPath}/${filename}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: `Add cover image: ${filename}`,
+      content,
+      branch,
+    }),
+  });
+
+  return `${coversPublicPath}/${filename}`;
 }
 
 export async function getMasterclass(

@@ -10,10 +10,17 @@ export const adminConfig = {
     repo: "neurographica-site",
     branch: "main",
     masterclassesPath: "content/masterclasses",
+    /** Путь в репозитории (без public/ в URL сайта) */
+    coversRepoPath: "public/images/covers",
+    coversPublicPath: "/images/covers",
   },
   covers: [
     "/images/galina/portrait-premium.png",
     "/images/galina/at-work.png",
     "/images/galina/with-pavel-piskarev.png",
   ],
+  coverUpload: {
+    maxBytes: 5 * 1024 * 1024,
+    accept: ["image/jpeg", "image/png", "image/webp"],
+  },
 } as const;

@@ -7,8 +7,10 @@ import { directions } from "@/config/site";
 import {
   deleteMasterclass,
   getMasterclass,
+  listCoverPaths,
   listMasterclassFiles,
   saveMasterclass,
+  uploadCover,
 } from "@/lib/admin/github";
 import {
   emptyMasterclassForm,
@@ -23,6 +25,7 @@ import {
   setGithubToken,
 } from "@/lib/admin/session";
 import { slugify } from "@/lib/admin/slugify";
+import { withBasePath } from "@/lib/paths";
 import {
   formatLabels,
   levelLabels,
@@ -56,6 +59,8 @@ export function AdminApp() {
   const [editingPublishedAt, setEditingPublishedAt] = useState<string | undefined>();
   const [slugLocked, setSlugLocked] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [uploadingCover, setUploadingCover] = useState(false);
+  const [covers, setCovers] = useState<string[]>([...adminConfig.covers]);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -66,6 +71,19 @@ export function AdminApp() {
   }, []);
 
   const canSave = useMemo(() => token.trim().length > 0, [token]);
+
+  async function refreshCovers(currentToken = token) {
+    if (!currentToken.trim()) {
+      setCovers([...adminConfig.covers]);
+      return;
+    }
+    try {
+      const paths = await listCoverPaths(currentToken.trim());
+      setCovers(paths);
+    } catch {
+      setCovers([...adminConfig.covers]);
+    }
+  }
 
   async function refreshList(currentToken = token) {
     if (!currentToken.trim()) {
@@ -88,6 +106,7 @@ export function AdminApp() {
         }),
       );
       setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
+      await refreshCovers(currentToken);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Не удалось загрузить список");
     } finally {
@@ -118,6 +137,30 @@ export function AdminApp() {
     void refreshList(token);
   }
 
+  async function handleCoverUpload(file: File | null) {
+    if (!file) return;
+    if (!canSave) {
+      setError("Сначала сохраните GitHub token");
+      return;
+    }
+
+    setUploadingCover(true);
+    setError(null);
+    setMessage(null);
+    try {
+      const path = await uploadCover(token.trim(), file, form.slug || form.title || file.name);
+      setCovers((prev) => Array.from(new Set([path, ...prev])));
+      setForm((prev) => ({ ...prev, cover: path }));
+      setMessage(
+        "Обложка загружена. После сохранения мастер-класса сайт обновится за 1–2 минуты.",
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось загрузить обложку");
+    } finally {
+      setUploadingCover(false);
+    }
+  }
+
   function startCreate() {
     setMode("create");
     setEditingSha(undefined);
@@ -134,10 +177,12 @@ export function AdminApp() {
     try {
       const { product, sha } = await getMasterclass(token.trim(), item.name);
       setForm(productToForm(product));
+      setCovers((prev) => Array.from(new Set([product.cover, ...prev])));
       setEditingSha(sha);
       setEditingPublishedAt(product.publishedAt);
       setSlugLocked(true);
       setMode("edit");
+      await refreshCovers();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Не удалось открыть мастер-класс");
     } finally {
@@ -417,7 +462,7 @@ export function AdminApp() {
               />
             </Field>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-5 md:grid-cols-2">
               <Field label="Стоимость, ₽">
                 <input
                   required
@@ -435,19 +480,70 @@ export function AdminApp() {
                   className={inputClass}
                 />
               </Field>
-              <Field label="Обложка">
-                <select
-                  value={form.cover}
-                  onChange={(e) => setForm((prev) => ({ ...prev, cover: e.target.value }))}
-                  className={inputClass}
-                >
-                  {adminConfig.covers.map((cover) => (
-                    <option key={cover} value={cover}>
-                      {cover.split("/").pop()}
-                    </option>
-                  ))}
-                </select>
-              </Field>
+            </div>
+
+            <div className="space-y-4 rounded-3xl border border-border/70 bg-warm/40 p-5">
+              <div className="flex flex-wrap items-end justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium">Обложка</p>
+                  <p className="mt-1 text-sm text-muted">
+                    JPG, PNG или WEBP до 5 МБ. Можно выбрать готовую или загрузить новую.
+                  </p>
+                </div>
+                <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground">
+                  {uploadingCover ? "Загрузка…" : "Загрузить обложку"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    className="hidden"
+                    disabled={uploadingCover || !canSave}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] ?? null;
+                      e.target.value = "";
+                      void handleCoverUpload(file);
+                    }}
+                  />
+                </label>
+              </div>
+
+              {form.cover ? (
+                <div className="relative aspect-[4/3] max-w-sm overflow-hidden rounded-2xl border border-border bg-card">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={coverPreviewSrc(form.cover)}
+                    alt="Выбранная обложка"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ) : null}
+
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+                {covers.map((cover) => {
+                  const active = form.cover === cover;
+                  return (
+                    <button
+                      key={cover}
+                      type="button"
+                      onClick={() => setForm((prev) => ({ ...prev, cover }))}
+                      className={`overflow-hidden rounded-2xl border text-left transition ${
+                        active
+                          ? "border-accent ring-2 ring-accent/30"
+                          : "border-border hover:border-accent/40"
+                      }`}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={coverPreviewSrc(cover)}
+                        alt={cover.split("/").pop() ?? "cover"}
+                        className="aspect-[4/3] w-full object-cover"
+                      />
+                      <span className="block truncate px-2 py-1.5 text-[11px] text-muted">
+                        {cover.split("/").pop()}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="grid gap-5 md:grid-cols-2">
@@ -638,6 +734,14 @@ function Field({
       {children}
     </label>
   );
+}
+
+function coverPreviewSrc(path: string): string {
+  const { owner, repo, branch } = adminConfig.github;
+  if (path.startsWith("/images/")) {
+    return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/public${path}`;
+  }
+  return withBasePath(path);
 }
 
 const inputClass =
