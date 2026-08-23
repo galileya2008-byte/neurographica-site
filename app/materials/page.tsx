@@ -3,13 +3,13 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { MaterialsCatalog } from "@/components/materials/materials-catalog";
+import { materialsIntro } from "@/config/site";
 import { getAllMaterials } from "@/lib/content/materials";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Исследуем вместе",
-  description:
-    "Полезные материалы по нейрографике: статьи, практические рекомендации, ответы на вопросы и авторские размышления.",
+  description: `${materialsIntro.lead} ${materialsIntro.description}`,
   path: "/materials",
 });
 
@@ -32,9 +32,11 @@ export default function MaterialsPage() {
             Полезные материалы
           </p>
           <h1 className="mt-3 text-4xl md:text-5xl">Исследуем вместе</h1>
+          <p className="mt-6 text-xl leading-relaxed text-foreground md:text-2xl">
+            {materialsIntro.lead}
+          </p>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            Статьи, практические рекомендации, ответы на вопросы и авторские
-            размышления — чтобы глубже понять себя, свои цели и метод нейрографики.
+            {materialsIntro.description}
           </p>
         </div>
 
