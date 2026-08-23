@@ -20,15 +20,15 @@ export function HeroHome() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="mb-4 text-sm font-medium uppercase tracking-[0.22em] text-accent">
-            Нейрографика · онлайн-обучение
+            {siteConfig.brand}
           </p>
           <h1 className="text-balance text-4xl leading-[1.1] md:text-5xl lg:text-6xl">
-            {siteConfig.brand}
+            Осознанные изменения начинаются с первого шага.
           </h1>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
-            С {siteConfig.expert} — осознанный инструмент для работы с целями,
-            намерением и внутренней ясностью. Без обещаний «волшебных таблеток» —
-            через практику, структуру и движение к действию.
+            Авторские мастер-классы и программы, которые помогают работать с
+            намерением, планированием и внутренней ясностью через метод
+            нейрографики.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
