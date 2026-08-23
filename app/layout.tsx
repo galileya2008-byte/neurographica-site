@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import { CookieBanner } from "@/components/layout/cookie-banner";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );
