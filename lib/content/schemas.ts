@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { materialTypeIds } from "@/types/material";
 import { directionIds } from "@/types/product";
 
 export const productSchema = z.object({
@@ -27,6 +28,24 @@ export const productSchema = z.object({
       answer: z.string(),
     }),
   ),
+  seo: z
+    .object({
+      title: z.string().optional(),
+      description: z.string().optional(),
+    })
+    .optional(),
+});
+
+export const materialSchema = z.object({
+  id: z.string().min(1),
+  slug: z.string().min(1),
+  type: z.enum(materialTypeIds),
+  title: z.string().min(1),
+  excerpt: z.string().min(1),
+  content: z.array(z.string()).min(1),
+  cover: z.string().optional(),
+  publishedAt: z.string().min(1),
+  readingMinutes: z.number().positive(),
   seo: z
     .object({
       title: z.string().optional(),

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
+import { getAllMaterials } from "@/lib/content/materials";
 import { getAllMasterclasses, getAllPrograms } from "@/lib/content/products";
 
 export const dynamic = "force-static";
@@ -9,6 +10,7 @@ const staticRoutes = [
   "/about",
   "/masterclasses",
   "/programs",
+  "/materials",
   "/reviews",
   "/faq",
   "/contacts",
@@ -40,5 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticEntries, ...masterclasses, ...programs];
+  const materials = getAllMaterials().map((material) => ({
+    url: `${siteConfig.url}/materials/${material.slug}/`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...masterclasses, ...programs, ...materials];
 }

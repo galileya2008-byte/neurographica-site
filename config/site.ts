@@ -18,6 +18,7 @@ export const siteConfig = {
 export const navigation = [
   { label: "Мастер-классы", href: "/masterclasses" },
   { label: "Программы", href: "/programs" },
+  { label: "Полезные материалы", href: "/materials" },
   { label: "Обо мне", href: "/about" },
   { label: "Отзывы", href: "/reviews" },
   { label: "FAQ", href: "/faq" },
