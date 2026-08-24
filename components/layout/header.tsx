@@ -34,48 +34,59 @@ export function Header() {
           : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between container-padding">
-        <Link href="/" className="group max-w-[14rem] sm:max-w-none">
-          <span className="block font-display text-[1.35rem] font-medium leading-tight tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-2xl">
+      <div className="mx-auto grid h-[4.75rem] max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 container-padding lg:h-20">
+        <Link
+          href="/"
+          className="group min-w-0 justify-self-start self-center"
+        >
+          <span className="block font-display text-xl font-medium leading-none tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[1.35rem]">
             {siteConfig.brand}
           </span>
-          <span className="mt-0.5 block text-[11px] tracking-[0.16em] text-muted uppercase">
+          <span className="mt-1.5 block text-[10px] leading-none tracking-[0.18em] text-muted uppercase sm:text-[11px]">
             {siteConfig.expert}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-9 lg:flex" aria-label="Основная навигация">
+        <nav
+          className="hidden items-center justify-center gap-6 xl:gap-7 lg:flex"
+          aria-label="Основная навигация"
+        >
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-[13px] tracking-[0.04em] text-foreground/75 transition-colors hover:text-accent"
+              className="inline-flex h-10 items-center whitespace-nowrap text-[13px] leading-none tracking-[0.02em] text-foreground/75 transition-colors hover:text-accent"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <Button href="/masterclasses" size="sm">
-            Выбрать мастер-класс
-          </Button>
-        </div>
+        <div className="flex items-center justify-self-end gap-3">
+          <div className="hidden lg:block">
+            <Button href="/masterclasses" size="sm">
+              Выбрать мастер-класс
+            </Button>
+          </div>
 
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-chocolate/15 bg-card/80 text-foreground backdrop-blur-sm lg:hidden"
-          aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
-          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-chocolate/15 bg-card/80 text-foreground backdrop-blur-sm lg:hidden"
+            aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {isOpen ? (
         <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl lg:hidden">
-          <nav className="mx-auto flex max-w-7xl flex-col gap-1 container-padding py-6" aria-label="Мобильная навигация">
+          <nav
+            className="mx-auto flex max-w-7xl flex-col gap-1 container-padding py-6"
+            aria-label="Мобильная навигация"
+          >
             {navigation.map((item) => (
               <Link
                 key={item.href}
