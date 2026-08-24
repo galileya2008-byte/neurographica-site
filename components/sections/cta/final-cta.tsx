@@ -44,7 +44,15 @@ export function FinalCta() {
                 Профессиональное обучение
               </p>
               <p className="mt-1 font-display text-xl">
-                Создатель метода — Павел Пискарёв
+                Создатель метода —{" "}
+                <a
+                  href={siteConfig.methodAuthor.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-white/50 underline-offset-4 transition hover:decoration-white"
+                >
+                  {siteConfig.methodAuthor.name}
+                </a>
               </p>
             </div>
           </div>

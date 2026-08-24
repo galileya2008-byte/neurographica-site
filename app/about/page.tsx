@@ -129,8 +129,16 @@ export default function AboutPage() {
               Образование и квалификация
             </h2>
             <p>
-              Я прошла профессиональное обучение у создателя метода нейрографики —
-              Павла Пискарёва — и регулярно повышаю квалификацию.
+              Я прошла профессиональное обучение у создателя метода нейрографики —{" "}
+              <a
+                href={siteConfig.methodAuthor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-accent underline underline-offset-4 hover:opacity-80"
+              >
+                Павла Пискарёва
+              </a>
+              {" "}— и регулярно повышаю квалификацию.
             </p>
             <p>
               Несколько раз в год обновляю профессиональные знания, чтобы давать

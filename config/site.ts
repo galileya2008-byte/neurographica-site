@@ -13,6 +13,10 @@ export const siteConfig = {
     telegram: "https://t.me/galina1901",
     telegramHandle: "@galina1901",
   },
+  methodAuthor: {
+    name: "Павел Пискарёв",
+    url: "https://neuro.piskarev.ru/",
+  },
 } as const;
 
 export const navigation = [
