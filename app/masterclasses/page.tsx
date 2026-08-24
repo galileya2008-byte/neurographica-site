@@ -27,7 +27,7 @@ export default function MasterclassesPage() {
         />
 
         <div className="mb-10 max-w-3xl">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             Каталог
           </p>
           <h1 className="mt-3 text-4xl md:text-5xl">Мастер-классы</h1>
@@ -47,7 +47,7 @@ export default function MasterclassesPage() {
 
 function CatalogFallback() {
   return (
-    <div className="rounded-3xl border border-border/70 bg-warm/50 px-6 py-16 text-center text-muted">
+    <div className="rounded-[1.5rem] border border-chocolate/10 bg-warm/50 px-6 py-16 text-center text-muted">
       Загрузка каталога…
     </div>
   );

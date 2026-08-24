@@ -18,7 +18,7 @@ export function PlaceholderPage({
   return (
     <section className="section-padding pt-32">
       <Container size="narrow" className="text-center">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
           Раздел в разработке
         </p>
         <h1 className="mt-4 text-4xl md:text-5xl">{title}</h1>

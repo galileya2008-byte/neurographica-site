@@ -21,7 +21,7 @@ export default function AboutPage() {
         <Container className="relative z-10">
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+              <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
                 Обо мне
               </p>
               <h1 className="mt-4 text-balance text-4xl md:text-5xl lg:text-[3.25rem] leading-[1.15]">
@@ -32,7 +32,7 @@ export default function AboutPage() {
                 Более 17 лет онлайн-работы и более 1000 проведённых мастер-классов.
               </p>
             </div>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
               <SiteImage
                 src="/images/galina/portrait-premium.png"
                 alt={siteConfig.expert}
@@ -46,10 +46,10 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden section-padding bg-warm">
+      <section className="relative overflow-hidden section-padding bg-[linear-gradient(180deg,_rgb(235_228_216/0.92),_rgb(235_228_216/0.7))]">
         <CurvedLines variant="section-left" />
         <Container className="relative z-10 grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card lg:sticky lg:top-28 lg:self-start">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card lg:sticky lg:top-28 lg:self-start">
             <SiteImage
               src="/images/galina/at-work.png"
               alt={`${siteConfig.expert} за работой`}
@@ -121,7 +121,7 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <section className="relative overflow-hidden section-padding bg-accent-light/40">
+      <section className="relative overflow-hidden section-padding bg-[radial-gradient(ellipse_at_bottom_right,_rgb(154_123_85/0.08),_transparent_50%),linear-gradient(180deg,_rgb(228_238_232/0.55),_rgb(228_238_232/0.28))]">
         <CurvedLines variant="section-left" />
         <Container className="relative z-10 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-6 text-base leading-relaxed text-muted md:text-lg">
@@ -149,7 +149,7 @@ export default function AboutPage() {
               стать вашим проводником на этом пути.
             </blockquote>
           </div>
-          <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] shadow-card">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-[1.75rem] shadow-card">
             <SiteImage
               src="/images/galina/with-pavel-piskarev.png"
               alt={`${siteConfig.expert} с Павлом Пискарёвым`}

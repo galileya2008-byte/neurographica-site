@@ -58,7 +58,7 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
           <Breadcrumbs items={crumbs} />
 
           <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
               <SiteImage
                 src={product.cover}
                 alt={product.title}
@@ -70,7 +70,7 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
             </div>
 
             <div>
-              <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+              <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
                 {catalogLabel.slice(0, -1)}
               </p>
               <h1 className="mt-3 text-balance text-4xl md:text-5xl">
@@ -168,7 +168,7 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
       ) : null}
 
       <Section>
-        <div className="rounded-[2rem] border border-border/70 bg-card p-8 text-center shadow-card md:p-12">
+        <div className="rounded-[1.75rem] border border-chocolate/10 bg-card/80 p-8 text-center shadow-card md:p-12">
           <h2 className="text-3xl md:text-4xl">Готовы начать?</h2>
           <p className="mx-auto mt-4 max-w-xl text-muted">
             Оплата и доступ к материалам — на GetCourse. Сайт помогает выбрать

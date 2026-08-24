@@ -46,7 +46,7 @@ export function FaqSection() {
           return (
             <article
               key={item.question}
-              className="overflow-hidden rounded-2xl border border-border/70 bg-card"
+              className="overflow-hidden rounded-2xl border border-chocolate/10 bg-card/80"
             >
               <button
                 type="button"

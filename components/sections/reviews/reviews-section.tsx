@@ -34,7 +34,7 @@ export function ReviewsSection() {
       />
 
       <div className="mx-auto max-w-3xl">
-        <article className="relative rounded-[2rem] border border-border/70 bg-card px-8 py-10 shadow-card md:px-12 md:py-12">
+        <article className="relative rounded-[1.75rem] border border-chocolate/10 bg-card/80 px-8 py-10 shadow-card md:px-12 md:py-12">
           <Quote className="mb-6 h-8 w-8 text-accent/50" />
           <p className="text-lg leading-relaxed text-foreground md:text-xl">
             «{current.text}»

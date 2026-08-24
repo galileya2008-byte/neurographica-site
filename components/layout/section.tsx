@@ -10,9 +10,10 @@ type SectionProps = React.HTMLAttributes<HTMLElement> & {
 };
 
 const toneClasses = {
-  default: "bg-background",
-  warm: "bg-warm",
-  accent: "bg-accent-light/40",
+  default: "bg-transparent",
+  warm: "bg-[radial-gradient(ellipse_at_top_left,_rgb(252_250_246/0.7),_transparent_55%),linear-gradient(180deg,_rgb(235_228_216/0.92),_rgb(235_228_216/0.7))]",
+  accent:
+    "bg-[radial-gradient(ellipse_at_bottom_right,_rgb(154_123_85/0.08),_transparent_50%),linear-gradient(180deg,_rgb(228_238_232/0.55),_rgb(228_238_232/0.28))]",
 };
 
 export function Section({
@@ -61,7 +62,7 @@ export function SectionHeader({
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+        <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
           {eyebrow}
         </p>
       ) : null}

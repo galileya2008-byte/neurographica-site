@@ -15,7 +15,7 @@ export default function ContactsPage() {
   return (
     <section className="section-padding pt-32">
       <Container size="narrow">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
           Контакты
         </p>
         <h1 className="mt-4 text-4xl md:text-5xl">Связаться со мной</h1>
@@ -27,7 +27,7 @@ export default function ContactsPage() {
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
           <a
             href={`mailto:${siteConfig.email}`}
-            className="group flex flex-col rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:shadow-card"
+            className="group flex flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-gold/30 hover:shadow-card"
           >
             <Mail className="h-6 w-6 text-accent" />
             <p className="mt-4 text-sm font-medium uppercase tracking-[0.14em] text-muted">
@@ -42,7 +42,7 @@ export default function ContactsPage() {
             href={siteConfig.social.telegram}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex flex-col rounded-3xl border border-border/70 bg-card p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-accent/25 hover:shadow-card"
+            className="group flex flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-gold/30 hover:shadow-card"
           >
             <Send className="h-6 w-6 text-accent" />
             <p className="mt-4 text-sm font-medium uppercase tracking-[0.14em] text-muted">

@@ -28,7 +28,7 @@ export default function MaterialsPage() {
         />
 
         <div className="mb-12 max-w-3xl">
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-accent">
+          <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             Полезные материалы
           </p>
           <h1 className="mt-3 text-4xl md:text-5xl">Исследуем вместе</h1>

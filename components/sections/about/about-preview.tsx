@@ -7,7 +7,7 @@ export function AboutPreview() {
   return (
     <Section tone="accent" lines="right">
       <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] shadow-card">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
           <SiteImage
             src="/images/galina/at-work.png"
             alt={`${siteConfig.expert} проводит занятие по нейрографике`}

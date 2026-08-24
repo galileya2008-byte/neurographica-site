@@ -21,7 +21,7 @@ export function BenefitsGrid() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5, delay: index * 0.08 }}
-            className="rounded-3xl border border-border/70 bg-card p-6 shadow-soft"
+            className="rounded-[1.5rem] border border-chocolate/10 bg-card/70 p-6 shadow-soft"
           >
             <p className="font-display text-3xl text-accent">{item.value}</p>
             <h3 className="mt-2 text-lg">{item.label}</h3>

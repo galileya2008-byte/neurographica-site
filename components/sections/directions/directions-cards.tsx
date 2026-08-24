@@ -26,7 +26,7 @@ export function DirectionsCards() {
           >
             <Link
               href={`/masterclasses?direction=${request.directionId}`}
-              className="group flex h-full flex-col rounded-3xl border border-border/70 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-chocolate/25 hover:shadow-card"
+              className="group flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card"
             >
               <div className="mb-4 flex items-start justify-between gap-3">
                 <h3 className="text-xl leading-snug">{request.title}</h3>

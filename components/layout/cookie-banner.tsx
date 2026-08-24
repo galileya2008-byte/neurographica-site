@@ -36,7 +36,7 @@ export function CookieBanner() {
       aria-label="Уведомление о файлах cookie"
       className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6"
     >
-      <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-3xl border border-border/70 bg-card/95 p-5 shadow-card backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
+      <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-[1.5rem] border border-chocolate/15 bg-card/95 p-5 shadow-card backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
         <p className="text-sm leading-relaxed text-muted">
           Мы используем файлы cookie, чтобы сайт работал корректно и было удобнее
           им пользоваться. Продолжая просмотр, вы соглашаетесь с{" "}

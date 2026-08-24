@@ -5,20 +5,20 @@ import { Container } from "./container";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-warm">
+    <footer className="relative overflow-hidden border-t border-chocolate/10 bg-[linear-gradient(180deg,_rgb(235_228_216/0.9),_rgb(235_228_216))]">
       <CurvedLines variant="footer" className="opacity-70" />
       <Container className="section-padding relative z-10 !py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <p className="font-display text-2xl text-foreground">{siteConfig.brand}</p>
-            <p className="mt-2 text-muted">{siteConfig.expert}</p>
+            <p className="font-display text-3xl tracking-tight text-foreground">{siteConfig.brand}</p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-muted">{siteConfig.expert}</p>
             <p className="mt-4 max-w-md leading-relaxed text-muted">
               {siteConfig.description}
             </p>
           </div>
 
           <div>
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.16em] text-accent">
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Навигация
             </p>
             <ul className="space-y-3">
@@ -36,7 +36,7 @@ export function Footer() {
           </div>
 
           <div>
-            <p className="mb-4 text-sm font-medium uppercase tracking-[0.16em] text-accent">
+            <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Контакты
             </p>
             <ul className="space-y-3">
@@ -59,7 +59,7 @@ export function Footer() {
                 </a>
               </li>
             </ul>
-            <p className="mb-4 mt-8 text-sm font-medium uppercase tracking-[0.16em] text-accent">
+            <p className="mb-4 mt-8 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Документы
             </p>
             <ul className="space-y-3">

@@ -23,7 +23,7 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
           ]}
         />
 
-        <p className="text-sm font-medium uppercase tracking-[0.18em] text-accent">
+        <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
           {materialTypeLabels[material.type]}
         </p>
         <h1 className="mt-3 text-balance text-4xl md:text-5xl">{material.title}</h1>
@@ -33,7 +33,7 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
         <p className="mt-6 text-lg leading-relaxed text-muted">{material.excerpt}</p>
 
         {material.cover ? (
-          <div className="relative mt-10 aspect-[16/10] overflow-hidden rounded-[2rem] shadow-card">
+          <div className="relative mt-10 aspect-[16/10] overflow-hidden rounded-[1.75rem] shadow-card">
             <SiteImage
               src={material.cover}
               alt={material.title}

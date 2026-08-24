@@ -15,30 +15,28 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   const primaryDirection = product.directions[0];
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-border/70 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent/25 hover:shadow-card">
+    <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 bg-card/80 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card">
       <Link href={href} className="relative block aspect-[4/3] overflow-hidden">
         <SiteImage
           src={product.cover}
           alt={product.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        {product.isPopular ? (
-          <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-medium text-accent backdrop-blur-sm">
-            Популярное
-          </span>
-        ) : null}
       </Link>
 
-      <div className="flex flex-1 flex-col p-6">
-        <div className="mb-3 flex flex-wrap gap-2">
-          <span className="rounded-full bg-accent-light px-3 py-1 text-xs text-accent">
-            {getDirectionLabel(primaryDirection)}
-          </span>
-          <span className="rounded-full bg-warm px-3 py-1 text-xs text-muted">
-            {formatLabels[product.format]}
-          </span>
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+        <div className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-muted">
+          {product.isPopular ? (
+            <>
+              <span className="text-gold">Популярное</span>
+              <span className="text-gold">·</span>
+            </>
+          ) : null}
+          <span>{getDirectionLabel(primaryDirection)}</span>
+          <span className="text-gold">·</span>
+          <span>{formatLabels[product.format]}</span>
         </div>
 
         <h3 className="text-xl leading-snug">
@@ -51,13 +49,14 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           {product.shortDescription}
         </p>
 
-        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
-          <span>{product.duration}</span>
-          <span>{levelLabels[product.level]}</span>
+        <div className="mt-4 text-xs tracking-wide text-muted">
+          {product.duration}
+          <span className="mx-2 text-gold">·</span>
+          {levelLabels[product.level]}
         </div>
 
         <div className="mt-6 flex items-center justify-between gap-4">
-          <p className="font-medium text-accent">
+          <p className="font-display text-xl text-accent">
             {formatPrice(product.price, product.currency)}
           </p>
           <Button href={href} variant="secondary" size="sm">

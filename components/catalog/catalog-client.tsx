@@ -104,7 +104,7 @@ export function CatalogClient({ products, typeLabel }: CatalogClientProps) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[260px_1fr] lg:gap-10">
-      <aside className="space-y-6 rounded-3xl border border-border/70 bg-card p-5 shadow-soft h-fit lg:sticky lg:top-28">
+      <aside className="h-fit space-y-6 rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-5 shadow-soft lg:sticky lg:top-28">
         <div>
           <label htmlFor="catalog-search" className="mb-2 block text-sm font-medium">
             Поиск

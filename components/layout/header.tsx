@@ -28,28 +28,28 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         isScrolled
-          ? "border-b border-border/60 bg-background/90 backdrop-blur-md shadow-sm"
+          ? "border-b border-border/50 bg-background/75 shadow-soft backdrop-blur-xl"
           : "bg-transparent",
       )}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between container-padding">
         <Link href="/" className="group max-w-[14rem] sm:max-w-none">
-          <span className="block font-display text-lg font-medium leading-tight text-foreground transition-colors group-hover:text-accent sm:text-xl">
+          <span className="block font-display text-[1.35rem] font-medium leading-tight tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-2xl">
             {siteConfig.brand}
           </span>
-          <span className="mt-0.5 block text-xs tracking-wide text-muted">
+          <span className="mt-0.5 block text-[11px] tracking-[0.16em] text-muted uppercase">
             {siteConfig.expert}
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Основная навигация">
+        <nav className="hidden items-center gap-9 lg:flex" aria-label="Основная навигация">
           {navigation.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-foreground/80 transition-colors hover:text-accent"
+              className="text-[13px] tracking-[0.04em] text-foreground/75 transition-colors hover:text-accent"
             >
               {item.label}
             </Link>
@@ -64,7 +64,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border/80 bg-white/80 text-foreground lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-chocolate/15 bg-card/80 text-foreground backdrop-blur-sm lg:hidden"
           aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
           aria-expanded={isOpen}
           onClick={() => setIsOpen((prev) => !prev)}
@@ -74,13 +74,13 @@ export function Header() {
       </div>
 
       {isOpen ? (
-        <div className="border-t border-border/60 bg-background lg:hidden">
+        <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl lg:hidden">
           <nav className="mx-auto flex max-w-7xl flex-col gap-1 container-padding py-6" aria-label="Мобильная навигация">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="rounded-2xl px-4 py-3 text-lg text-foreground transition-colors hover:bg-accent-light"
+                className="rounded-2xl px-4 py-3 text-lg text-foreground transition-colors hover:bg-warm/80"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}

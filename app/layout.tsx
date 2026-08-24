@@ -29,15 +29,17 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap&subset=cyrillic,latin"
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic,latin"
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen font-body antialiased">
+      <body className="relative min-h-screen font-body antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         <Header />
-        <main>{children}</main>
-        <Footer />
+        <main className="relative z-[1]">{children}</main>
+        <div className="relative z-[1]">
+          <Footer />
+        </div>
         <CookieBanner />
       </body>
     </html>
