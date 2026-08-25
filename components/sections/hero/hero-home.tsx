@@ -27,7 +27,7 @@ export function HeroHome() {
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
             Авторские мастер-классы и программы, которые помогают работать с
-            намерением, планированием и внутренней ясностью через метод
+            намерением, планированием и внутренней ясностью с использованием
             нейрографики.
           </p>
 
@@ -69,7 +69,7 @@ export function HeroHome() {
           <p className="mt-4 text-sm tracking-[0.04em] text-muted">
             {siteConfig.expert}
             <span className="mx-2 text-gold">·</span>
-            17 лет онлайн · 1000+ мастер-классов
+            17 лет онлайн-продвижения · 1000+ мастер-классов
           </p>
         </motion.div>
       </Container>
