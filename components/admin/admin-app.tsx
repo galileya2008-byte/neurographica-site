@@ -179,13 +179,14 @@ export function AdminApp() {
 
   function handleLogin(event: React.FormEvent) {
     event.preventDefault();
-    if (password === adminConfig.password) {
+    const entered = password.trim();
+    if (entered === adminConfig.password) {
       setAdminAuthenticated(true);
       setAuthed(true);
       setError(null);
       setPassword("");
     } else {
-      setError("Неверный пароль");
+      setError("Неверный пароль. Проверьте раскладку: латиница, без пробелов.");
     }
   }
 
