@@ -9,8 +9,15 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildPageMetadata({
   title: "Программы",
   description:
-    "Каталог программ по нейрографике для системной работы с целями и изменениями.",
+    "Программы для системной работы с намерением, планированием и изменениями — от первого шага к устойчивым действиям.",
   path: "/programs",
+  keywords: [
+    "программы онлайн",
+    "намерение",
+    "планирование",
+    "осознанные изменения",
+    "нейрографика",
+  ],
 });
 
 export default function ProgramsPage() {

@@ -8,7 +8,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 
 export function DirectionsCards() {
   return (
-    <Section lines="right">
+    <Section id="practice" lines="right">
       <SectionHeader
         eyebrow="Практика по запросу"
         title="Выберите практику по своему запросу"
@@ -25,7 +25,7 @@ export function DirectionsCards() {
             transition={{ duration: 0.45, delay: index * 0.05 }}
           >
             <Link
-              href={`/masterclasses?direction=${request.directionId}`}
+              href={`/topics/${request.slug}`}
               className="group flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card"
             >
               <div className="mb-4 flex items-start justify-between gap-3">

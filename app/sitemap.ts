@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { getAllMaterials } from "@/lib/content/materials";
 import { getAllMasterclasses, getAllPrograms } from "@/lib/content/products";
+import { getAllTopics } from "@/lib/content/topics";
 
 export const dynamic = "force-static";
 
@@ -49,5 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...masterclasses, ...programs, ...materials];
+  const topics = getAllTopics().map((topic) => ({
+    url: `${siteConfig.url}/topics/${topic.slug}/`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }));
+
+  return [...staticEntries, ...topics, ...masterclasses, ...programs, ...materials];
 }

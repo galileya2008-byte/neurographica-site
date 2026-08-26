@@ -9,8 +9,15 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildPageMetadata({
   title: "Мастер-классы",
   description:
-    "Каталог мастер-классов по нейрографике: поиск, фильтры по направлениям и форматам.",
+    "Мастер-классы для ясности, мотивации и намерения: самопознание, принятие решений и движение к цели — с использованием нейрографики.",
   path: "/masterclasses",
+  keywords: [
+    "мастер-классы онлайн",
+    "намерение",
+    "мотивация",
+    "самопознание",
+    "нейрографика",
+  ],
 });
 
 export default function MasterclassesPage() {

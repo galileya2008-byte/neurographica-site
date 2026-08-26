@@ -4,6 +4,7 @@ import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { MaterialsCatalog } from "@/components/materials/materials-catalog";
 import { materialsIntro } from "@/config/site";
+import { defaultKeywords } from "@/config/seo";
 import { getAllMaterials } from "@/lib/content/materials";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -11,6 +12,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: "Исследуем вместе",
   description: `${materialsIntro.lead} ${materialsIntro.description}`,
   path: "/materials",
+  keywords: [...defaultKeywords],
 });
 
 export default function MaterialsPage() {

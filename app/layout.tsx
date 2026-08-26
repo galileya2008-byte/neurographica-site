@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { CookieBanner } from "@/components/layout/cookie-banner";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/config/site";
+import { defaultKeywords } from "@/config/seo";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import "./globals.css";
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     path: "/",
+    keywords: [...defaultKeywords],
   }),
   verification: {
     yandex: "acc732c6b2dd5433",

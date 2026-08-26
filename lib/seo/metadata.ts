@@ -7,6 +7,7 @@ type PageMetadataOptions = {
   path?: string;
   image?: string;
   noIndex?: boolean;
+  keywords?: string[];
 };
 
 export function buildPageMetadata({
@@ -15,6 +16,7 @@ export function buildPageMetadata({
   path = "",
   image = "/images/galina/portrait-premium.png",
   noIndex = false,
+  keywords,
 }: PageMetadataOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
   const fullTitle = path === "" || path === "/" ? siteConfig.title : `${title} | ${siteConfig.brand}`;
@@ -25,6 +27,7 @@ export function buildPageMetadata({
   return {
     title: fullTitle,
     description,
+    ...(keywords?.length ? { keywords } : {}),
     metadataBase: new URL(siteConfig.url),
     alternates: {
       canonical: url,
