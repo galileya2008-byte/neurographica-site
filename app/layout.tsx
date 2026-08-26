@@ -8,11 +8,16 @@ import { buildPageMetadata } from "@/lib/seo/metadata";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import "./globals.css";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: siteConfig.title,
-  description: siteConfig.description,
-  path: "/",
-});
+export const metadata: Metadata = {
+  ...buildPageMetadata({
+    title: siteConfig.title,
+    description: siteConfig.description,
+    path: "/",
+  }),
+  verification: {
+    yandex: "acc732c6b2dd5433",
+  },
+};
 
 export default function RootLayout({
   children,
