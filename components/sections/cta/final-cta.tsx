@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { SiteImage } from "@/components/ui/site-image";
+import { engagementConfig } from "@/config/engagement";
 import { siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { CurvedLines } from "@/components/decor/curved-lines";
@@ -29,6 +31,13 @@ export function FinalCta() {
                 Задать вопрос
               </Button>
             </div>
+            <p className="mt-5 text-sm text-muted">
+              <Link href="/play" className="font-medium text-accent underline-offset-4 hover:underline">
+                Мини-практика «{engagementConfig.game.title}»
+              </Link>
+              {" "}— промокод {engagementConfig.course.discountLabel} на{" "}
+              {engagementConfig.course.name}
+            </p>
           </div>
 
           <div className="relative min-h-[280px] lg:min-h-full">
