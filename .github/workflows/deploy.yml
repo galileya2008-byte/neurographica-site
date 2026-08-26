@@ -33,7 +33,7 @@ jobs:
       - name: Build static site
         env:
           GITHUB_PAGES: "true"
-          NEXT_PUBLIC_SITE_URL: https://galileya2008-byte.github.io/neurographica-site
+          NEXT_PUBLIC_SITE_URL: https://siteneirogalina.ru
         run: npm run build
 
       - name: Add .nojekyll

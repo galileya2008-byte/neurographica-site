@@ -5,8 +5,7 @@ export const siteConfig = {
   description:
     "Мастер-классы и программы с использованием нейрографики. 17 лет онлайн-продвижения, 1000+ мастер-классов. Осознанный подход к целям, намерению и изменениям.",
   url:
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    "https://galileya2008-byte.github.io/neurographica-site",
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://siteneirogalina.ru",
   locale: "ru_RU",
   email: "galileya2008@yandex.ru",
   social: {

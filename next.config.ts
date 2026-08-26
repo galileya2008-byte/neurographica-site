@@ -1,16 +1,12 @@
 import type { NextConfig } from "next";
 
-const repoName = "neurographica-site";
 const isGithubPages = process.env.GITHUB_PAGES === "true";
-const basePath = isGithubPages ? `/${repoName}` : "";
 
 const nextConfig: NextConfig = {
   ...(isGithubPages ? { output: "export" as const } : {}),
   trailingSlash: true,
-  basePath,
-  assetPrefix: isGithubPages ? `${basePath}/` : undefined,
   env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
+    NEXT_PUBLIC_BASE_PATH: "",
   },
   images: {
     unoptimized: true,
