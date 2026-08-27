@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CookieBanner } from "@/components/layout/cookie-banner";
-import { EngagementLauncher } from "@/components/engagement/engagement-launcher";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/config/site";
 import { defaultKeywords } from "@/config/seo";
@@ -49,7 +48,6 @@ export default function RootLayout({
           <Footer />
         </div>
         <CookieBanner />
-        <EngagementLauncher />
       </body>
     </html>
   );
