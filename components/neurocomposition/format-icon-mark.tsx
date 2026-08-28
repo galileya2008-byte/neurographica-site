@@ -6,9 +6,11 @@ import {
   PenLine,
   ScanSearch,
   SquarePen,
+  Unlock,
 } from "lucide-react";
 
 const icons: Record<FormatIcon, typeof BookOpen> = {
+  access: Unlock,
   lessons: BookOpen,
   practice: PenLine,
   review: ScanSearch,

@@ -1,9 +1,13 @@
 import type { Product } from "@/types/product";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { JoinButton } from "@/components/neurocomposition/join-button";
-import { COURSE_PRICE_LATER } from "@/lib/constants/neurocomposition";
-import { pricingIncludes } from "@/lib/content/neurocomposition";
-import { formatPrice } from "@/lib/utils";
+import { OfferTrustLine } from "@/components/neurocomposition/offer-trust-line";
+import { PriceStack } from "@/components/neurocomposition/price-stack";
+import {
+  pricingCopy,
+  pricingIncludes,
+} from "@/lib/content/neurocomposition";
+import { cn } from "@/lib/utils";
 
 type PricingSectionProps = {
   product: Product;
@@ -15,44 +19,51 @@ export function PricingSection({ product }: PricingSectionProps) {
       <SectionHeader
         align="center"
         eyebrow="Стоимость"
-        title="Участие в курсе"
-        description="Цена предварительной записи. Позже стоимость вырастет."
+        title={pricingCopy.title}
+        description={pricingCopy.description}
       />
 
-      <article className="mx-auto max-w-xl rounded-[1.75rem] border border-chocolate/10 bg-card p-7 shadow-card md:p-10">
+      <article className="mx-auto max-w-xl rounded-[1.75rem] border border-gold/30 bg-card p-7 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] md:p-10">
         <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
-          Предварительная запись
+          {pricingCopy.eyebrow}
         </p>
-        <p className="mt-4 font-display text-5xl tracking-tight text-accent md:text-6xl">
-          {formatPrice(product.price, product.currency)}
-        </p>
-        <p className="mt-3 text-muted">Цена предварительной записи.</p>
-        <p className="mt-2 text-sm text-muted">
-          Позже стоимость —{" "}
-          <span className="text-foreground">
-            {formatPrice(COURSE_PRICE_LATER, product.currency)}
-          </span>
-        </p>
+        <PriceStack product={product} size="block" className="mt-5" />
+        <p className="mt-4 text-muted">{pricingCopy.note}</p>
 
-        <h3 className="mt-8 text-lg">В цену входят</h3>
-        <ul className="mt-4 space-y-3">
-          {pricingIncludes.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-3 border-b border-border/60 py-2 text-muted last:border-b-0"
-            >
-              <span
-                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
-                aria-hidden
-              />
-              {item}
-            </li>
-          ))}
+        <h3 className="mt-8 text-lg">{pricingCopy.includesHeading}</h3>
+        <ul className="mt-4 space-y-1">
+          {pricingIncludes.map((item) => {
+            const featured = "featured" in item && item.featured;
+
+            return (
+              <li
+                key={item.text}
+                className={cn(
+                  "flex items-start gap-3 border-b border-border/60 py-2.5 last:border-b-0",
+                  featured ? "text-foreground" : "text-muted",
+                )}
+              >
+                <span
+                  className={cn(
+                    "mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full",
+                    featured ? "bg-gold" : "bg-gold/50",
+                  )}
+                  aria-hidden
+                />
+                <span className={cn(featured && "font-medium")}>{item.text}</span>
+              </li>
+            );
+          })}
         </ul>
+
+        <p className="mt-6 text-sm leading-relaxed text-muted">
+          {pricingCopy.afterList}
+        </p>
 
         <div className="mt-8">
           <JoinButton product={product} label="Присоединиться" className="w-full" />
         </div>
+        <OfferTrustLine className="mt-3 text-center" />
       </article>
     </Section>
   );

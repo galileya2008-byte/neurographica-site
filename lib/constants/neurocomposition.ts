@@ -12,3 +12,8 @@ export const COURSE_HERO_IMAGE = "";
 
 export const COURSE_PRICE_CURRENT = 7000;
 export const COURSE_PRICE_LATER = 9000;
+
+/** Подписи дат для лендинга текущего набора. */
+export const PRE_SALE_ENDS_LABEL = "4 сентября";
+export const PRE_SALE_NEXT_LABEL = "5 сентября";
+export const COURSE_STARTS_LABEL = "12 сентября";

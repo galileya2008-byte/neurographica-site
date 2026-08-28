@@ -2,7 +2,9 @@ import type { Product } from "@/types/product";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
 import { JoinButton } from "@/components/neurocomposition/join-button";
-import { formatPrice } from "@/lib/utils";
+import { OfferTrustLine } from "@/components/neurocomposition/offer-trust-line";
+import { PriceStack } from "@/components/neurocomposition/price-stack";
+import { finalCtaCopy } from "@/lib/content/neurocomposition";
 
 type FinalCtaProps = {
   product: Product;
@@ -15,18 +17,19 @@ export function FinalCta({ product }: FinalCtaProps) {
         <CurvedLines variant="cta" className="opacity-60" />
         <div className="relative z-10 mx-auto max-w-2xl">
           <h2 className="text-balance text-3xl md:text-4xl lg:text-5xl">
-            Начните не просто рисовать — начните создавать
+            {finalCtaCopy.title}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            Изучите язык фигур, композиционные принципы и создайте собственную
-            авторскую работу.
+            {finalCtaCopy.description}
           </p>
-          <p className="mt-6 font-display text-3xl text-accent">
-            {formatPrice(product.price, product.currency)}
-          </p>
+          <PriceStack
+            product={product}
+            className="mt-8 justify-center text-left"
+          />
           <div className="mt-8 flex justify-center">
             <JoinButton product={product} className="w-full sm:w-auto" />
           </div>
+          <OfferTrustLine className="mx-auto mt-3 text-center" />
         </div>
       </div>
     </Section>
