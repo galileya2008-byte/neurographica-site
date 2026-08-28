@@ -16,6 +16,14 @@ export const metadata: Metadata = {
     path: "/",
     keywords: [...defaultKeywords],
   }),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
   verification: {
     yandex: "acc732c6b2dd5433",
   },
