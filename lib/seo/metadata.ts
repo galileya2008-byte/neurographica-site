@@ -8,6 +8,7 @@ type PageMetadataOptions = {
   image?: string;
   noIndex?: boolean;
   keywords?: string[];
+  absoluteTitle?: boolean;
 };
 
 export function buildPageMetadata({
@@ -17,9 +18,13 @@ export function buildPageMetadata({
   image = "/images/galina/portrait-premium.png",
   noIndex = false,
   keywords,
+  absoluteTitle = false,
 }: PageMetadataOptions): Metadata {
   const url = `${siteConfig.url}${path}`;
-  const fullTitle = path === "" || path === "/" ? siteConfig.title : `${title} | ${siteConfig.brand}`;
+  const fullTitle =
+    absoluteTitle || path === "" || path === "/"
+      ? title
+      : `${title} | ${siteConfig.brand}`;
   const imageUrl = image.startsWith("http")
     ? image
     : `${siteConfig.url}${image.startsWith("/") ? image : `/${image}`}`;

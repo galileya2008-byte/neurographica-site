@@ -25,8 +25,10 @@ export function ProductFaq({ items }: ProductFaqProps) {
           >
             <button
               type="button"
-              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+              id={`faq-question-${index}`}
+              className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
               aria-expanded={isOpen}
+              aria-controls={`faq-answer-${index}`}
               onClick={() => setOpenIndex(isOpen ? null : index)}
             >
               <span className="font-medium">{item.question}</span>
@@ -35,13 +37,21 @@ export function ProductFaq({ items }: ProductFaqProps) {
                   "h-5 w-5 shrink-0 text-accent transition-transform",
                   isOpen && "rotate-180",
                 )}
+                aria-hidden
               />
             </button>
-            {isOpen ? (
-              <div className="border-t border-border/60 px-5 pb-4 pt-1 text-muted leading-relaxed">
-                {item.answer}
-              </div>
-            ) : null}
+            <div
+              id={`faq-answer-${index}`}
+              role="region"
+              aria-labelledby={`faq-question-${index}`}
+              hidden={!isOpen}
+              className={cn(
+                "border-t border-border/60 px-5 pb-4 pt-1 text-muted leading-relaxed",
+                !isOpen && "hidden",
+              )}
+            >
+              {item.answer}
+            </div>
           </article>
         );
       })}

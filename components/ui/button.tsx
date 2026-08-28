@@ -49,14 +49,23 @@ export function Button({
 
   if (href) {
     const isExternal = href.startsWith("http") || href.startsWith("mailto:");
+    const isHash = href.startsWith("#");
 
-    if (isExternal) {
+    if (isExternal || isHash) {
       return (
         <a
           href={href}
           className={classes}
-          target={target ?? (href.startsWith("http") ? "_blank" : undefined)}
-          rel={rel ?? (href.startsWith("http") ? "noopener noreferrer" : undefined)}
+          target={
+            isHash
+              ? undefined
+              : (target ?? (href.startsWith("http") ? "_blank" : undefined))
+          }
+          rel={
+            isHash
+              ? undefined
+              : (rel ?? (href.startsWith("http") ? "noopener noreferrer" : undefined))
+          }
         >
           {children}
         </a>
