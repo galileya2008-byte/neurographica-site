@@ -23,20 +23,13 @@ export type FaqItem = {
   answer: string;
 };
 
-export type ProductPrompt = {
-  id: string;
-  title: string;
-  purpose: string;
-  prompt: string;
-};
-
 export type ProductSupplement = {
   badge: string;
   title: string;
   lead: string;
   description: string;
   note?: string;
-  prompts: ProductPrompt[];
+  highlights?: string[];
 };
 
 export type Product = {

@@ -35,16 +35,7 @@ export const productSchema = z.object({
       lead: z.string().min(1),
       description: z.string().min(1),
       note: z.string().optional(),
-      prompts: z
-        .array(
-          z.object({
-            id: z.string().min(1),
-            title: z.string().min(1),
-            purpose: z.string().min(1),
-            prompt: z.string().min(1),
-          }),
-        )
-        .min(1),
+      highlights: z.array(z.string()).optional(),
     })
     .optional(),
   seo: z
