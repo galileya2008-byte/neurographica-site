@@ -11,6 +11,7 @@ import { PricingSection } from "@/components/neurocomposition/pricing-section";
 import { FaqSection } from "@/components/neurocomposition/faq-section";
 import { FinalCta } from "@/components/neurocomposition/final-cta";
 import { StickyCta } from "@/components/neurocomposition/sticky-cta";
+import { ProductSupplementSection } from "@/components/product/product-supplement";
 import {
   breadcrumbSchema,
   faqSchema,
@@ -40,6 +41,11 @@ export function NeurocompositionPage({ product }: NeurocompositionPageProps) {
       <TransformationSection />
       <ProgramSection product={product} />
       <CourseFormatSection />
+      {product.supplement ? (
+        <div id="ai-prompts">
+          <ProductSupplementSection supplement={product.supplement} />
+        </div>
+      ) : null}
       <ReviewSection />
       <ResultsSection />
       <PricingSection product={product} />

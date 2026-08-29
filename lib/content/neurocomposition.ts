@@ -197,6 +197,10 @@ export const pricingIncludes = [
   { text: "обратная связь" },
   { text: "итоговая авторская композиция" },
   { text: "сертификат" },
+  {
+    text: "промпты для нейросетей — в закрытом канале для участников",
+    featured: true,
+  },
 ] as const;
 
 export const finalCtaCopy = {
