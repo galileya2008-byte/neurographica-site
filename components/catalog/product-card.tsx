@@ -34,6 +34,12 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
               <span className="text-gold">·</span>
             </>
           ) : null}
+          {product.supplement ? (
+            <>
+              <span className="text-accent">+ {product.supplement.badge}</span>
+              <span className="text-gold">·</span>
+            </>
+          ) : null}
           <span>{getDirectionLabel(primaryDirection)}</span>
           <span className="text-gold">·</span>
           <span>{formatLabels[product.format]}</span>

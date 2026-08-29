@@ -4,6 +4,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 import { ProductCard } from "@/components/catalog/product-card";
 import { BuyButton } from "@/components/product/buy-button";
 import { ProductFaq } from "@/components/product/product-faq";
+import { ProductSupplementSection } from "@/components/product/product-supplement";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SiteImage } from "@/components/ui/site-image";
 import { getCatalogHref } from "@/lib/domain/products";
@@ -79,6 +80,14 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
               <p className="mt-5 text-lg leading-relaxed text-muted">
                 {product.shortDescription}
               </p>
+
+              {product.supplement ? (
+                <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-accent-light/70 px-4 py-2 text-sm text-accent">
+                  <span className="font-medium">{product.supplement.badge}</span>
+                  <span className="text-accent/70">·</span>
+                  <span>{product.supplement.title}</span>
+                </p>
+              ) : null}
 
               <div className="mt-6 flex flex-wrap gap-2">
                 {product.directions.map((direction) => (
@@ -157,6 +166,10 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
           </div>
         </div>
       </Section>
+
+      {product.supplement ? (
+        <ProductSupplementSection supplement={product.supplement} />
+      ) : null}
 
       {product.faq.length ? (
         <Section tone="accent">

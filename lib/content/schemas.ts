@@ -28,6 +28,25 @@ export const productSchema = z.object({
       answer: z.string(),
     }),
   ),
+  supplement: z
+    .object({
+      badge: z.string().min(1),
+      title: z.string().min(1),
+      lead: z.string().min(1),
+      description: z.string().min(1),
+      note: z.string().optional(),
+      prompts: z
+        .array(
+          z.object({
+            id: z.string().min(1),
+            title: z.string().min(1),
+            purpose: z.string().min(1),
+            prompt: z.string().min(1),
+          }),
+        )
+        .min(1),
+    })
+    .optional(),
   seo: z
     .object({
       title: z.string().optional(),
