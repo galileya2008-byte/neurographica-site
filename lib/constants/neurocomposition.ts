@@ -10,10 +10,7 @@ export const COURSE_PAYMENT_URL = "https://neirogalina.ru/page276";
  */
 export const COURSE_HERO_IMAGE = "";
 
-export const COURSE_PRICE_CURRENT = 7000;
-export const COURSE_PRICE_LATER = 9000;
+export const COURSE_PRICE = 9000;
 
-/** Подписи дат для лендинга текущего набора. */
-export const PRE_SALE_ENDS_LABEL = "4 сентября";
-export const PRE_SALE_NEXT_LABEL = "5 сентября";
+/** Подпись даты старта для лендинга текущего набора. */
 export const COURSE_STARTS_LABEL = "12 сентября";

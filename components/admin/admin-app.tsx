@@ -7,13 +7,17 @@ import { directions } from "@/config/site";
 import {
   deleteMasterclass,
   deleteMaterial,
+  deleteProgram,
   getMasterclass,
   getMaterial,
+  getProgram,
   listCoverPaths,
   listMasterclassFiles,
   listMaterialFiles,
+  listProgramFiles,
   saveMasterclass,
   saveMaterial,
+  saveProgram,
   uploadCover,
 } from "@/lib/admin/github";
 import {
@@ -22,6 +26,12 @@ import {
   productToForm,
   type MasterclassFormState,
 } from "@/lib/admin/masterclass-form";
+import {
+  emptyProgramForm,
+  productToProgramForm,
+  programFormToProduct,
+  type ProgramFormState,
+} from "@/lib/admin/program-form";
 import {
   emptyMaterialForm,
   formToMaterial,
@@ -51,7 +61,7 @@ import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
-type ContentSection = "masterclasses" | "materials";
+type ContentSection = "masterclasses" | "programs" | "materials";
 type Mode = "list" | "create" | "edit";
 
 type ListItem = {
@@ -72,6 +82,9 @@ export function AdminApp() {
   const [items, setItems] = useState<ListItem[]>([]);
   const [masterclassForm, setMasterclassForm] = useState<MasterclassFormState>(() =>
     emptyMasterclassForm(adminConfig.covers[0]),
+  );
+  const [programForm, setProgramForm] = useState<ProgramFormState>(() =>
+    emptyProgramForm(adminConfig.covers[0]),
   );
   const [materialForm, setMaterialForm] = useState<MaterialFormState>(() =>
     emptyMaterialForm(adminConfig.covers[0]),
@@ -150,6 +163,20 @@ export function AdminApp() {
           }),
         );
         setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
+      } else if (currentSection === "programs") {
+        const files = await listProgramFiles(currentToken.trim());
+        const detailed = await Promise.all(
+          files.map(async (file) => {
+            const { product, sha } = await getProgram(currentToken.trim(), file.name);
+            return {
+              name: file.name,
+              slug: product.slug,
+              title: product.title,
+              sha,
+            };
+          }),
+        );
+        setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
       } else {
         const files = await listMaterialFiles(currentToken.trim());
         const detailed = await Promise.all(
@@ -218,6 +245,8 @@ export function AdminApp() {
     clearPendingCover();
     if (section === "masterclasses") {
       setMasterclassForm((prev) => ({ ...prev, cover: path }));
+    } else if (section === "programs") {
+      setProgramForm((prev) => ({ ...prev, cover: path }));
     } else {
       setMaterialForm((prev) => ({ ...prev, cover: path }));
     }
@@ -225,9 +254,9 @@ export function AdminApp() {
 
   async function ensureCoverUploaded(preferredName: string): Promise<string | undefined> {
     if (!pendingCoverFile) {
-      return section === "masterclasses"
-        ? masterclassForm.cover
-        : materialForm.cover || undefined;
+      if (section === "masterclasses") return masterclassForm.cover;
+      if (section === "programs") return programForm.cover;
+      return materialForm.cover || undefined;
     }
 
     setUploadingCover(true);
@@ -240,6 +269,8 @@ export function AdminApp() {
       setCovers((prev) => Array.from(new Set([path, ...prev])));
       if (section === "masterclasses") {
         setMasterclassForm((prev) => ({ ...prev, cover: path }));
+      } else if (section === "programs") {
+        setProgramForm((prev) => ({ ...prev, cover: path }));
       } else {
         setMaterialForm((prev) => ({ ...prev, cover: path }));
       }
@@ -275,6 +306,8 @@ export function AdminApp() {
     clearPendingCover();
     if (section === "masterclasses") {
       setMasterclassForm(emptyMasterclassForm(adminConfig.covers[0]));
+    } else if (section === "programs") {
+      setProgramForm(emptyProgramForm(adminConfig.covers[0]));
     } else {
       setMaterialForm(emptyMaterialForm(adminConfig.covers[0]));
     }
@@ -290,6 +323,12 @@ export function AdminApp() {
       if (section === "masterclasses") {
         const { product, sha } = await getMasterclass(token.trim(), item.name);
         setMasterclassForm(productToForm(product));
+        setCovers((prev) => Array.from(new Set([product.cover, ...prev])));
+        setEditingSha(sha);
+        setEditingPublishedAt(product.publishedAt);
+      } else if (section === "programs") {
+        const { product, sha } = await getProgram(token.trim(), item.name);
+        setProgramForm(productToProgramForm(product));
         setCovers((prev) => Array.from(new Set([product.cover, ...prev])));
         setEditingSha(sha);
         setEditingPublishedAt(product.publishedAt);
@@ -342,6 +381,23 @@ export function AdminApp() {
             ? "Мастер-класс добавлен. Сайт обновится через 1–2 минуты."
             : "Изменения сохранены. Сайт обновится через 1–2 минуты.",
         );
+      } else if (section === "programs") {
+        const coverPath = await ensureCoverUploaded(
+          programForm.slug || programForm.title || "cover",
+        );
+        if (!coverPath) {
+          throw new Error("Выберите или загрузите обложку");
+        }
+        const product = programFormToProduct(
+          { ...programForm, cover: coverPath },
+          { publishedAt: editingPublishedAt },
+        );
+        await saveProgram(token.trim(), product, editingSha);
+        setMessage(
+          mode === "create"
+            ? "Программа добавлена. Сайт обновится через 1–2 минуты."
+            : "Изменения сохранены. Сайт обновится через 1–2 минуты.",
+        );
       } else {
         const coverPath = await ensureCoverUploaded(
           materialForm.slug || materialForm.title || "cover",
@@ -367,7 +423,12 @@ export function AdminApp() {
   }
 
   async function handleDelete(item: ListItem) {
-    const label = section === "masterclasses" ? "мастер-класс" : "материал";
+    const label =
+      section === "masterclasses"
+        ? "мастер-класс"
+        : section === "programs"
+          ? "программу"
+          : "материал";
     if (!confirm(`Удалить ${label} «${item.title}»?`)) return;
     setLoading(true);
     setError(null);
@@ -375,6 +436,9 @@ export function AdminApp() {
       if (section === "masterclasses") {
         await deleteMasterclass(token.trim(), item.slug, item.sha);
         setMessage("Мастер-класс удалён. Сайт обновится через 1–2 минуты.");
+      } else if (section === "programs") {
+        await deleteProgram(token.trim(), item.slug, item.sha);
+        setMessage("Программа удалена. Сайт обновится через 1–2 минуты.");
       } else {
         await deleteMaterial(token.trim(), item.slug, item.sha);
         setMessage("Материал удалён. Сайт обновится через 1–2 минуты.");
@@ -410,7 +474,7 @@ export function AdminApp() {
         <Container size="narrow">
           <h1 className="text-4xl">Админка</h1>
           <p className="mt-3 text-muted">
-            Единый вход для мастер-классов и полезных материалов.
+            Единый вход для мастер-классов, программ и полезных материалов.
           </p>
           <form
             onSubmit={handleLogin}
@@ -435,15 +499,29 @@ export function AdminApp() {
   }
 
   const sectionLabel =
-    section === "masterclasses" ? "Мастер-классы" : "Полезные материалы";
+    section === "masterclasses"
+      ? "Мастер-классы"
+      : section === "programs"
+        ? "Программы"
+        : "Полезные материалы";
   const createLabel =
-    section === "masterclasses" ? "Добавить мастер-класс" : "Добавить материал";
+    section === "masterclasses"
+      ? "Добавить мастер-класс"
+      : section === "programs"
+        ? "Добавить программу"
+        : "Добавить материал";
   const emptyLabel =
     section === "masterclasses"
       ? "Пока нет мастер-классов."
-      : "Пока нет полезных материалов.";
+      : section === "programs"
+        ? "Пока нет программ."
+        : "Пока нет полезных материалов.";
   const catalogHref =
-    section === "masterclasses" ? "/masterclasses" : "/materials";
+    section === "masterclasses"
+      ? "/masterclasses"
+      : section === "programs"
+        ? "/programs"
+        : "/materials";
 
   return (
     <section className="section-padding pt-32">
@@ -452,8 +530,8 @@ export function AdminApp() {
           <div>
             <h1 className="text-4xl">Админка</h1>
             <p className="mt-2 text-muted">
-              Мастер-классы и полезные материалы в одном месте. После сохранения
-              GitHub сам обновит сайт.
+              Мастер-классы, программы и полезные материалы в одном месте. После
+              сохранения GitHub сам обновит сайт.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -472,6 +550,12 @@ export function AdminApp() {
             onClick={() => switchSection("masterclasses")}
           >
             Мастер-классы
+          </SectionTab>
+          <SectionTab
+            active={section === "programs"}
+            onClick={() => switchSection("programs")}
+          >
+            Программы
           </SectionTab>
           <SectionTab
             active={section === "materials"}
@@ -581,10 +665,33 @@ export function AdminApp() {
             )}
           </div>
         ) : section === "masterclasses" ? (
-          <MasterclassEditor
+          <ProductEditor
+            kind="masterclass"
             mode={mode}
             form={masterclassForm}
             setForm={setMasterclassForm}
+            slugLocked={slugLocked}
+            setSlugLocked={setSlugLocked}
+            covers={covers}
+            pendingCoverPreview={pendingCoverPreview}
+            uploadingCover={uploadingCover || loading}
+            canSave={canSave}
+            loading={loading}
+            onCoverSelect={selectExistingCover}
+            onCoverUpload={(file) => void handleCoverUpload(file)}
+            onSave={handleSave}
+            onCancel={() => {
+              clearPendingCover();
+              setMode("list");
+              setError(null);
+            }}
+          />
+        ) : section === "programs" ? (
+          <ProductEditor
+            kind="program"
+            mode={mode}
+            form={programForm}
+            setForm={setProgramForm}
             slugLocked={slugLocked}
             setSlugLocked={setSlugLocked}
             covers={covers}
@@ -664,7 +771,8 @@ function SectionTab({
   );
 }
 
-function MasterclassEditor({
+function ProductEditor({
+  kind,
   mode,
   form,
   setForm,
@@ -680,9 +788,12 @@ function MasterclassEditor({
   onSave,
   onCancel,
 }: {
+  kind: "masterclass" | "program";
   mode: Mode;
-  form: MasterclassFormState;
-  setForm: React.Dispatch<React.SetStateAction<MasterclassFormState>>;
+  form: MasterclassFormState | ProgramFormState;
+  setForm: React.Dispatch<
+    React.SetStateAction<MasterclassFormState | ProgramFormState>
+  >;
   slugLocked: boolean;
   setSlugLocked: (value: boolean) => void;
   covers: string[];
@@ -695,6 +806,15 @@ function MasterclassEditor({
   onSave: (event: React.FormEvent) => void;
   onCancel: () => void;
 }) {
+  const isProgram = kind === "program";
+  const createTitle = isProgram ? "Новая программа" : "Новый мастер-класс";
+  const editTitle = isProgram
+    ? "Редактирование программы"
+    : "Редактирование мастер-класса";
+  const agendaLabel = isProgram
+    ? "Программа курса (каждый пункт с новой строки)"
+    : "Что будет на занятии (каждый пункт с новой строки)";
+
   return (
     <form
       onSubmit={onSave}
@@ -702,7 +822,7 @@ function MasterclassEditor({
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-2xl">
-          {mode === "create" ? "Новый мастер-класс" : "Редактирование мастер-класса"}
+          {mode === "create" ? createTitle : editTitle}
         </h2>
         <Button type="button" variant="ghost" onClick={onCancel}>
           К списку
@@ -906,7 +1026,7 @@ function MasterclassEditor({
         />
       </Field>
 
-      <Field label="Что будет на занятии (каждый пункт с новой строки)">
+      <Field label={agendaLabel}>
         <textarea
           required
           rows={4}

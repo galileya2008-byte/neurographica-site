@@ -1,19 +1,13 @@
-import {
-  COURSE_STARTS_LABEL,
-  PRE_SALE_ENDS_LABEL,
-  PRE_SALE_NEXT_LABEL,
-} from "@/lib/constants/neurocomposition";
+import { COURSE_STARTS_LABEL } from "@/lib/constants/neurocomposition";
 
 export const neurocompositionCopy = {
-  eyebrow: `Предварительная запись до ${PRE_SALE_ENDS_LABEL}`,
+  eyebrow: "Практический онлайн-курс",
   title: "Нейрокомпозиция",
   subtitle:
     "8 практических занятий по созданию собственных композиций в НейроГрафике",
   idea: "Не просто рисовать по алгоритму. Понимать, почему вы рисуете именно так.",
-  heroLead: `Запишитесь до ${PRE_SALE_ENDS_LABEL} — и начните сегодня. Сразу после оплаты открываются уроки прошлого потока: не нужно ждать старта. ${COURSE_STARTS_LABEL} начинается текущий поток, и вы входите в него уже с практикой, а не с чистого листа.`,
+  heroLead: `Сразу после оплаты открываются уроки прошлого потока — можно начинать, не дожидаясь старта. ${COURSE_STARTS_LABEL} начинается текущий поток, и вы входите в него уже с практикой, а не с чистого листа.`,
   trustLine: `Оплата на GetCourse · доступ к урокам сразу · старт потока ${COURSE_STARTS_LABEL}`,
-  preSaleUntil: `до ${PRE_SALE_ENDS_LABEL}`,
-  laterFrom: `с ${PRE_SALE_NEXT_LABEL} —`,
 } as const;
 
 export const audienceItems = [
@@ -95,7 +89,7 @@ export const lessons = [
 export type LessonMark = (typeof lessons)[number]["mark"];
 
 export const bonusLesson = {
-  badge: `Бонус при записи до ${PRE_SALE_ENDS_LABEL}`,
+  badge: "Бонус к курсу",
   title: "Как встроить композицию в любой алгоритм НейроГрафики",
   description:
     "Закрытый урок для тех, кто присоединяется на предварительной записи. Разберём, как принципы курса работают внутри привычных алгоритмов — чтобы после Нейрокомпозиции вы не вернулись к «рисую по схеме», а собирали композицию осознанно в любой работе.",
@@ -174,11 +168,12 @@ export const resultItems = [
 ] as const;
 
 export const pricingCopy = {
-  eyebrow: `Предварительная запись до ${PRE_SALE_ENDS_LABEL}`,
+  eyebrow: "Стоимость участия",
   title: "Участие в курсе",
-  description: `До ${PRE_SALE_ENDS_LABEL} — цена предварительной записи и доступ к урокам сразу. С ${PRE_SALE_NEXT_LABEL} стоимость 9 000 ₽.`,
-  note: `Вы экономите 2 000 ₽ и можете начать проходить уроки в день оплаты.`,
-  includesHeading: `В цену до ${PRE_SALE_ENDS_LABEL} входят`,
+  description:
+    "9 000 ₽ — полный доступ к материалам, практике и обратной связи. Уроки прошлого потока открываются сразу после оплаты.",
+  note: "Можно начать проходить уроки в день оплаты, не дожидаясь старта потока.",
+  includesHeading: "В стоимость входят",
   afterList: `${COURSE_STARTS_LABEL} стартует поток. До этой даты вы уже можете смотреть уроки прошлого набора и делать первые работы в своём темпе.`,
 } as const;
 
@@ -205,5 +200,5 @@ export const pricingIncludes = [
 
 export const finalCtaCopy = {
   title: `Не ждите ${COURSE_STARTS_LABEL}, чтобы начать`,
-  description: `До ${PRE_SALE_ENDS_LABEL} — 7 000 ₽, закрытый урок и доступ в день оплаты. ${COURSE_STARTS_LABEL} вы входите в поток уже с практикой.`,
+  description: `9 000 ₽ — полный доступ к курсу и урокам в день оплаты. ${COURSE_STARTS_LABEL} вы входите в поток уже с практикой.`,
 } as const;

@@ -227,6 +227,67 @@ export async function deleteMasterclass(
   });
 }
 
+export async function listProgramFiles(token: string): Promise<GithubContentFile[]> {
+  const { programsPath, branch } = adminConfig.github;
+  const data = await githubFetch(`/contents/${programsPath}?ref=${branch}`, token);
+
+  if (!Array.isArray(data)) return [];
+  return data.filter((item: GithubContentFile) => item.name.endsWith(".json"));
+}
+
+export async function getProgram(
+  token: string,
+  filename: string,
+): Promise<{ product: Product; sha: string }> {
+  const { programsPath, branch } = adminConfig.github;
+  const data = (await githubFetch(
+    `/contents/${programsPath}/${filename}?ref=${branch}`,
+    token,
+  )) as GithubFileResponse;
+
+  return {
+    product: JSON.parse(decodeBase64Utf8(data.content)) as Product,
+    sha: data.sha,
+  };
+}
+
+export async function saveProgram(
+  token: string,
+  product: Product,
+  sha?: string,
+): Promise<void> {
+  const { programsPath, branch } = adminConfig.github;
+  const filename = `${product.slug}.json`;
+  const content = encodeBase64Utf8(`${JSON.stringify(product, null, 2)}\n`);
+
+  await githubFetch(`/contents/${programsPath}/${filename}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: sha ? `Update program: ${product.title}` : `Add program: ${product.title}`,
+      content,
+      branch,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+}
+
+export async function deleteProgram(
+  token: string,
+  slug: string,
+  sha: string,
+): Promise<void> {
+  const { programsPath, branch } = adminConfig.github;
+
+  await githubFetch(`/contents/${programsPath}/${slug}.json`, token, {
+    method: "DELETE",
+    body: JSON.stringify({
+      message: `Delete program: ${slug}`,
+      sha,
+      branch,
+    }),
+  });
+}
+
 export async function listMaterialFiles(token: string): Promise<GithubContentFile[]> {
   const { materialsPath, branch } = adminConfig.github;
   const data = await githubFetch(

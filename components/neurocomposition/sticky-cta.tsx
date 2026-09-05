@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import type { Product } from "@/types/product";
 import { JoinButton } from "@/components/neurocomposition/join-button";
-import { PRE_SALE_ENDS_LABEL } from "@/lib/constants/neurocomposition";
 import { formatPrice } from "@/lib/utils";
 
 type StickyCtaProps = {
@@ -42,13 +41,13 @@ export function StickyCta({ product }: StickyCtaProps) {
             {formatPrice(product.price, product.currency)}
           </p>
           <p className="mt-1 text-[11px] leading-none text-muted">
-            до {PRE_SALE_ENDS_LABEL} · начать сегодня
+            доступ к урокам сразу после оплаты
           </p>
         </div>
         <JoinButton
           product={product}
           size="sm"
-          label="Начать сегодня"
+          label="Записаться"
           className="shrink-0"
         />
       </div>

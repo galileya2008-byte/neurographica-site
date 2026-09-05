@@ -10,6 +10,7 @@ export const adminConfig = {
     repo: "neurographica-site",
     branch: "main",
     masterclassesPath: "content/masterclasses",
+    programsPath: "content/programs",
     materialsPath: "content/materials",
     /** Путь в репозитории (без public/ в URL сайта) */
     coversRepoPath: "public/images/covers",
