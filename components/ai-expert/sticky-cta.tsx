@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import type { Product } from "@/types/product";
 import { JoinButton } from "@/components/ai-expert/join-button";
-import { aiExpertCopy } from "@/lib/content/ai-expert-system";
 
 type StickyCtaProps = {
   product: Product;

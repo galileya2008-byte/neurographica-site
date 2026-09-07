@@ -1,9 +1,9 @@
 import type { Product } from "@/types/product";
-import { Breadcrumbs } from "@/components/layout/breadcrumbs";
-import { Container } from "@/components/layout/container";
-import { CurvedLines } from "@/components/decor/curved-lines";
-import { SiteImage } from "@/components/ui/site-image";
+import { HeroMedia } from "@/components/ai-expert/hero-media";
 import { JoinButton } from "@/components/ai-expert/join-button";
+import { CurvedLines } from "@/components/decor/curved-lines";
+import { Container } from "@/components/layout/container";
+import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import {
   AI_EXPERT_META,
   AI_EXPERT_PRICE_LABEL,
@@ -69,19 +69,7 @@ export function HeroSection({ product }: HeroSectionProps) {
           </div>
 
           <div className="min-w-0">
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-card shadow-card">
-              <div className="relative aspect-[4/5]">
-                <SiteImage
-                  src={product.cover}
-                  alt={hero.title}
-                  fill
-                  priority
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 520px"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,_transparent_40%,_rgb(26_22_18/0.35)_100%)]" />
-              </div>
-            </div>
+            <HeroMedia />
           </div>
         </div>
       </Container>
