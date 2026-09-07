@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { AiExpertPage } from "@/components/ai-expert/ai-expert-page";
 import { NeurocompositionPage } from "@/components/neurocomposition/neurocomposition-page";
 import { ProductPageView } from "@/components/product/product-page-view";
+import { AI_EXPERT_SLUG } from "@/lib/constants/ai-expert-system";
 import {
   COURSE_HERO_IMAGE,
   NEUROCOMPOSITION_SLUG,
@@ -27,6 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!product) return {};
 
   const isNeurocomposition = product.slug === NEUROCOMPOSITION_SLUG;
+  const isAiExpert = product.slug === AI_EXPERT_SLUG;
 
   return buildPageMetadata({
     title: product.seo?.title ?? product.title,
@@ -35,7 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     image: isNeurocomposition
       ? COURSE_HERO_IMAGE || product.cover
       : product.cover,
-    absoluteTitle: isNeurocomposition,
+    absoluteTitle: isNeurocomposition || isAiExpert,
     keywords: isNeurocomposition
       ? [
           "нейрокомпозиция",
@@ -44,7 +47,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
           "золотое сечение",
           "курс нейрографики",
         ]
-      : undefined,
+      : isAiExpert
+        ? [
+            "нейросети для экспертов",
+            "ИИ для экспертов",
+            "промпты",
+            "автоматизация работы",
+            "AI-система",
+          ]
+        : undefined,
   });
 }
 
@@ -55,6 +66,10 @@ export default async function ProgramPage({ params }: PageProps) {
 
   if (product.slug === NEUROCOMPOSITION_SLUG) {
     return <NeurocompositionPage product={product} />;
+  }
+
+  if (product.slug === AI_EXPERT_SLUG) {
+    return <AiExpertPage product={product} />;
   }
 
   const related = getRelatedProducts(product);
