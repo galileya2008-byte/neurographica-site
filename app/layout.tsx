@@ -8,6 +8,8 @@ import { siteConfig } from "@/config/site";
 import { defaultKeywords } from "@/config/seo";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
+import { getSiteTheme } from "@/lib/content/site-theme";
+import { SiteThemeStyle } from "@/components/theme/site-theme-style";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,9 +37,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = getSiteTheme();
+
   return (
-    <html lang="ru">
+    <html
+      lang="ru"
+      data-seasonal-decor={theme.seasonalDecor ? "on" : "off"}
+    >
       <head>
+        <SiteThemeStyle theme={theme} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

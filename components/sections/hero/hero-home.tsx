@@ -11,9 +11,9 @@ import { Container } from "@/components/layout/container";
 export function HeroHome() {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-36">
-      <div className="absolute inset-0 -z-10 autumn-hero-gradient" />
+      <div className="absolute inset-0 -z-10 site-hero-gradient" />
       <CurvedLines variant="hero" className="-z-[5] opacity-90" />
-      <AutumnLeaves variant="hero" className="-z-[4] opacity-95" />
+      <AutumnLeaves variant="hero" className="theme-seasonal-decor -z-[4] opacity-95" />
 
       <Container className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
         <motion.div

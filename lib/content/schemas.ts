@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { materialTypeIds } from "@/types/material";
 import { directionIds } from "@/types/product";
+import { siteThemePresetIds } from "@/types/site-theme";
 
 export const productSchema = z.object({
   id: z.string().min(1),
@@ -44,6 +45,10 @@ export const productSchema = z.object({
       description: z.string().optional(),
     })
     .optional(),
+});
+
+export const siteThemeSchema = z.object({
+  presetId: z.enum(siteThemePresetIds),
 });
 
 export const materialSchema = z.object({

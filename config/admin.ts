@@ -12,6 +12,7 @@ export const adminConfig = {
     masterclassesPath: "content/masterclasses",
     programsPath: "content/programs",
     materialsPath: "content/materials",
+    siteThemePath: "content/site-theme.json",
     /** Путь в репозитории (без public/ в URL сайта) */
     coversRepoPath: "public/images/covers",
     coversPublicPath: "/images/covers",

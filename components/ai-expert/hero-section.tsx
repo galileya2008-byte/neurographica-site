@@ -20,9 +20,9 @@ export function HeroSection({ product }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="absolute inset-0 -z-10 autumn-hero-gradient" />
+      <div className="absolute inset-0 -z-10 site-hero-gradient" />
       <CurvedLines variant="hero" className="-z-[5] opacity-70" />
-      <AutumnLeaves variant="hero" className="-z-[4] opacity-90" />
+      <AutumnLeaves variant="hero" className="theme-seasonal-decor -z-[4] opacity-90" />
 
       <Container>
         <Breadcrumbs

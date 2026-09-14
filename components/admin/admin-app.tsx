@@ -19,6 +19,8 @@ import {
   saveMaterial,
   saveProgram,
   uploadCover,
+  getSiteThemeConfig,
+  saveSiteThemeConfig,
 } from "@/lib/admin/github";
 import {
   emptyMasterclassForm,
@@ -60,8 +62,10 @@ import {
 import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
+import { ThemeEditor } from "@/components/admin/theme-editor";
+import type { SiteThemePresetId } from "@/types/site-theme";
 
-type ContentSection = "masterclasses" | "programs" | "materials";
+type ContentSection = "masterclasses" | "programs" | "materials" | "theme";
 type Mode = "list" | "create" | "edit";
 
 type ListItem = {
@@ -101,6 +105,8 @@ export function AdminApp() {
   const [covers, setCovers] = useState<string[]>([...adminConfig.covers]);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [themePresetId, setThemePresetId] = useState<SiteThemePresetId>("autumn");
+  const [themeSha, setThemeSha] = useState<string | undefined>();
 
   useEffect(() => {
     setAuthed(isAdminAuthenticated());
@@ -135,10 +141,57 @@ export function AdminApp() {
     }
   }
 
+  async function loadTheme(currentToken = token) {
+    if (!currentToken.trim()) {
+      setThemeSha(undefined);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const { config, sha } = await getSiteThemeConfig(currentToken.trim());
+      setThemePresetId(config.presetId);
+      setThemeSha(sha);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось загрузить тему");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSaveTheme() {
+    if (!canSave) {
+      setError("Сначала сохраните GitHub token");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    setMessage(null);
+    try {
+      await saveSiteThemeConfig(
+        token.trim(),
+        { presetId: themePresetId },
+        themeSha,
+      );
+      const refreshed = await getSiteThemeConfig(token.trim());
+      setThemePresetId(refreshed.config.presetId);
+      setThemeSha(refreshed.sha);
+      setMessage("Тема сохранена. Сайт обновится через 1–2 минуты.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось сохранить тему");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function refreshList(
     currentToken = token,
     currentSection: ContentSection = section,
   ) {
+    if (currentSection === "theme") {
+      await loadTheme(currentToken);
+      return;
+    }
     if (!currentToken.trim()) {
       setItems([]);
       return;
@@ -474,7 +527,7 @@ export function AdminApp() {
         <Container size="narrow">
           <h1 className="text-4xl">Админка</h1>
           <p className="mt-3 text-muted">
-            Единый вход для мастер-классов, программ и полезных материалов.
+            Единый вход для мастер-классов, программ, материалов и темы сайта.
           </p>
           <form
             onSubmit={handleLogin}
@@ -530,8 +583,8 @@ export function AdminApp() {
           <div>
             <h1 className="text-4xl">Админка</h1>
             <p className="mt-2 text-muted">
-              Мастер-классы, программы и полезные материалы в одном месте. После
-              сохранения GitHub сам обновит сайт.
+              Мастер-классы, программы, материалы и тема сайта. После сохранения
+              GitHub сам обновит сайт.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -562,6 +615,12 @@ export function AdminApp() {
             onClick={() => switchSection("materials")}
           >
             Полезные материалы
+          </SectionTab>
+          <SectionTab
+            active={section === "theme"}
+            onClick={() => switchSection("theme")}
+          >
+            Тема сайта
           </SectionTab>
         </div>
 
@@ -606,7 +665,21 @@ export function AdminApp() {
           </p>
         ) : null}
 
-        {mode === "list" ? (
+        {section === "theme" ? (
+          !canSave ? (
+            <p className="text-muted">Сначала сохраните GitHub token.</p>
+          ) : loading && !themeSha ? (
+            <p className="text-muted">Загрузка…</p>
+          ) : (
+            <ThemeEditor
+              presetId={themePresetId}
+              onPresetChange={setThemePresetId}
+              onSave={() => void handleSaveTheme()}
+              loading={loading}
+              canSave={canSave}
+            />
+          )
+        ) : mode === "list" ? (
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <h2 className="text-2xl">{sectionLabel}</h2>

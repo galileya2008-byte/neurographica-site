@@ -1,6 +1,7 @@
 import { adminConfig } from "@/config/admin";
 import type { Material } from "@/types/material";
 import type { Product } from "@/types/product";
+import type { SiteThemeConfig } from "@/types/site-theme";
 import { slugify } from "@/lib/admin/slugify";
 
 type GithubContentFile = {
@@ -350,6 +351,40 @@ export async function deleteMaterial(
       message: `Delete material: ${slug}`,
       sha,
       branch,
+    }),
+  });
+}
+
+export async function getSiteThemeConfig(
+  token: string,
+): Promise<{ config: SiteThemeConfig; sha: string }> {
+  const { siteThemePath, branch } = adminConfig.github;
+  const data = (await githubFetch(
+    `/contents/${siteThemePath}?ref=${branch}`,
+    token,
+  )) as GithubFileResponse;
+
+  return {
+    config: JSON.parse(decodeBase64Utf8(data.content)) as SiteThemeConfig,
+    sha: data.sha,
+  };
+}
+
+export async function saveSiteThemeConfig(
+  token: string,
+  config: SiteThemeConfig,
+  sha?: string,
+): Promise<void> {
+  const { siteThemePath, branch } = adminConfig.github;
+  const content = encodeBase64Utf8(`${JSON.stringify(config, null, 2)}\n`);
+
+  await githubFetch(`/contents/${siteThemePath}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: `Update site theme: ${config.presetId}`,
+      content,
+      branch,
+      ...(sha ? { sha } : {}),
     }),
   });
 }

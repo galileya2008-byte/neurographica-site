@@ -13,9 +13,8 @@ type SectionProps = React.HTMLAttributes<HTMLElement> & {
 
 const toneClasses = {
   default: "bg-transparent",
-  warm: "bg-[radial-gradient(ellipse_at_top_left,_rgb(252_246_238/0.82),_transparent_55%),linear-gradient(180deg,_rgb(233_223_208/0.95),_rgb(233_223_208/0.72))]",
-  accent:
-    "bg-[radial-gradient(ellipse_at_bottom_right,_rgb(180_130_90/0.1),_transparent_50%),linear-gradient(180deg,_rgb(237_228_214/0.58),_rgb(232_222_206/0.3))]",
+  warm: "tone-section-warm",
+  accent: "tone-section-accent",
 };
 
 export function Section({
@@ -34,7 +33,9 @@ export function Section({
     >
       {lines === "left" ? <CurvedLines variant="section-left" /> : null}
       {lines === "right" ? <CurvedLines variant="section-right" /> : null}
-      {autumnDecor ? <AutumnLeaves variant="corners" className="opacity-90" /> : null}
+      {autumnDecor ? (
+        <AutumnLeaves variant="corners" className="theme-seasonal-decor opacity-90" />
+      ) : null}
       <Container size={containerSize} className="relative z-10">
         {children}
       </Container>
