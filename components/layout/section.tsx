@@ -1,19 +1,21 @@
+import { CurvedLines } from "@/components/decor/curved-lines";
+import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { cn } from "@/lib/utils";
 import { Container } from "./container";
-import { CurvedLines } from "@/components/decor/curved-lines";
 
 type SectionProps = React.HTMLAttributes<HTMLElement> & {
   id?: string;
   tone?: "default" | "warm" | "accent";
   containerSize?: "default" | "narrow" | "wide";
   lines?: "left" | "right" | "none";
+  autumnDecor?: boolean;
 };
 
 const toneClasses = {
   default: "bg-transparent",
-  warm: "bg-[radial-gradient(ellipse_at_top_left,_rgb(252_250_246/0.7),_transparent_55%),linear-gradient(180deg,_rgb(235_228_216/0.92),_rgb(235_228_216/0.7))]",
+  warm: "bg-[radial-gradient(ellipse_at_top_left,_rgb(252_246_238/0.82),_transparent_55%),linear-gradient(180deg,_rgb(233_223_208/0.95),_rgb(233_223_208/0.72))]",
   accent:
-    "bg-[radial-gradient(ellipse_at_bottom_right,_rgb(154_123_85/0.08),_transparent_50%),linear-gradient(180deg,_rgb(228_238_232/0.55),_rgb(228_238_232/0.28))]",
+    "bg-[radial-gradient(ellipse_at_bottom_right,_rgb(180_130_90/0.1),_transparent_50%),linear-gradient(180deg,_rgb(237_228_214/0.58),_rgb(232_222_206/0.3))]",
 };
 
 export function Section({
@@ -21,6 +23,7 @@ export function Section({
   tone = "default",
   containerSize = "default",
   lines = "none",
+  autumnDecor = false,
   children,
   ...props
 }: SectionProps) {
@@ -31,6 +34,7 @@ export function Section({
     >
       {lines === "left" ? <CurvedLines variant="section-left" /> : null}
       {lines === "right" ? <CurvedLines variant="section-right" /> : null}
+      {autumnDecor ? <AutumnLeaves variant="corners" className="opacity-90" /> : null}
       <Container size={containerSize} className="relative z-10">
         {children}
       </Container>

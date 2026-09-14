@@ -25,7 +25,7 @@ export function ReviewsSection() {
   const current = reviews[index];
 
   return (
-    <Section lines="left">
+    <Section lines="left" autumnDecor>
       <SectionHeader
         eyebrow="Отзывы"
         title="Что говорят участники"

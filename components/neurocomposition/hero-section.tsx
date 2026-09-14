@@ -2,6 +2,7 @@ import type { Product } from "@/types/product";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
+import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
 import { JoinButton } from "@/components/neurocomposition/join-button";
 import { CompositionArtwork } from "@/components/neurocomposition/composition-artwork";
@@ -17,8 +18,9 @@ type HeroSectionProps = {
 export function HeroSection({ product }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_90%_-8%,_rgb(228_238_232/0.9)_0%,_transparent_56%),radial-gradient(ellipse_50%_40%_at_0%_80%,_rgb(154_123_85/0.1)_0%,_transparent_46%)]" />
+      <div className="absolute inset-0 -z-10 autumn-hero-gradient" />
       <CurvedLines variant="hero" className="-z-[5] opacity-80" />
+      <AutumnLeaves variant="hero" className="-z-[4] opacity-90" />
 
       <Container>
         <Breadcrumbs

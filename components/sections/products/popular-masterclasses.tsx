@@ -7,7 +7,7 @@ export function PopularMasterclasses() {
   const products = getPopularMasterclasses(3);
 
   return (
-    <Section lines="left">
+    <Section lines="left" autumnDecor>
       <SectionHeader
         eyebrow="Мастер-классы"
         title="Популярные форматы для старта"

@@ -6,7 +6,7 @@ import { Section } from "@/components/layout/section";
 
 export function FinalCta() {
   return (
-    <Section tone="warm" lines="right">
+    <Section tone="warm" lines="right" autumnDecor>
       <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-[linear-gradient(135deg,_rgb(252_250_246)_0%,_rgb(235_228_216/0.55)_100%)] shadow-card">
         <CurvedLines variant="cta" className="opacity-70" />
         <div className="relative grid lg:grid-cols-[1.1fr_0.9fr]">

@@ -10,7 +10,7 @@ export function MaterialsPreview() {
   if (!materials.length) return null;
 
   return (
-    <Section tone="warm" lines="left">
+    <Section tone="warm" lines="left" autumnDecor>
       <SectionHeader
         eyebrow="Полезные материалы"
         title="Исследуем вместе"

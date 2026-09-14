@@ -7,7 +7,7 @@ export function ProgramsPreview() {
   const products = getFeaturedPrograms(2);
 
   return (
-    <Section tone="warm">
+    <Section tone="warm" autumnDecor>
       <SectionHeader
         eyebrow="Программы"
         title="Глубокое погружение с поддержкой"

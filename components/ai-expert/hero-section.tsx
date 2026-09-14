@@ -2,6 +2,7 @@ import type { Product } from "@/types/product";
 import { HeroMedia } from "@/components/ai-expert/hero-media";
 import { JoinButton } from "@/components/ai-expert/join-button";
 import { CurvedLines } from "@/components/decor/curved-lines";
+import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import {
@@ -19,8 +20,9 @@ export function HeroSection({ product }: HeroSectionProps) {
 
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_55%_at_100%_0%,_rgb(228_238_232/0.95)_0%,_transparent_58%),radial-gradient(ellipse_45%_40%_at_0%_100%,_rgb(154_123_85/0.12)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 -z-10 autumn-hero-gradient" />
       <CurvedLines variant="hero" className="-z-[5] opacity-70" />
+      <AutumnLeaves variant="hero" className="-z-[4] opacity-90" />
 
       <Container>
         <Breadcrumbs

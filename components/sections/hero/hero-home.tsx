@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { CurvedLines } from "@/components/decor/curved-lines";
+import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
 import { philosophyQuote, siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
@@ -10,8 +11,9 @@ import { Container } from "@/components/layout/container";
 export function HeroHome() {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-36">
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_55%_at_88%_-8%,_rgb(228_238_232/0.95)_0%,_transparent_58%),radial-gradient(ellipse_55%_45%_at_0%_100%,_rgb(154_123_85/0.12)_0%,_transparent_48%),linear-gradient(180deg,_rgb(246_243_238)_0%,_transparent_70%)]" />
+      <div className="absolute inset-0 -z-10 autumn-hero-gradient" />
       <CurvedLines variant="hero" className="-z-[5] opacity-90" />
+      <AutumnLeaves variant="hero" className="-z-[4] opacity-95" />
 
       <Container className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
         <motion.div

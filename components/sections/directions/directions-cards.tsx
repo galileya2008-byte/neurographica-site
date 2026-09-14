@@ -8,7 +8,7 @@ import { Section, SectionHeader } from "@/components/layout/section";
 
 export function DirectionsCards() {
   return (
-    <Section id="practice" lines="right">
+    <Section id="practice" lines="right" autumnDecor>
       <SectionHeader
         eyebrow="Практика по запросу"
         title="Выберите практику по своему запросу"

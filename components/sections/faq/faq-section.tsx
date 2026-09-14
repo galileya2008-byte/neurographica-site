@@ -7,7 +7,7 @@ const homeFaqItems = faqItems.slice(0, 4);
 
 export function FaqSection() {
   return (
-    <Section tone="accent">
+    <Section tone="accent" autumnDecor>
       <SectionHeader
         eyebrow="FAQ"
         title="Частые вопросы"
