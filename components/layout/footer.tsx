@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { TrackedLink } from "@/components/analytics/tracked-link";
+import { yandexMetrika } from "@/config/analytics";
 import { legalNavigation, navigation, siteConfig } from "@/config/site";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Container } from "./container";
@@ -41,22 +43,22 @@ export function Footer() {
             </p>
             <ul className="space-y-3">
               <li>
-                <a
+                <TrackedLink
                   href={`mailto:${siteConfig.email}`}
+                  metrikaGoal={yandexMetrika.goals.email}
                   className="text-muted transition-colors hover:text-foreground"
                 >
                   {siteConfig.email}
-                </a>
+                </TrackedLink>
               </li>
               <li>
-                <a
+                <TrackedLink
                   href={siteConfig.social.telegram}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  metrikaGoal={yandexMetrika.goals.telegram}
                   className="text-muted transition-colors hover:text-foreground"
                 >
                   {siteConfig.social.telegramHandle}
-                </a>
+                </TrackedLink>
               </li>
             </ul>
             <p className="mb-4 mt-8 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">

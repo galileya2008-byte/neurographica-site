@@ -1,3 +1,4 @@
+import { yandexMetrika } from "@/config/analytics";
 import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
 import { getPurchaseUrl } from "@/lib/constants/getcourse";
@@ -21,6 +22,8 @@ export function JoinButton({
       href={getPurchaseUrl(product)}
       size={size}
       className={cn("max-w-full whitespace-normal text-center sm:whitespace-nowrap", className)}
+      metrikaGoal={yandexMetrika.goals.purchase}
+      metrikaParams={{ product: product.slug }}
     >
       {label}
     </Button>

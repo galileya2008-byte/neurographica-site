@@ -1,3 +1,4 @@
+import { yandexMetrika } from "@/config/analytics";
 import { getPurchaseUrl } from "@/lib/constants/getcourse";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/types/product";
@@ -22,6 +23,8 @@ export function BuyButton({
       href={getPurchaseUrl(product)}
       size={size}
       className={cn(className)}
+      metrikaGoal={yandexMetrika.goals.purchase}
+      metrikaParams={{ product: product.slug }}
     >
       {label} · {formatPrice(product.price, product.currency)}
     </Button>

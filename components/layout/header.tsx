@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { yandexMetrika } from "@/config/analytics";
 import { navigation, siteConfig } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -64,7 +65,11 @@ export function Header() {
 
         <div className="flex items-center justify-self-end gap-3">
           <div className="hidden lg:block">
-            <Button href="/masterclasses" size="sm">
+            <Button
+              href="/masterclasses"
+              size="sm"
+              metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
+            >
               Выбрать мастер-класс
             </Button>
           </div>
@@ -97,7 +102,11 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
-            <Button href="/masterclasses" className="mt-4 w-full">
+            <Button
+              href="/masterclasses"
+              className="mt-4 w-full"
+              metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
+            >
               Выбрать мастер-класс
             </Button>
           </nav>

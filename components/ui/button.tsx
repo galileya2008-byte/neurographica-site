@@ -1,5 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { cva, type VariantProps } from "class-variance-authority";
+import type { MetrikaGoalId } from "@/config/analytics";
+import {
+  reachMetrikaGoal,
+  resolveMetrikaGoalFromHref,
+} from "@/lib/analytics/metrika-client";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
@@ -33,7 +40,20 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     href?: string;
     target?: string;
     rel?: string;
+    metrikaGoal?: MetrikaGoalId;
+    metrikaParams?: Record<string, string>;
   };
+
+function fireMetrika(
+  href: string | undefined,
+  metrikaGoal: MetrikaGoalId | undefined,
+  metrikaParams: Record<string, string> | undefined,
+) {
+  const goal = metrikaGoal ?? (href ? resolveMetrikaGoalFromHref(href) : undefined);
+  if (goal) {
+    reachMetrikaGoal(goal, metrikaParams);
+  }
+}
 
 export function Button({
   className,
@@ -42,7 +62,10 @@ export function Button({
   href,
   target,
   rel,
+  metrikaGoal,
+  metrikaParams,
   children,
+  onClick,
   ...props
 }: ButtonProps) {
   const classes = cn(buttonVariants({ variant, size, className }));
@@ -50,6 +73,11 @@ export function Button({
   if (href) {
     const isExternal = href.startsWith("http") || href.startsWith("mailto:");
     const isHash = href.startsWith("#");
+
+    const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+      fireMetrika(href, metrikaGoal, metrikaParams);
+      onClick?.(event as unknown as React.MouseEvent<HTMLButtonElement>);
+    };
 
     if (isExternal || isHash) {
       return (
@@ -66,6 +94,7 @@ export function Button({
               ? undefined
               : (rel ?? (href.startsWith("http") ? "noopener noreferrer" : undefined))
           }
+          onClick={handleLinkClick}
         >
           {children}
         </a>
@@ -73,14 +102,23 @@ export function Button({
     }
 
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} onClick={handleLinkClick}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button className={classes} {...props}>
+    <button
+      className={classes}
+      onClick={(event) => {
+        if (metrikaGoal) {
+          reachMetrikaGoal(metrikaGoal, metrikaParams);
+        }
+        onClick?.(event);
+      }}
+      {...props}
+    >
       {children}
     </button>
   );

@@ -5,6 +5,7 @@ import { CurvedLines } from "@/components/decor/curved-lines";
 import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
 import { philosophyQuote, siteConfig } from "@/config/site";
+import { yandexMetrika } from "@/config/analytics";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 
@@ -34,10 +35,19 @@ export function HeroHome() {
           </p>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button href="/masterclasses" size="lg">
+            <Button
+              href="/masterclasses"
+              size="lg"
+              metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
+            >
               Выбрать мастер-класс
             </Button>
-            <Button href="/programs" variant="secondary" size="lg">
+            <Button
+              href="/programs"
+              variant="secondary"
+              size="lg"
+              metrikaGoal={yandexMetrika.goals.ctaPrograms}
+            >
               Посмотреть программы
             </Button>
           </div>

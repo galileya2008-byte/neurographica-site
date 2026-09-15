@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Mail, Send } from "lucide-react";
+import { TrackedLink } from "@/components/analytics/tracked-link";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
+import { yandexMetrika } from "@/config/analytics";
 import { siteConfig } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -25,8 +27,9 @@ export default function ContactsPage() {
         </p>
 
         <div className="mt-12 grid gap-5 sm:grid-cols-2">
-          <a
+          <TrackedLink
             href={`mailto:${siteConfig.email}`}
+            metrikaGoal={yandexMetrika.goals.email}
             className="group flex flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-gold/30 hover:shadow-card"
           >
             <Mail className="h-6 w-6 text-accent" />
@@ -36,12 +39,11 @@ export default function ContactsPage() {
             <p className="mt-2 text-lg text-foreground group-hover:text-accent">
               {siteConfig.email}
             </p>
-          </a>
+          </TrackedLink>
 
-          <a
+          <TrackedLink
             href={siteConfig.social.telegram}
-            target="_blank"
-            rel="noopener noreferrer"
+            metrikaGoal={yandexMetrika.goals.telegram}
             className="group flex flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-6 shadow-soft transition-all hover:-translate-y-0.5 hover:border-gold/30 hover:shadow-card"
           >
             <Send className="h-6 w-6 text-accent" />
@@ -51,7 +53,7 @@ export default function ContactsPage() {
             <p className="mt-2 text-lg text-foreground group-hover:text-accent">
               {siteConfig.social.telegramHandle}
             </p>
-          </a>
+          </TrackedLink>
         </div>
 
         <p className="mt-10 text-sm leading-relaxed text-muted">
@@ -60,8 +62,17 @@ export default function ContactsPage() {
         </p>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button href={`mailto:${siteConfig.email}`}>Написать на email</Button>
-          <Button href={siteConfig.social.telegram} variant="secondary">
+          <Button
+            href={`mailto:${siteConfig.email}`}
+            metrikaGoal={yandexMetrika.goals.email}
+          >
+            Написать на email
+          </Button>
+          <Button
+            href={siteConfig.social.telegram}
+            variant="secondary"
+            metrikaGoal={yandexMetrika.goals.telegram}
+          >
             Написать в Telegram
           </Button>
         </div>

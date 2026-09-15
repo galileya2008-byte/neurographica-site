@@ -1,5 +1,6 @@
 import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
+import { yandexMetrika } from "@/config/analytics";
 import { Button } from "@/components/ui/button";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
@@ -22,10 +23,19 @@ export function FinalCta() {
               Оплата и доступ к материалам — на платформе GetCourse.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="/masterclasses" size="lg">
+              <Button
+                href="/masterclasses"
+                size="lg"
+                metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
+              >
                 Выбрать мастер-класс
               </Button>
-              <Button href="/contacts" variant="secondary" size="lg">
+              <Button
+                href="/contacts"
+                variant="secondary"
+                size="lg"
+                metrikaGoal={yandexMetrika.goals.ctaContacts}
+              >
                 Задать вопрос
               </Button>
             </div>
