@@ -9,24 +9,27 @@ export function ProgramSection() {
       <SectionHeader
         eyebrow={program.eyebrow}
         title={program.title}
-        description="Семь дней — от карты задач до персональной системы и плана внедрения."
+        description="Каждый урок — с практическим заданием: вы готовите артефакт для своей услуги, а ИИ помогает ускорить работу."
       />
 
       <ol className="grid gap-4 lg:grid-cols-2">
-        {program.days.map((day) => (
-          <li key={day.day}>
+        {program.lessons.map((lesson) => (
+          <li key={lesson.number}>
             <article className="flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/90 p-6 md:p-7">
               <div className="flex items-start justify-between gap-4">
                 <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-                  День {day.day}
+                  Урок {lesson.number}
                 </span>
                 <span className="font-display text-lg text-gold/80">
-                  {String(day.day).padStart(2, "0")}
+                  {String(lesson.number).padStart(2, "0")}
                 </span>
               </div>
-              <h3 className="mt-4 text-xl leading-snug">{day.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted md:text-base">
-                {day.description}
+              <h3 className="mt-4 text-xl leading-snug">{lesson.title}</h3>
+              <p className="mt-4 text-[11px] font-medium uppercase tracking-[0.16em] text-gold">
+                Вы подготовите
+              </p>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted md:text-base">
+                {lesson.outcome}
               </p>
             </article>
           </li>
