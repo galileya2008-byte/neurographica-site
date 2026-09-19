@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
 
@@ -35,6 +36,17 @@ export function ProgramSection() {
           </li>
         ))}
       </ol>
+
+      <p className="mt-10 max-w-3xl text-sm leading-relaxed text-muted">
+        Ищете материалы по запросу «ИИ для экспертов»? Смотрите также страницу{" "}
+        <Link
+          href="/topics/ii-dlya-ekspertov"
+          className="text-accent underline-offset-4 hover:underline"
+        >
+          продвижения услуги с помощью нейросетей
+        </Link>
+        .
+      </p>
     </Section>
   );
 }

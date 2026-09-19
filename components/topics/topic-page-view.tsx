@@ -2,7 +2,11 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import type { Topic } from "@/lib/content/topics";
 import { getAllTopics } from "@/lib/content/topics";
-import { getAllMasterclasses, getAllPrograms } from "@/lib/content/products";
+import {
+  getAllMasterclasses,
+  getAllPrograms,
+  getProductBySlug,
+} from "@/lib/content/products";
 import { filterProducts } from "@/lib/domain/products";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
@@ -19,9 +23,22 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
     direction: topic.directionId,
   }).slice(0, 6);
 
-  const programs = filterProducts(getAllPrograms(), {
+  const featuredSlugs =
+    "featuredProgramSlugs" in topic ? topic.featuredProgramSlugs : undefined;
+
+  const featuredPrograms = (featuredSlugs ?? [])
+    .map((slug) => getProductBySlug("program", slug))
+    .filter((product): product is NonNullable<typeof product> => Boolean(product));
+
+  const programsByDirection = filterProducts(getAllPrograms(), {
     direction: topic.directionId,
   }).slice(0, 3);
+
+  const featuredSlugSet = new Set(featuredPrograms.map((product) => product.slug));
+  const programs = [
+    ...featuredPrograms,
+    ...programsByDirection.filter((product) => !featuredSlugSet.has(product.slug)),
+  ].slice(0, 4);
 
   return (
     <>
