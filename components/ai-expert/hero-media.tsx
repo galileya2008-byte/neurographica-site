@@ -37,7 +37,7 @@ export function HeroMedia() {
             {AI_EXPERT_PRICE_LABEL}
           </p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/80">
-            Настройте ИИ под задачи своей практики за 7 дней
+            От потребностей аудитории к контенту и плану продвижения
           </p>
         </div>
       </div>

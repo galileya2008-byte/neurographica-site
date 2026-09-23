@@ -10,7 +10,7 @@ export function ProgramSection() {
       <SectionHeader
         eyebrow={program.eyebrow}
         title={program.title}
-        description="Каждый урок — с практическим заданием: вы готовите артефакт для своей услуги, а ИИ помогает ускорить работу."
+        description="В каждом уроке вы готовите материал для своей услуги и учитесь проверять ответ ИИ. Результаты заданий складываются в основу вашего продвижения."
       />
 
       <ol className="grid gap-4 lg:grid-cols-2">
