@@ -1,6 +1,7 @@
 import type { CardSettings } from "@/types/card-settings";
 
 export const materialTypeIds = [
+  "news",
   "article",
   "podcast",
   "practice",
@@ -11,6 +12,7 @@ export const materialTypeIds = [
 export type MaterialType = (typeof materialTypeIds)[number];
 
 export const materialTypeLabels: Record<MaterialType, string> = {
+  news: "Новость",
   article: "Статья",
   podcast: "Подкаст",
   practice: "Практические рекомендации",

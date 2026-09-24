@@ -46,6 +46,12 @@ export default function RootLayout({
     >
       <head>
         <SiteThemeStyle theme={theme} />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${siteConfig.brand} — новые публикации`}
+          href={`${siteConfig.url}/feed.xml`}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

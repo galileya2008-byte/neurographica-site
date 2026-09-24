@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Rss } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { MaterialsCatalog } from "@/components/materials/materials-catalog";
+import { Button } from "@/components/ui/button";
 import { materialsIntro } from "@/config/site";
 import { defaultKeywords } from "@/config/seo";
 import { getAllMaterials } from "@/lib/content/materials";
@@ -45,6 +47,12 @@ export default function MaterialsPage() {
           <p className="mt-5 text-lg leading-relaxed text-muted">
             {materialsIntro.description}
           </p>
+          <div className="mt-7">
+            <Button href="/feed.xml" variant="secondary">
+              <Rss className="h-4 w-4" />
+              Подписаться через RSS
+            </Button>
+          </div>
         </div>
 
         <MaterialsCatalog materials={materials} />

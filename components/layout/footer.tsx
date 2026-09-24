@@ -60,6 +60,14 @@ export function Footer() {
                   {siteConfig.social.telegramHandle}
                 </TrackedLink>
               </li>
+              <li>
+                <Link
+                  href="/feed.xml"
+                  className="text-muted transition-colors hover:text-foreground"
+                >
+                  RSS новых публикаций
+                </Link>
+              </li>
             </ul>
             <p className="mb-4 mt-8 text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Документы
