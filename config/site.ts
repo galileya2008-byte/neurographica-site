@@ -22,7 +22,7 @@ export const navigation = [
   { label: "Мастер-классы", href: "/masterclasses" },
   { label: "Программы", href: "/programs" },
   { label: "Статьи и подкасты", href: "/materials" },
-  { label: "Темы", href: "/topics" },
+  { label: "Выбери свою тему", href: "/topics" },
   { label: "Обо мне", href: "/about" },
   { label: "Отзывы", href: "/reviews" },
   { label: "FAQ", href: "/faq" },

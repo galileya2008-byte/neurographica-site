@@ -8,7 +8,7 @@ import { practiceRequests } from "@/config/site";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Темы и практические руководства",
+  title: "Выбери свою тему",
   description:
     "Материалы по запросам: ИИ для экспертов, продвижение и продажи, мотивация, цели, ясность, нейрографика и самопознание.",
   path: "/topics",
@@ -32,7 +32,7 @@ export default function TopicsPage() {
           <Breadcrumbs
             items={[
               { label: "Главная", href: "/" },
-              { label: "Темы" },
+              { label: "Выбери свою тему" },
             ]}
           />
           <div className="max-w-4xl">
@@ -40,7 +40,7 @@ export default function TopicsPage() {
               Навигатор по сайту
             </p>
             <h1 className="mt-4 text-balance text-4xl md:text-6xl">
-              Темы и практические руководства
+              Выбери свою тему
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted md:text-xl">
               Выберите вопрос, который важен сейчас. Внутри — полезные объяснения,
