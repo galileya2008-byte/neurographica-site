@@ -54,3 +54,28 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  notify-telegram:
+    if: github.event_name == 'push'
+    needs: deploy
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: "@neiro_galina"
+      SITE_URL: https://siteneirogalina.ru
+      BEFORE_SHA: ${{ github.event.before }}
+      AFTER_SHA: ${{ github.sha }}
+    steps:
+      - name: Checkout publication history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Publish new materials to Telegram
+        if: env.TELEGRAM_BOT_TOKEN != ''
+        run: node .github/scripts/notify-telegram.mjs
+
+      - name: Explain missing bot token
+        if: env.TELEGRAM_BOT_TOKEN == ''
+        run: |
+          echo "::warning::TELEGRAM_BOT_TOKEN is not configured; Telegram notification skipped."
