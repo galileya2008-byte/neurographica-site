@@ -63,9 +63,20 @@ import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { ThemeEditor } from "@/components/admin/theme-editor";
+import { TopicManager } from "@/components/admin/topic-manager";
 import type { SiteThemePresetId } from "@/types/site-theme";
+import {
+  cardColorIds,
+  cardColorLabels,
+  type CardColorId,
+} from "@/types/card-settings";
 
-type ContentSection = "masterclasses" | "programs" | "materials" | "theme";
+type ContentSection =
+  | "masterclasses"
+  | "programs"
+  | "materials"
+  | "topics"
+  | "theme";
 type Mode = "list" | "create" | "edit";
 
 type ListItem = {
@@ -74,6 +85,7 @@ type ListItem = {
   title: string;
   sha: string;
   subtitle?: string;
+  sortOrder?: number;
 };
 
 export function AdminApp() {
@@ -192,6 +204,10 @@ export function AdminApp() {
       await loadTheme(currentToken);
       return;
     }
+    if (currentSection === "topics") {
+      setItems([]);
+      return;
+    }
     if (!currentToken.trim()) {
       setItems([]);
       return;
@@ -212,10 +228,23 @@ export function AdminApp() {
               slug: product.slug,
               title: product.title,
               sha,
+              sortOrder: product.sortOrder ?? 1000,
+              subtitle: [
+                `порядок ${product.sortOrder ?? 1000}`,
+                product.badge,
+              ]
+                .filter(Boolean)
+                .join(" · "),
             };
           }),
         );
-        setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
+        setItems(
+          detailed.sort(
+            (a, b) =>
+              (a.sortOrder ?? 1000) - (b.sortOrder ?? 1000) ||
+              a.title.localeCompare(b.title, "ru"),
+          ),
+        );
       } else if (currentSection === "programs") {
         const files = await listProgramFiles(currentToken.trim());
         const detailed = await Promise.all(
@@ -226,10 +255,23 @@ export function AdminApp() {
               slug: product.slug,
               title: product.title,
               sha,
+              sortOrder: product.sortOrder ?? 1000,
+              subtitle: [
+                `порядок ${product.sortOrder ?? 1000}`,
+                product.badge,
+              ]
+                .filter(Boolean)
+                .join(" · "),
             };
           }),
         );
-        setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
+        setItems(
+          detailed.sort(
+            (a, b) =>
+              (a.sortOrder ?? 1000) - (b.sortOrder ?? 1000) ||
+              a.title.localeCompare(b.title, "ru"),
+          ),
+        );
       } else {
         const files = await listMaterialFiles(currentToken.trim());
         const detailed = await Promise.all(
@@ -243,11 +285,24 @@ export function AdminApp() {
               slug: material.slug,
               title: material.title,
               sha,
-              subtitle: materialTypeLabels[material.type],
+              sortOrder: material.sortOrder ?? 1000,
+              subtitle: [
+                materialTypeLabels[material.type],
+                `порядок ${material.sortOrder ?? 1000}`,
+                material.badge,
+              ]
+                .filter(Boolean)
+                .join(" · "),
             };
           }),
         );
-        setItems(detailed.sort((a, b) => a.title.localeCompare(b.title, "ru")));
+        setItems(
+          detailed.sort(
+            (a, b) =>
+              (a.sortOrder ?? 1000) - (b.sortOrder ?? 1000) ||
+              a.title.localeCompare(b.title, "ru"),
+          ),
+        );
       }
       await refreshCovers(currentToken);
     } catch (err) {
@@ -527,7 +582,7 @@ export function AdminApp() {
         <Container size="narrow">
           <h1 className="text-4xl">Админка</h1>
           <p className="mt-3 text-muted">
-            Единый вход для мастер-классов, программ, материалов и темы сайта.
+            Единый вход для мастер-классов, программ, публикаций, тем и оформления.
           </p>
           <form
             onSubmit={handleLogin}
@@ -556,7 +611,9 @@ export function AdminApp() {
       ? "Мастер-классы"
       : section === "programs"
         ? "Программы"
-        : "Статьи и подкасты";
+        : section === "topics"
+          ? "Выбери свою тему"
+          : "Статьи и подкасты";
   const createLabel =
     section === "masterclasses"
       ? "Добавить мастер-класс"
@@ -568,13 +625,15 @@ export function AdminApp() {
       ? "Пока нет мастер-классов."
       : section === "programs"
         ? "Пока нет программ."
-        : "Пока нет полезных материалов.";
+        : "Пока нет статей и подкастов.";
   const catalogHref =
     section === "masterclasses"
       ? "/masterclasses"
       : section === "programs"
         ? "/programs"
-        : "/materials";
+        : section === "topics"
+          ? "/topics"
+          : "/materials";
 
   return (
     <section className="section-padding pt-32">
@@ -583,8 +642,8 @@ export function AdminApp() {
           <div>
             <h1 className="text-4xl">Админка</h1>
             <p className="mt-2 text-muted">
-              Мастер-классы, программы, материалы и тема сайта. После сохранения
-              GitHub сам обновит сайт.
+              Мастер-классы, программы, публикации, темы и оформление сайта. После
+              сохранения GitHub сам обновит сайт.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -615,6 +674,12 @@ export function AdminApp() {
             onClick={() => switchSection("materials")}
           >
             Статьи и подкасты
+          </SectionTab>
+          <SectionTab
+            active={section === "topics"}
+            onClick={() => switchSection("topics")}
+          >
+            Выбери свою тему
           </SectionTab>
           <SectionTab
             active={section === "theme"}
@@ -679,6 +744,8 @@ export function AdminApp() {
               canSave={canSave}
             />
           )
+        ) : section === "topics" ? (
+          <TopicManager token={token} canSave={canSave} />
         ) : mode === "list" ? (
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -1087,6 +1154,54 @@ function ProductEditor({
         </label>
       </div>
 
+      <div className="rounded-3xl border border-border/70 bg-warm/35 p-5">
+        <p className="mb-4 text-sm font-medium">Карточка в каталоге</p>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Field label="Порядок (меньше — выше)">
+            <input
+              required
+              type="number"
+              min="0"
+              step="1"
+              value={form.sortOrder}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, sortOrder: e.target.value }))
+              }
+              className={inputClass}
+            />
+          </Field>
+          <Field label="Цвет подложки">
+            <select
+              value={form.cardColor}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  cardColor: e.target.value as CardColorId,
+                }))
+              }
+              className={inputClass}
+            >
+              {cardColorIds.map((color) => (
+                <option key={color} value={color}>
+                  {cardColorLabels[color]}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Стикер (необязательно)">
+            <input
+              maxLength={30}
+              value={form.badge}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, badge: e.target.value }))
+              }
+              placeholder="Хит / Новинка"
+              className={inputClass}
+            />
+          </Field>
+        </div>
+      </div>
+
       <Field label="Для кого (каждый пункт с новой строки)">
         <textarea
           required
@@ -1301,6 +1416,54 @@ function MaterialEditor({
             setForm((prev) => ({ ...prev, contentText }))
           }
         />
+      </div>
+
+      <div className="rounded-3xl border border-border/70 bg-warm/35 p-5">
+        <p className="mb-4 text-sm font-medium">Карточка в разделе</p>
+        <div className="grid gap-5 md:grid-cols-3">
+          <Field label="Порядок (меньше — выше)">
+            <input
+              required
+              type="number"
+              min="0"
+              step="1"
+              value={form.sortOrder}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, sortOrder: e.target.value }))
+              }
+              className={inputClass}
+            />
+          </Field>
+          <Field label="Цвет подложки">
+            <select
+              value={form.cardColor}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  cardColor: e.target.value as CardColorId,
+                }))
+              }
+              className={inputClass}
+            >
+              {cardColorIds.map((color) => (
+                <option key={color} value={color}>
+                  {cardColorLabels[color]}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Стикер (необязательно)">
+            <input
+              maxLength={30}
+              value={form.badge}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, badge: e.target.value }))
+              }
+              placeholder="Новинка / Слушают"
+              className={inputClass}
+            />
+          </Field>
+        </div>
       </div>
 
       <CoverPicker

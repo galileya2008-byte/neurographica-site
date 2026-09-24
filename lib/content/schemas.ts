@@ -1,9 +1,17 @@
 import { z } from "zod";
+import { cardColorIds } from "@/types/card-settings";
 import { materialTypeIds } from "@/types/material";
 import { directionIds } from "@/types/product";
 import { siteThemePresetIds } from "@/types/site-theme";
 
+const cardSettingsSchema = {
+  sortOrder: z.number().int().nonnegative().optional(),
+  cardColor: z.enum(cardColorIds).optional(),
+  badge: z.string().max(30).optional(),
+};
+
 export const productSchema = z.object({
+  ...cardSettingsSchema,
   id: z.string().min(1),
   slug: z.string().min(1),
   type: z.enum(["masterclass", "program"]),
@@ -52,6 +60,7 @@ export const siteThemeSchema = z.object({
 });
 
 export const materialSchema = z.object({
+  ...cardSettingsSchema,
   id: z.string().min(1),
   slug: z.string().min(1),
   type: z.enum(materialTypeIds),
@@ -73,3 +82,19 @@ export const materialSchema = z.object({
     })
     .optional(),
 });
+
+export const topicSchema = z.object({
+  ...cardSettingsSchema,
+  id: z.string().min(1),
+  slug: z.string().min(1),
+  directionId: z.enum(directionIds),
+  title: z.string().min(1),
+  seoTitle: z.string().min(1),
+  seoDescription: z.string().min(1),
+  keywords: z.array(z.string()).min(1),
+  intro: z.string().min(1),
+  description: z.string().min(1),
+  featuredProgramSlugs: z.array(z.string()).optional(),
+});
+
+export const topicsSchema = z.array(topicSchema);

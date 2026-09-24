@@ -1,3 +1,5 @@
+import type { CardSettings } from "@/types/card-settings";
+
 export const materialTypeIds = [
   "article",
   "podcast",
@@ -16,7 +18,7 @@ export const materialTypeLabels: Record<MaterialType, string> = {
   reflection: "Авторские размышления",
 };
 
-export type Material = {
+export type Material = CardSettings & {
   id: string;
   slug: string;
   type: MaterialType;

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { materialTypeLabels, type Material } from "@/types/material";
 import { SiteImage } from "@/components/ui/site-image";
 import { Button } from "@/components/ui/button";
+import { getCardColorClass } from "@/lib/card-settings";
+import { cn } from "@/lib/utils";
 
 type MaterialCardProps = {
   material: Material;
@@ -12,7 +14,12 @@ export function MaterialCard({ material }: MaterialCardProps) {
   const isPodcast = material.type === "podcast";
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 bg-card/80 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card">
+    <article
+      className={cn(
+        "group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card",
+        getCardColorClass(material.cardColor),
+      )}
+    >
       {material.cover ? (
         <Link href={href} className="relative block aspect-[16/10] overflow-hidden">
           <SiteImage
@@ -22,9 +29,20 @@ export function MaterialCard({ material }: MaterialCardProps) {
             className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             sizes="(max-width: 768px) 100vw, 33vw"
           />
+          {material.badge ? (
+            <span className="absolute left-4 top-4 rounded-full bg-accent px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-foreground shadow-card">
+              {material.badge}
+            </span>
+          ) : null}
         </Link>
       ) : (
-        <div className="aspect-[16/10] bg-[linear-gradient(135deg,_var(--color-warm),_rgb(228_238_232/0.7))]" />
+        <div className="relative aspect-[16/10] bg-[linear-gradient(135deg,_var(--color-warm),_rgb(228_238_232/0.7))]">
+          {material.badge ? (
+            <span className="absolute left-4 top-4 rounded-full bg-accent px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-foreground shadow-card">
+              {material.badge}
+            </span>
+          ) : null}
+        </div>
       )}
 
       <div className="flex flex-1 flex-col px-6 pb-6 pt-5">

@@ -18,6 +18,9 @@
   "duration": "7 дней · 12 уроков",
   "isPopular": true,
   "isFeatured": true,
+  "sortOrder": 1,
+  "cardColor": "sky",
+  "badge": "Хит",
   "publishedAt": "2026-09-05",
   "audience": [
     "Экспертам мягких ниш, которые самостоятельно продвигают услуги",

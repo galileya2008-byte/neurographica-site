@@ -4,8 +4,10 @@ import { ArrowUpRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
-import { practiceRequests } from "@/config/site";
+import { topics } from "@/config/topics";
+import { getCardColorClass } from "@/lib/card-settings";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Выбери свою тему",
@@ -53,12 +55,21 @@ export default function TopicsPage() {
       <section className="section-padding pt-8">
         <Container>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {practiceRequests.map((topic) => (
+            {topics.map((topic) => (
               <Link
                 key={topic.slug}
                 href={`/topics/${topic.slug}`}
-                className="group flex min-h-56 flex-col rounded-[1.75rem] border border-border bg-card/80 p-6 shadow-soft transition duration-500 hover:-translate-y-1 hover:border-gold/35 hover:shadow-card md:p-7"
+                className={cn(
+                  "group relative flex min-h-56 flex-col rounded-[1.75rem] border border-border p-6 shadow-soft transition duration-500 hover:-translate-y-1 hover:border-gold/35 hover:shadow-card md:p-7",
+                  getCardColorClass(topic.cardColor),
+                  topic.badge && "pt-16 md:pt-16",
+                )}
               >
+                {topic.badge ? (
+                  <span className="absolute left-6 top-6 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-foreground">
+                    {topic.badge}
+                  </span>
+                ) : null}
                 <div className="flex items-start justify-between gap-5">
                   <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-gold">
                     Тема

@@ -3,6 +3,7 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { materialSchema } from "@/lib/content/schemas";
+import { compareCardOrder } from "@/lib/card-settings";
 import type { Material, MaterialType } from "@/types/material";
 
 const materialsDir = path.join(process.cwd(), "content", "materials");
@@ -17,7 +18,11 @@ export function getAllMaterials(): Material[] {
       const raw = fs.readFileSync(path.join(materialsDir, file), "utf-8");
       return materialSchema.parse(JSON.parse(raw)) as Material;
     })
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    .sort(
+      (a, b) =>
+        compareCardOrder(a, b) ||
+        b.publishedAt.localeCompare(a.publishedAt),
+    );
 }
 
 export function getMaterialBySlug(slug: string): Material | undefined {

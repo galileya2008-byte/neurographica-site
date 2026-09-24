@@ -1,4 +1,5 @@
 import type { DirectionId, Product, ProductFormat, ProductLevel } from "@/types/product";
+import type { CardColorId } from "@/types/card-settings";
 
 export type ProgramFormState = {
   title: string;
@@ -14,6 +15,9 @@ export type ProgramFormState = {
   duration: string;
   isPopular: boolean;
   isFeatured: boolean;
+  sortOrder: string;
+  cardColor: CardColorId;
+  badge: string;
   audienceText: string;
   agendaText: string;
   faqQuestion: string;
@@ -35,6 +39,9 @@ export function emptyProgramForm(cover: string): ProgramFormState {
     duration: "7 дней",
     isPopular: false,
     isFeatured: false,
+    sortOrder: "100",
+    cardColor: "default",
+    badge: "",
     audienceText: "",
     agendaText: "",
     faqQuestion: "",
@@ -58,6 +65,9 @@ export function productToProgramForm(product: Product): ProgramFormState {
     duration: product.duration,
     isPopular: product.isPopular,
     isFeatured: product.isFeatured,
+    sortOrder: String(product.sortOrder ?? 100),
+    cardColor: product.cardColor ?? "default",
+    badge: product.badge ?? "",
     audienceText: product.audience.join("\n"),
     agendaText: product.agenda.join("\n"),
     faqQuestion: faq?.question ?? "",
@@ -96,6 +106,10 @@ export function programFormToProduct(
     form.faqQuestion.trim() && form.faqAnswer.trim()
       ? [{ question: form.faqQuestion.trim(), answer: form.faqAnswer.trim() }]
       : [];
+  const sortOrder = Number(form.sortOrder);
+  if (!Number.isInteger(sortOrder) || sortOrder < 0) {
+    throw new Error("Порядок должен быть целым числом от 0");
+  }
 
   return {
     id: `pr-${form.slug.trim()}`,
@@ -114,6 +128,9 @@ export function programFormToProduct(
     duration: form.duration.trim() || "7 дней",
     isPopular: form.isPopular,
     isFeatured: form.isFeatured,
+    sortOrder,
+    cardColor: form.cardColor,
+    ...(form.badge.trim() ? { badge: form.badge.trim() } : {}),
     publishedAt: options?.publishedAt ?? new Date().toISOString().slice(0, 10),
     audience,
     agenda,

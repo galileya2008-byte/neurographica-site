@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { formatLabels, levelLabels, type Product } from "@/types/product";
 import { getDirectionLabel, getProductHref } from "@/lib/domain/products";
-import { formatPrice } from "@/lib/utils";
+import { cn, formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { SiteImage } from "@/components/ui/site-image";
+import { getCardColorClass } from "@/lib/card-settings";
 
 type ProductCardProps = {
   product: Product;
@@ -15,7 +16,12 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   const primaryDirection = product.directions[0];
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 bg-card/80 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card">
+    <article
+      className={cn(
+        "group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card",
+        getCardColorClass(product.cardColor),
+      )}
+    >
       <Link href={href} className="relative block aspect-[4/3] overflow-hidden">
         <SiteImage
           src={product.cover}
@@ -24,11 +30,16 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+        {product.badge ? (
+          <span className="absolute left-4 top-4 rounded-full bg-accent px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-accent-foreground shadow-card">
+            {product.badge}
+          </span>
+        ) : null}
       </Link>
 
       <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
         <div className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-muted">
-          {product.isPopular ? (
+          {product.isPopular && !product.badge ? (
             <>
               <span className="text-gold">Популярное</span>
               <span className="text-gold">·</span>

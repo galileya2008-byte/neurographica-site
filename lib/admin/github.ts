@@ -2,6 +2,7 @@ import { adminConfig } from "@/config/admin";
 import type { Material } from "@/types/material";
 import type { Product } from "@/types/product";
 import type { SiteThemeConfig } from "@/types/site-theme";
+import type { Topic } from "@/types/topic";
 import { slugify } from "@/lib/admin/slugify";
 
 type GithubContentFile = {
@@ -351,6 +352,40 @@ export async function deleteMaterial(
       message: `Delete material: ${slug}`,
       sha,
       branch,
+    }),
+  });
+}
+
+export async function getTopicsConfig(
+  token: string,
+): Promise<{ topics: Topic[]; sha: string }> {
+  const { topicsPath, branch } = adminConfig.github;
+  const data = (await githubFetch(
+    `/contents/${topicsPath}?ref=${branch}`,
+    token,
+  )) as GithubFileResponse;
+
+  return {
+    topics: JSON.parse(decodeBase64Utf8(data.content)) as Topic[],
+    sha: data.sha,
+  };
+}
+
+export async function saveTopicsConfig(
+  token: string,
+  topics: Topic[],
+  sha: string,
+): Promise<void> {
+  const { topicsPath, branch } = adminConfig.github;
+  const content = encodeBase64Utf8(`${JSON.stringify(topics, null, 2)}\n`);
+
+  await githubFetch(`/contents/${topicsPath}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: "Update site topics",
+      content,
+      branch,
+      sha,
     }),
   });
 }

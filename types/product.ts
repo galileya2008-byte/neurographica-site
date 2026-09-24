@@ -1,3 +1,5 @@
+import type { CardSettings } from "@/types/card-settings";
+
 export const directionIds = [
   "intention",
   "planning",
@@ -32,7 +34,7 @@ export type ProductSupplement = {
   highlights?: string[];
 };
 
-export type Product = {
+export type Product = CardSettings & {
   id: string;
   slug: string;
   type: ProductType;

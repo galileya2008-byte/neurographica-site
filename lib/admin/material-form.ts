@@ -2,6 +2,7 @@ import {
   type Material,
   type MaterialType,
 } from "@/types/material";
+import type { CardColorId } from "@/types/card-settings";
 
 export type MaterialFormState = {
   title: string;
@@ -12,6 +13,9 @@ export type MaterialFormState = {
   cover: string;
   mediaUrl: string;
   readingMinutes: string;
+  sortOrder: string;
+  cardColor: CardColorId;
+  badge: string;
 };
 
 export function emptyMaterialForm(cover = ""): MaterialFormState {
@@ -24,6 +28,9 @@ export function emptyMaterialForm(cover = ""): MaterialFormState {
     cover,
     mediaUrl: "",
     readingMinutes: "5",
+    sortOrder: "100",
+    cardColor: "default",
+    badge: "",
   };
 }
 
@@ -37,6 +44,9 @@ export function materialToForm(material: Material): MaterialFormState {
     cover: material.cover ?? "",
     mediaUrl: material.mediaUrl ?? "",
     readingMinutes: String(material.readingMinutes),
+    sortOrder: String(material.sortOrder ?? 100),
+    cardColor: material.cardColor ?? "default",
+    badge: material.badge ?? "",
   };
 }
 
@@ -56,6 +66,10 @@ export function formToMaterial(
   const readingMinutes = Number(form.readingMinutes.replace(",", "."));
   if (!Number.isFinite(readingMinutes) || readingMinutes < 1) {
     throw new Error("Укажите время чтения (минуты)");
+  }
+  const sortOrder = Number(form.sortOrder);
+  if (!Number.isInteger(sortOrder) || sortOrder < 0) {
+    throw new Error("Порядок должен быть целым числом от 0");
   }
 
   const slug = form.slug.trim();
@@ -84,6 +98,9 @@ export function formToMaterial(
     content,
     ...(cover ? { cover } : {}),
     ...(mediaUrl ? { mediaUrl } : {}),
+    sortOrder,
+    cardColor: form.cardColor,
+    ...(form.badge.trim() ? { badge: form.badge.trim() } : {}),
     publishedAt: options?.publishedAt ?? new Date().toISOString().slice(0, 10),
     readingMinutes: Math.round(readingMinutes),
     seo: {

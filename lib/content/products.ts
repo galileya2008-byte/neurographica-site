@@ -3,6 +3,7 @@ import "server-only";
 import fs from "fs";
 import path from "path";
 import { productSchema } from "@/lib/content/schemas";
+import { compareCardOrder } from "@/lib/card-settings";
 import type { Product, ProductType } from "@/types/product";
 
 const contentRoot = path.join(process.cwd(), "content");
@@ -19,7 +20,11 @@ function readProductsFromDir(dirName: "masterclasses" | "programs"): Product[] {
       const parsed = productSchema.parse(JSON.parse(raw));
       return parsed as Product;
     })
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+    .sort(
+      (a, b) =>
+        compareCardOrder(a, b) ||
+        b.publishedAt.localeCompare(a.publishedAt),
+    );
 }
 
 export function getAllMasterclasses(): Product[] {

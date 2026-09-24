@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { practiceRequests } from "@/config/site";
+import { topics } from "@/config/topics";
 import { Section, SectionHeader } from "@/components/layout/section";
+import { getCardColorClass } from "@/lib/card-settings";
+import { cn } from "@/lib/utils";
 
 export function DirectionsCards() {
   return (
@@ -16,7 +18,7 @@ export function DirectionsCards() {
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {practiceRequests.map((request, index) => (
+        {topics.map((request, index) => (
           <motion.div
             key={request.id}
             initial={{ opacity: 0, y: 16 }}
@@ -26,8 +28,17 @@ export function DirectionsCards() {
           >
             <Link
               href={`/topics/${request.slug}`}
-              className="group flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/70 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card"
+              className={cn(
+                "group relative flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card",
+                getCardColorClass(request.cardColor),
+                request.badge && "pt-16",
+              )}
             >
+              {request.badge ? (
+                <span className="absolute left-6 top-5 rounded-full bg-accent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-foreground shadow-soft">
+                  {request.badge}
+                </span>
+              ) : null}
               <div className="mb-4 flex items-start justify-between gap-3">
                 <h3 className="text-xl leading-snug">{request.title}</h3>
                 <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-chocolate opacity-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />

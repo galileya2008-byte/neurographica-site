@@ -1,11 +1,15 @@
-import { practiceRequests } from "@/config/site";
+import { topics } from "@/config/topics";
+import { topicsSchema } from "@/lib/content/schemas";
+import type { Topic } from "@/types/topic";
 
-export type Topic = (typeof practiceRequests)[number];
+export type { Topic } from "@/types/topic";
+
+const parsedTopics = topicsSchema.parse(topics) as Topic[];
 
 export function getAllTopics(): Topic[] {
-  return [...practiceRequests];
+  return [...parsedTopics];
 }
 
 export function getTopicBySlug(slug: string): Topic | undefined {
-  return practiceRequests.find((topic) => topic.slug === slug);
+  return parsedTopics.find((topic) => topic.slug === slug);
 }
