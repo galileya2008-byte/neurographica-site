@@ -3,15 +3,19 @@ import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
+import { BuyButton } from "@/components/product/buy-button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
+import { AI_EXPERT_SLUG } from "@/lib/constants/ai-expert-system";
 import { aiSalesTopic } from "@/lib/content/ai-sales-topic";
+import { getProductBySlug } from "@/lib/content/products";
 import { faqSchema } from "@/lib/seo/product-schema";
 
 const programPath = "/programs/ai-dlya-ekspertov";
 
 export function AiSalesTopicPage() {
+  const program = getProductBySlug("program", AI_EXPERT_SLUG);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -79,6 +83,22 @@ export function AiSalesTopicPage() {
                 <p className="mt-5 text-xs text-muted">
                   Обновлено: 24 сентября 2026
                 </p>
+                {program ? (
+                  <div className="mt-6 border-t border-border pt-5">
+                    <p className="text-sm text-muted">
+                      Персональная AI-система для эксперта
+                    </p>
+                    <p className="mt-1 font-display text-3xl text-foreground">
+                      4 700 ₽
+                    </p>
+                    <BuyButton
+                      product={program}
+                      label="Купить сейчас"
+                      size="default"
+                      className="mt-4 w-full"
+                    />
+                  </div>
+                ) : null}
               </aside>
             </div>
           </Container>
@@ -177,12 +197,16 @@ export function AiSalesTopicPage() {
               до переписки с клиентом и плана продвижения на 30 дней.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href={programPath} size="lg">
-                Посмотреть программу
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+              {program ? (
+                <BuyButton
+                  product={program}
+                  label="Купить сейчас"
+                  className="w-full sm:w-auto"
+                />
+              ) : null}
               <Button href={`${programPath}#program`} variant="secondary" size="lg">
                 Все 12 уроков
+                <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
           </Container>
