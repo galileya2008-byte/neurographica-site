@@ -12,8 +12,8 @@ export function MaterialsPreview() {
   return (
     <Section tone="warm" lines="left" autumnDecor>
       <SectionHeader
-        eyebrow="Полезные материалы"
-        title="Исследуем вместе"
+        eyebrow="База знаний"
+        title="Статьи и подкасты"
         className="mb-6"
       />
 
@@ -34,7 +34,7 @@ export function MaterialsPreview() {
 
       <div className="mt-10 text-center">
         <Button href="/materials" variant="secondary">
-          Все полезные материалы
+          Все статьи и подкасты
         </Button>
       </div>
     </Section>

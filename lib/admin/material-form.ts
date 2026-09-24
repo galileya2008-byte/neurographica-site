@@ -10,6 +10,7 @@ export type MaterialFormState = {
   excerpt: string;
   contentText: string;
   cover: string;
+  mediaUrl: string;
   readingMinutes: string;
 };
 
@@ -21,6 +22,7 @@ export function emptyMaterialForm(cover = ""): MaterialFormState {
     excerpt: "",
     contentText: "",
     cover,
+    mediaUrl: "",
     readingMinutes: "5",
   };
 }
@@ -33,6 +35,7 @@ export function materialToForm(material: Material): MaterialFormState {
     excerpt: material.excerpt,
     contentText: material.content,
     cover: material.cover ?? "",
+    mediaUrl: material.mediaUrl ?? "",
     readingMinutes: String(material.readingMinutes),
   };
 }
@@ -59,6 +62,18 @@ export function formToMaterial(
   const title = form.title.trim();
   const excerpt = form.excerpt.trim();
   const cover = form.cover.trim() || undefined;
+  const mediaUrl = form.mediaUrl.trim() || undefined;
+
+  if (form.type === "podcast" && !mediaUrl) {
+    throw new Error("Для подкаста добавьте ссылку на аудио или выпуск");
+  }
+  if (mediaUrl) {
+    try {
+      new URL(mediaUrl);
+    } catch {
+      throw new Error("Укажите полную ссылку на выпуск, начиная с https://");
+    }
+  }
 
   return {
     id: `mat-${slug}`,
@@ -68,6 +83,7 @@ export function formToMaterial(
     excerpt,
     content,
     ...(cover ? { cover } : {}),
+    ...(mediaUrl ? { mediaUrl } : {}),
     publishedAt: options?.publishedAt ?? new Date().toISOString().slice(0, 10),
     readingMinutes: Math.round(readingMinutes),
     seo: {

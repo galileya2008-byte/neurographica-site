@@ -9,10 +9,15 @@ import { getAllMaterials } from "@/lib/content/materials";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Исследуем вместе",
+  title: "Статьи и подкасты",
   description: `${materialsIntro.lead} ${materialsIntro.description}`,
   path: "/materials",
-  keywords: [...defaultKeywords],
+  keywords: [
+    ...defaultKeywords,
+    "статьи для экспертов",
+    "подкасты для экспертов",
+    "ИИ для продвижения",
+  ],
 });
 
 export default function MaterialsPage() {
@@ -25,15 +30,15 @@ export default function MaterialsPage() {
         <Breadcrumbs
           items={[
             { label: "Главная", href: "/" },
-            { label: "Полезные материалы" },
+            { label: "Статьи и подкасты" },
           ]}
         />
 
         <div className="mb-12 max-w-3xl">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
-            Полезные материалы
+            База знаний
           </p>
-          <h1 className="mt-3 text-4xl md:text-5xl">Исследуем вместе</h1>
+          <h1 className="mt-3 text-4xl md:text-5xl">Статьи и подкасты</h1>
           <p className="mt-6 text-xl leading-relaxed text-foreground md:text-2xl">
             {materialsIntro.lead}
           </p>

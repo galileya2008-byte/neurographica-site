@@ -556,7 +556,7 @@ export function AdminApp() {
       ? "Мастер-классы"
       : section === "programs"
         ? "Программы"
-        : "Полезные материалы";
+        : "Статьи и подкасты";
   const createLabel =
     section === "masterclasses"
       ? "Добавить мастер-класс"
@@ -614,7 +614,7 @@ export function AdminApp() {
             active={section === "materials"}
             onClick={() => switchSection("materials")}
           >
-            Полезные материалы
+            Статьи и подкасты
           </SectionTab>
           <SectionTab
             active={section === "theme"}
@@ -1233,7 +1233,13 @@ function MaterialEditor({
             ))}
           </select>
         </Field>
-        <Field label="Время чтения, минут">
+        <Field
+          label={
+            form.type === "podcast"
+              ? "Длительность выпуска, минут"
+              : "Время чтения, минут"
+          }
+        >
           <input
             required
             inputMode="numeric"
@@ -1246,6 +1252,25 @@ function MaterialEditor({
         </Field>
       </div>
 
+      {form.type === "podcast" ? (
+        <Field label="Ссылка на аудио или страницу выпуска">
+          <input
+            required
+            type="url"
+            value={form.mediaUrl}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, mediaUrl: e.target.value }))
+            }
+            placeholder="https://..."
+            className={inputClass}
+          />
+          <span className="mt-2 block text-xs font-normal text-muted">
+            Прямая ссылка на MP3 откроется в плеере. Ссылка на Яндекс Музыку,
+            YouTube или другую платформу — отдельной кнопкой.
+          </span>
+        </Field>
+      ) : null}
+
       <Field label="Краткое описание (анонс)">
         <textarea
           required
@@ -1257,7 +1282,17 @@ function MaterialEditor({
       </Field>
 
       <div>
-        <p className="mb-2 text-sm font-medium">Текст материала</p>
+        <p className="mb-2 text-sm font-medium">
+          {form.type === "podcast"
+            ? "Описание и расшифровка выпуска"
+            : "Текст материала"}
+        </p>
+        {form.type === "podcast" ? (
+          <p className="mb-3 text-xs text-muted">
+            Добавьте содержательный текст: он помогает людям понять выпуск, а
+            поисковикам — проиндексировать его.
+          </p>
+        ) : null}
         <MarkdownEditor
           required
           rows={14}

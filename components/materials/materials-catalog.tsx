@@ -26,7 +26,7 @@ export function MaterialsCatalog({ materials }: MaterialsCatalogProps) {
     <div>
       <div className="mb-8 flex flex-wrap gap-2">
         <FilterChip
-          label="Все материалы"
+          label="Все публикации"
           active={type === "all"}
           onClick={() => setType("all")}
         />

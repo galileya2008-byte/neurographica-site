@@ -29,6 +29,8 @@ const staticRoutes = [
 
   "/materials",
 
+  "/topics",
+
   "/reviews",
 
   "/faq",

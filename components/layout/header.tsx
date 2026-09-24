@@ -49,7 +49,7 @@ export function Header() {
         </Link>
 
         <nav
-          className="hidden items-center justify-center gap-6 xl:gap-7 lg:flex"
+          className="hidden items-center justify-center gap-5 xl:flex xl:gap-6"
           aria-label="Основная навигация"
         >
           {navigation.map((item) => (
@@ -64,7 +64,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center justify-self-end gap-3">
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
             <Button
               href="/masterclasses"
               size="sm"
@@ -76,7 +76,7 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-chocolate/15 bg-card/80 text-foreground backdrop-blur-sm lg:hidden"
+            className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-chocolate/15 bg-card/80 text-foreground backdrop-blur-sm xl:hidden"
             aria-label={isOpen ? "Закрыть меню" : "Открыть меню"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((prev) => !prev)}
@@ -87,7 +87,7 @@ export function Header() {
       </div>
 
       {isOpen ? (
-        <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-border/50 bg-background/95 backdrop-blur-xl xl:hidden">
           <nav
             className="mx-auto flex max-w-7xl flex-col gap-1 container-padding py-6"
             aria-label="Мобильная навигация"

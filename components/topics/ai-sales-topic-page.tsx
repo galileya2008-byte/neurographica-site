@@ -50,7 +50,7 @@ export function AiSalesTopicPage() {
             <Breadcrumbs
               items={[
                 { label: "Главная", href: "/" },
-                { label: "Полезные материалы", href: "/materials" },
+                { label: "Темы", href: "/topics" },
                 { label: "ИИ для экспертов" },
               ]}
             />

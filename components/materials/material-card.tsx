@@ -9,6 +9,7 @@ type MaterialCardProps = {
 
 export function MaterialCard({ material }: MaterialCardProps) {
   const href = `/materials/${material.slug}`;
+  const isPodcast = material.type === "podcast";
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 bg-card/80 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card">
@@ -30,7 +31,9 @@ export function MaterialCard({ material }: MaterialCardProps) {
         <div className="mb-3 flex flex-wrap items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-muted">
           <span className="text-gold">{materialTypeLabels[material.type]}</span>
           <span className="text-gold">·</span>
-          <span>{material.readingMinutes} мин</span>
+          <span>
+            {material.readingMinutes} мин {isPodcast ? "аудио" : "чтения"}
+          </span>
         </div>
 
         <h3 className="text-xl leading-snug">
@@ -45,7 +48,7 @@ export function MaterialCard({ material }: MaterialCardProps) {
 
         <div className="mt-6">
           <Button href={href} variant="secondary" size="sm">
-            Читать
+            {isPodcast ? "Слушать" : "Читать"}
           </Button>
         </div>
       </div>

@@ -48,7 +48,7 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
           <Breadcrumbs
             items={[
               { label: "Главная", href: "/" },
-              { label: "Практика по запросу", href: "/#practice" },
+              { label: "Темы", href: "/topics" },
               { label: topic.seoTitle },
             ]}
           />
@@ -136,7 +136,7 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
               Выбрать мастер-класс
             </Button>
             <Button href="/materials" variant="secondary" size="lg">
-              Полезные материалы
+              Статьи и подкасты
             </Button>
           </div>
           <p className="mt-8 text-sm text-muted">

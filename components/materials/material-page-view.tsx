@@ -11,6 +11,11 @@ type MaterialPageViewProps = {
 };
 
 export function MaterialPageView({ material }: MaterialPageViewProps) {
+  const isPodcast = material.type === "podcast";
+  const isDirectAudio = material.mediaUrl
+    ? /\.(mp3|m4a|wav|ogg)(?:\?.*)?$/i.test(material.mediaUrl)
+    : false;
+
   return (
     <article className="relative overflow-hidden section-padding pt-32">
       <CurvedLines variant="section-right" className="opacity-60" />
@@ -18,7 +23,7 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
         <Breadcrumbs
           items={[
             { label: "Главная", href: "/" },
-            { label: "Полезные материалы", href: "/materials" },
+            { label: "Статьи и подкасты", href: "/materials" },
             { label: material.title },
           ]}
         />
@@ -28,7 +33,8 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
         </p>
         <h1 className="mt-3 text-balance text-4xl md:text-5xl">{material.title}</h1>
         <p className="mt-4 text-sm text-muted">
-          {formatDate(material.publishedAt)} · {material.readingMinutes} мин чтения
+          {formatDate(material.publishedAt)} · {material.readingMinutes} мин{" "}
+          {isPodcast ? "прослушивания" : "чтения"}
         </p>
         <p className="mt-6 text-lg leading-relaxed text-muted">{material.excerpt}</p>
 
@@ -45,11 +51,27 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
           </div>
         ) : null}
 
+        {isPodcast && material.mediaUrl ? (
+          <div className="mt-8 rounded-[1.5rem] border border-border bg-card/85 p-5 shadow-soft">
+            <p className="text-sm font-medium">Слушать выпуск</p>
+            {isDirectAudio ? (
+              <audio controls preload="metadata" className="mt-4 w-full">
+                <source src={material.mediaUrl} />
+                Ваш браузер не поддерживает аудиоплеер.
+              </audio>
+            ) : (
+              <div className="mt-4">
+                <Button href={material.mediaUrl}>Открыть выпуск</Button>
+              </div>
+            )}
+          </div>
+        ) : null}
+
         <MarkdownContent content={material.content} className="mt-10" />
 
         <div className="mt-12 flex flex-col gap-3 border-t border-border/70 pt-8 sm:flex-row">
           <Button href="/materials" variant="secondary">
-            Все материалы
+            Все статьи и подкасты
           </Button>
           <Button href="/masterclasses">Выбрать мастер-класс</Button>
         </div>
