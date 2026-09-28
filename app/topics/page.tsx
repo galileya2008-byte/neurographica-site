@@ -59,6 +59,7 @@ export default function TopicsPage() {
               <Link
                 key={topic.slug}
                 href={`/topics/${topic.slug}`}
+                prefetch={false}
                 className={cn(
                   "group relative flex min-h-56 flex-col rounded-[1.75rem] border border-border p-6 shadow-soft transition duration-500 hover:-translate-y-1 hover:border-gold/35 hover:shadow-card md:p-7",
                   getCardColorClass(topic.cardColor),

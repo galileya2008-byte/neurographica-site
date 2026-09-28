@@ -42,6 +42,7 @@ export function CookieBanner() {
           им пользоваться. Продолжая просмотр, вы соглашаетесь с{" "}
           <Link
             href="/privacy"
+            prefetch={false}
             className="text-accent underline-offset-4 hover:underline"
           >
             политикой конфиденциальности

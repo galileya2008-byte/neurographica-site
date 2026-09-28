@@ -21,7 +21,7 @@ export function MaterialCard({ material }: MaterialCardProps) {
       )}
     >
       {material.cover ? (
-        <Link href={href} className="relative block aspect-[16/10] overflow-hidden">
+        <Link href={href} prefetch={false} className="relative block aspect-[16/10] overflow-hidden">
           <SiteImage
             src={material.cover}
             alt={material.title}

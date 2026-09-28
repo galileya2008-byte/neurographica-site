@@ -15,8 +15,8 @@
   --color-chocolate: #5c4033;
   --color-chocolate-light: #7a5c4a;
 
-  --font-display: "Playfair Display", "Times New Roman", serif;
-  --font-body: "Manrope", system-ui, sans-serif;
+  --font-display: var(--font-playfair), "Times New Roman", serif;
+  --font-body: var(--font-manrope), system-ui, sans-serif;
 
   --radius-xl: 1rem;
   --radius-2xl: 1.25rem;

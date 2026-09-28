@@ -22,7 +22,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
         getCardColorClass(product.cardColor),
       )}
     >
-      <Link href={href} className="relative block aspect-[4/3] overflow-hidden">
+      <Link href={href} prefetch={false} className="relative block aspect-[4/3] overflow-hidden">
         <SiteImage
           src={product.cover}
           alt={product.title}

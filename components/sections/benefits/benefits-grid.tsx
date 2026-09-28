@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { benefits } from "@/config/site";
 import { Section, SectionHeader } from "@/components/layout/section";
 
@@ -14,19 +11,15 @@ export function BenefitsGrid() {
       />
 
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {benefits.map((item, index) => (
-          <motion.article
+        {benefits.map((item) => (
+          <article
             key={item.label}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
             className="rounded-[1.5rem] border border-chocolate/10 bg-card/70 p-6 shadow-soft"
           >
             <p className="font-display text-3xl text-accent">{item.value}</p>
             <h3 className="mt-2 text-lg">{item.label}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted">{item.description}</p>
-          </motion.article>
+          </article>
         ))}
       </div>
     </Section>

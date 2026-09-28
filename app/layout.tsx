@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Manrope, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CookieBanner } from "@/components/layout/cookie-banner";
@@ -11,6 +12,21 @@ import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
 import { getSiteTheme } from "@/lib/content/site-theme";
 import { SiteThemeStyle } from "@/components/theme/site-theme-style";
 import "./globals.css";
+
+const playfair = Playfair_Display({
+  subsets: ["cyrillic", "latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "500"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const manrope = Manrope({
+  subsets: ["cyrillic", "latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-manrope",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -43,6 +59,7 @@ export default function RootLayout({
     <html
       lang="ru"
       data-seasonal-decor={theme.seasonalDecor ? "on" : "off"}
+      className={`${playfair.variable} ${manrope.variable}`}
     >
       <head>
         <SiteThemeStyle theme={theme} />
@@ -52,16 +69,7 @@ export default function RootLayout({
           title={`${siteConfig.brand} — новые публикации`}
           href={`${siteConfig.url}/feed.xml`}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700&display=swap&subset=cyrillic,latin"
-          rel="stylesheet"
-        />
+        <link rel="preload" as="image" href="/images/galina/portrait-premium.png" />
       </head>
       <body className="relative min-h-screen font-body antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />

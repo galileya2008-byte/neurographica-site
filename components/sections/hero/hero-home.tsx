@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
@@ -17,11 +14,7 @@ export function HeroHome() {
       <AutumnLeaves variant="hero" className="theme-seasonal-decor -z-[4] opacity-95" />
 
       <Container className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div>
           <p className="mb-5 font-display text-2xl italic leading-tight text-accent md:text-3xl">
             {siteConfig.brand}
           </p>
@@ -57,14 +50,9 @@ export function HeroHome() {
               <p key={line}>{line}</p>
             ))}
           </blockquote>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="relative"
-        >
+        <div className="relative">
           <div className="relative overflow-hidden rounded-[1.75rem] shadow-card">
             <div className="relative aspect-[4/5]">
               <SiteImage
@@ -72,6 +60,7 @@ export function HeroHome() {
                 alt={`${siteConfig.expert} — инструктор нейрографики`}
                 fill
                 priority
+                fetchPriority="high"
                 className="object-cover object-[center_20%]"
                 sizes="(max-width: 1024px) 100vw, 520px"
               />
@@ -83,7 +72,7 @@ export function HeroHome() {
             <span className="mx-2 text-gold">·</span>
             17 лет онлайн-продвижения · 1000+ мастер-классов
           </p>
-        </motion.div>
+        </div>
       </Container>
     </section>
   );

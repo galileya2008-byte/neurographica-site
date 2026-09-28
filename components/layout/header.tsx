@@ -56,6 +56,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
+              prefetch={false}
               className="inline-flex h-10 items-center whitespace-nowrap text-[13px] leading-none tracking-[0.02em] text-foreground/75 transition-colors hover:text-accent"
             >
               {item.label}
@@ -96,6 +97,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false}
                 className="rounded-2xl px-4 py-3 text-lg text-foreground transition-colors hover:bg-warm/80"
                 onClick={() => setIsOpen(false)}
               >
