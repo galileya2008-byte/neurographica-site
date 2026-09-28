@@ -12,7 +12,9 @@ import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { ProductCard } from "@/components/catalog/product-card";
+import { NeurographicsFormatsCta } from "@/components/topics/neurographics-formats-cta";
 import { Button } from "@/components/ui/button";
+import { NEUROGRAPHICS_BEGINNERS_SLUG } from "@/lib/content/neurographics-formats";
 
 type TopicPageViewProps = {
   topic: Topic;
@@ -62,6 +64,9 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted">{topic.intro}</p>
             <p className="mt-4 text-base leading-relaxed text-muted">{topic.description}</p>
+            {topic.slug === NEUROGRAPHICS_BEGINNERS_SLUG ? (
+              <NeurographicsFormatsCta />
+            ) : null}
           </div>
         </Container>
       </section>

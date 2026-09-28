@@ -40,6 +40,7 @@ const staticRoutes = [
   "/privacy",
 
   "/offer",
+  "/sessions/individualnaya",
 
 ];
 
