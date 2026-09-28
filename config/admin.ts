@@ -17,6 +17,8 @@ export const adminConfig = {
     /** Путь в репозитории (без public/ в URL сайта) */
     coversRepoPath: "public/images/covers",
     coversPublicPath: "/images/covers",
+    podcastsRepoPath: "public/media/podcasts",
+    podcastsPublicPath: "/media/podcasts",
   },
   covers: [
     "/images/galina/portrait-premium.png",
@@ -26,5 +28,9 @@ export const adminConfig = {
   coverUpload: {
     maxBytes: 5 * 1024 * 1024,
     accept: ["image/jpeg", "image/jpg", "image/png", "image/webp"],
+  },
+  podcastUpload: {
+    maxBytes: 5 * 1024 * 1024,
+    accept: ["audio/ogg", "audio/opus", "application/ogg", ".ogg"],
   },
 } as const;

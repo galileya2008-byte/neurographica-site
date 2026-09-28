@@ -72,7 +72,7 @@ export const materialSchema = z.object({
       typeof value === "string" ? value.trim() : value.join("\n\n").trim(),
     ),
   cover: z.string().optional(),
-  mediaUrl: z.string().url().optional(),
+  mediaUrl: z.string().min(1).optional(),
   publishedAt: z.string().min(1),
   readingMinutes: z.number().positive(),
   seo: z

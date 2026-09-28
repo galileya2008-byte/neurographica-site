@@ -79,14 +79,12 @@ export function formToMaterial(
   const mediaUrl = form.mediaUrl.trim() || undefined;
 
   if (form.type === "podcast" && !mediaUrl) {
-    throw new Error("Для подкаста добавьте ссылку на аудио или выпуск");
+    throw new Error("Для подкаста загрузите OGG-файл или укажите ссылку на выпуск");
   }
-  if (mediaUrl) {
-    try {
-      new URL(mediaUrl);
-    } catch {
-      throw new Error("Укажите полную ссылку на выпуск, начиная с https://");
-    }
+  if (mediaUrl && !isAllowedMediaUrl(mediaUrl)) {
+    throw new Error(
+      "Загрузите OGG через форму или укажите ссылку, начиная с https://",
+    );
   }
 
   return {
@@ -108,4 +106,16 @@ export function formToMaterial(
       description: excerpt,
     },
   };
+}
+
+function isAllowedMediaUrl(value: string): boolean {
+  if (value.startsWith("/media/podcasts/") && /\.ogg(?:\?.*)?$/i.test(value)) {
+    return true;
+  }
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "https:" || parsed.protocol === "http:";
+  } catch {
+    return false;
+  }
 }

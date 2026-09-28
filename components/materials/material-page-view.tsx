@@ -4,6 +4,8 @@ import { CurvedLines } from "@/components/decor/curved-lines";
 import { Button } from "@/components/ui/button";
 import { MarkdownContent } from "@/components/ui/markdown-content";
 import { SiteImage } from "@/components/ui/site-image";
+import { audioMimeType, isDirectAudioUrl } from "@/lib/media";
+import { withBasePath } from "@/lib/paths";
 import { materialTypeLabels, type Material } from "@/types/material";
 
 type MaterialPageViewProps = {
@@ -12,9 +14,11 @@ type MaterialPageViewProps = {
 
 export function MaterialPageView({ material }: MaterialPageViewProps) {
   const isPodcast = material.type === "podcast";
-  const isDirectAudio = material.mediaUrl
-    ? /\.(mp3|m4a|wav|ogg)(?:\?.*)?$/i.test(material.mediaUrl)
-    : false;
+  const isDirectAudio = isDirectAudioUrl(material.mediaUrl);
+  const audioSrc =
+    material.mediaUrl && isDirectAudio
+      ? withBasePath(material.mediaUrl)
+      : null;
 
   return (
     <article className="relative overflow-hidden section-padding pt-32">
@@ -54,9 +58,9 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
         {isPodcast && material.mediaUrl ? (
           <div className="mt-8 rounded-[1.5rem] border border-border bg-card/85 p-5 shadow-soft">
             <p className="text-sm font-medium">Слушать выпуск</p>
-            {isDirectAudio ? (
+            {isDirectAudio && audioSrc ? (
               <audio controls preload="metadata" className="mt-4 w-full">
-                <source src={material.mediaUrl} />
+                <source src={audioSrc} type={audioMimeType(material.mediaUrl)} />
                 Ваш браузер не поддерживает аудиоплеер.
               </audio>
             ) : (

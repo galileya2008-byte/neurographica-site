@@ -1,5 +1,10 @@
 import { siteConfig } from "@/config/site";
 import { getAllMaterials } from "@/lib/content/materials";
+import {
+  absoluteMediaUrl,
+  audioMimeType,
+  isDirectAudioUrl,
+} from "@/lib/media";
 import { materialTypeLabels } from "@/types/material";
 
 export const dynamic = "force-static";
@@ -29,9 +34,20 @@ export async function GET() {
   const items = publications
     .map((material) => {
       const url = absoluteUrl(`/materials/${material.slug}/`);
-      const platformLink =
+      const listenUrl =
         material.type === "podcast" && material.mediaUrl
-          ? ` Слушать выпуск: ${material.mediaUrl}`
+          ? isDirectAudioUrl(material.mediaUrl)
+            ? absoluteMediaUrl(siteConfig.url, material.mediaUrl)
+            : material.mediaUrl
+          : "";
+      const platformLink = listenUrl ? ` Слушать выпуск: ${listenUrl}` : "";
+
+      const enclosure =
+        material.type === "podcast" &&
+        material.mediaUrl &&
+        isDirectAudioUrl(material.mediaUrl)
+          ? `
+      <enclosure url="${escapeXml(absoluteMediaUrl(siteConfig.url, material.mediaUrl))}" type="${audioMimeType(material.mediaUrl)}" />`
           : "";
 
       return `
@@ -41,7 +57,7 @@ export async function GET() {
       <guid isPermaLink="true">${escapeXml(url)}</guid>
       <pubDate>${toRfc822Date(material.publishedAt)}</pubDate>
       <category>${escapeXml(materialTypeLabels[material.type])}</category>
-      <description>${escapeXml(`${material.excerpt}${platformLink}`)}</description>
+      <description>${escapeXml(`${material.excerpt}${platformLink}`)}</description>${enclosure}
     </item>`;
     })
     .join("");

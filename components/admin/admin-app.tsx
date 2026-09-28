@@ -19,6 +19,7 @@ import {
   saveMaterial,
   saveProgram,
   uploadCover,
+  uploadPodcastAudio,
   getSiteThemeConfig,
   saveSiteThemeConfig,
 } from "@/lib/admin/github";
@@ -114,6 +115,8 @@ export function AdminApp() {
   const [pendingCoverPreview, setPendingCoverPreview] = useState<string | null>(
     null,
   );
+  const [pendingAudioFile, setPendingAudioFile] = useState<File | null>(null);
+  const [uploadingAudio, setUploadingAudio] = useState(false);
   const [covers, setCovers] = useState<string[]>([...adminConfig.covers]);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -138,6 +141,10 @@ export function AdminApp() {
     if (pendingCoverPreview) URL.revokeObjectURL(pendingCoverPreview);
     setPendingCoverFile(null);
     setPendingCoverPreview(null);
+  }
+
+  function clearPendingAudio() {
+    setPendingAudioFile(null);
   }
 
   async function refreshCovers(currentToken = token) {
@@ -344,6 +351,7 @@ export function AdminApp() {
     setEditingPublishedAt(undefined);
     setSlugLocked(false);
     clearPendingCover();
+    clearPendingAudio();
     setMessage(null);
     setError(null);
     void refreshList(token, next);
@@ -406,12 +414,61 @@ export function AdminApp() {
     );
   }
 
+  async function ensurePodcastUploaded(preferredName: string): Promise<string | undefined> {
+    if (!pendingAudioFile) {
+      return materialForm.mediaUrl || undefined;
+    }
+
+    setUploadingAudio(true);
+    try {
+      const path = await uploadPodcastAudio(
+        token.trim(),
+        pendingAudioFile,
+        preferredName,
+      );
+      setMaterialForm((prev) => ({ ...prev, mediaUrl: path }));
+      clearPendingAudio();
+      return path;
+    } finally {
+      setUploadingAudio(false);
+    }
+  }
+
+  function handleAudioUpload(file: File | null) {
+    if (!file) return;
+    if (!canSave) {
+      setError("Сначала сохраните GitHub token");
+      return;
+    }
+    if (file.size > adminConfig.podcastUpload.maxBytes) {
+      setError("Аудио слишком большое. Максимум 5 МБ");
+      return;
+    }
+    const name = file.name.toLowerCase();
+    const type = file.type.toLowerCase();
+    const isOgg =
+      name.endsWith(".ogg") ||
+      type === "audio/ogg" ||
+      type === "audio/opus" ||
+      type === "application/ogg";
+    if (!isOgg) {
+      setError("Загрузите файл в формате OGG");
+      return;
+    }
+    setPendingAudioFile(file);
+    setError(null);
+    setMessage(
+      "OGG выбран. Файл загрузится на сайт вместе с нажатием «Сохранить».",
+    );
+  }
+
   function startCreate() {
     setMode("create");
     setEditingSha(undefined);
     setEditingPublishedAt(undefined);
     setSlugLocked(false);
     clearPendingCover();
+    clearPendingAudio();
     if (section === "masterclasses") {
       setMasterclassForm(emptyMasterclassForm(adminConfig.covers[0]));
     } else if (section === "programs") {
@@ -427,6 +484,7 @@ export function AdminApp() {
     setLoading(true);
     setError(null);
     clearPendingCover();
+    clearPendingAudio();
     try {
       if (section === "masterclasses") {
         const { product, sha } = await getMasterclass(token.trim(), item.name);
@@ -510,8 +568,15 @@ export function AdminApp() {
         const coverPath = await ensureCoverUploaded(
           materialForm.slug || materialForm.title || "cover",
         );
+        const mediaPath = await ensurePodcastUploaded(
+          materialForm.slug || materialForm.title || "podcast",
+        );
         const material = formToMaterial(
-          { ...materialForm, cover: coverPath ?? "" },
+          {
+            ...materialForm,
+            cover: coverPath ?? "",
+            mediaUrl: mediaPath ?? "",
+          },
           { publishedAt: editingPublishedAt },
         );
         await saveMaterial(token.trim(), material, editingSha);
@@ -866,9 +931,17 @@ export function AdminApp() {
               setMaterialForm((prev) => ({ ...prev, cover: "" }));
             }}
             onCoverUpload={(file) => void handleCoverUpload(file)}
+            pendingAudioName={pendingAudioFile?.name ?? null}
+            uploadingAudio={uploadingAudio || loading}
+            onAudioUpload={handleAudioUpload}
+            onAudioClear={() => {
+              clearPendingAudio();
+              setMaterialForm((prev) => ({ ...prev, mediaUrl: "" }));
+            }}
             onSave={handleSave}
             onCancel={() => {
               clearPendingCover();
+              clearPendingAudio();
               setMode("list");
               setError(null);
             }}
@@ -1266,6 +1339,10 @@ function MaterialEditor({
   onCoverSelect,
   onCoverClear,
   onCoverUpload,
+  pendingAudioName,
+  uploadingAudio,
+  onAudioUpload,
+  onAudioClear,
   onSave,
   onCancel,
 }: {
@@ -1282,6 +1359,10 @@ function MaterialEditor({
   onCoverSelect: (cover: string) => void;
   onCoverClear: () => void;
   onCoverUpload: (file: File | null) => void;
+  pendingAudioName: string | null;
+  uploadingAudio: boolean;
+  onAudioUpload: (file: File | null) => void;
+  onAudioClear: () => void;
   onSave: (event: React.FormEvent) => void;
   onCancel: () => void;
 }) {
@@ -1368,22 +1449,55 @@ function MaterialEditor({
       </div>
 
       {form.type === "podcast" ? (
-        <Field label="Ссылка на аудио или страницу выпуска">
-          <input
-            required
-            type="url"
-            value={form.mediaUrl}
-            onChange={(e) =>
-              setForm((prev) => ({ ...prev, mediaUrl: e.target.value }))
-            }
-            placeholder="https://..."
-            className={inputClass}
-          />
-          <span className="mt-2 block text-xs font-normal text-muted">
-            Прямая ссылка на MP3 откроется в плеере. Ссылка на Яндекс Музыку,
-            YouTube или другую платформу — отдельной кнопкой.
-          </span>
-        </Field>
+        <div className="space-y-4 rounded-3xl border border-border/70 bg-warm/40 p-5">
+          <div>
+            <p className="text-sm font-medium">Аудио выпуска (OGG до 5 МБ)</p>
+            <p className="mt-1 text-sm font-normal text-muted">
+              Загрузите файл — он появится в плеере на странице. Файл отправится
+              на сайт при нажатии «Сохранить».
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground">
+              {uploadingAudio ? "Загрузка…" : "Выбрать OGG"}
+              <input
+                type="file"
+                accept="audio/ogg,audio/opus,application/ogg,.ogg"
+                className="hidden"
+                disabled={uploadingAudio || !canSave}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] ?? null;
+                  e.target.value = "";
+                  onAudioUpload(file);
+                }}
+              />
+            </label>
+            {pendingAudioName || form.mediaUrl ? (
+              <Button type="button" variant="ghost" size="sm" onClick={onAudioClear}>
+                Убрать аудио
+              </Button>
+            ) : null}
+          </div>
+          {pendingAudioName ? (
+            <p className="text-sm text-accent">Выбран файл: {pendingAudioName}</p>
+          ) : form.mediaUrl.startsWith("/media/podcasts/") ? (
+            <p className="text-sm text-muted">На сайте: {form.mediaUrl.split("/").pop()}</p>
+          ) : form.mediaUrl ? (
+            <p className="text-sm text-muted">Ссылка: {form.mediaUrl}</p>
+          ) : null}
+          <Field label="Или ссылка на выпуск (необязательно, если выбран файл)">
+            <input
+              type="url"
+              value={form.mediaUrl.startsWith("/media/") ? "" : form.mediaUrl}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, mediaUrl: e.target.value }))
+              }
+              placeholder="https://..."
+              className={inputClass}
+              disabled={Boolean(pendingAudioName)}
+            />
+          </Field>
+        </div>
       ) : null}
 
       <Field label="Краткое описание (анонс)">
@@ -1478,7 +1592,7 @@ function MaterialEditor({
         onUpload={onCoverUpload}
       />
 
-      <EditorActions loading={loading} canSave={canSave} onCancel={onCancel} />
+      <EditorActions loading={loading || uploadingAudio} canSave={canSave} onCancel={onCancel} />
     </form>
   );
 }

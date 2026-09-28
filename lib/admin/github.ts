@@ -174,6 +174,51 @@ export async function uploadCover(
   return `${coversPublicPath}/${filename}`;
 }
 
+export async function uploadPodcastAudio(
+  token: string,
+  file: File,
+  preferredName?: string,
+): Promise<string> {
+  const { maxBytes } = adminConfig.podcastUpload;
+  if (file.size > maxBytes) {
+    throw new Error("Аудио слишком большое. Максимум 5 МБ");
+  }
+
+  const name = file.name.toLowerCase();
+  const type = file.type.toLowerCase();
+  const isOgg =
+    name.endsWith(".ogg") ||
+    type === "audio/ogg" ||
+    type === "audio/opus" ||
+    type === "application/ogg";
+  if (!isOgg) {
+    throw new Error("Загрузите файл в формате OGG");
+  }
+
+  const baseName =
+    slugify(preferredName || file.name.replace(/\.[^.]+$/, "")) || "podcast";
+  const filename = `${baseName}-${Date.now()}.ogg`;
+  const { podcastsRepoPath, podcastsPublicPath, branch } = adminConfig.github;
+  const content = await fileToBase64(file);
+  const repoPath = `${podcastsRepoPath}/${filename}`;
+
+  await githubFetch(`/contents/${repoPath}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: `Add podcast audio: ${filename}`,
+      content,
+      branch,
+    }),
+  });
+
+  const verify = await githubFetch(`/contents/${repoPath}?ref=${branch}`, token);
+  if (!verify || typeof verify !== "object" || !("sha" in verify)) {
+    throw new Error("Аудио не сохранилось в GitHub. Попробуйте ещё раз.");
+  }
+
+  return `${podcastsPublicPath}/${filename}`;
+}
+
 export async function getMasterclass(
   token: string,
   filename: string,

@@ -4,6 +4,7 @@ import { MaterialPageView } from "@/components/materials/material-page-view";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/config/site";
 import { getAllMaterials, getMaterialBySlug } from "@/lib/content/materials";
+import { absoluteMediaUrl, isDirectAudioUrl } from "@/lib/media";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 type PageProps = {
@@ -34,9 +35,10 @@ export default async function MaterialPage({ params }: PageProps) {
 
   const url = `${siteConfig.url}/materials/${material.slug}/`;
   const isPodcast = material.type === "podcast";
-  const hasDirectAudio = material.mediaUrl
-    ? /\.(mp3|m4a|wav|ogg)(?:\?.*)?$/i.test(material.mediaUrl)
-    : false;
+  const hasDirectAudio = isDirectAudioUrl(material.mediaUrl);
+  const mediaContentUrl = material.mediaUrl
+    ? absoluteMediaUrl(siteConfig.url, material.mediaUrl)
+    : undefined;
   const schema = isPodcast
     ? {
         "@context": "https://schema.org",
@@ -47,14 +49,14 @@ export default async function MaterialPage({ params }: PageProps) {
         timeRequired: `PT${material.readingMinutes}M`,
         url,
         inLanguage: "ru-RU",
-        associatedMedia: hasDirectAudio
+        associatedMedia: hasDirectAudio && mediaContentUrl
           ? {
               "@type": "MediaObject",
-              contentUrl: material.mediaUrl,
+              contentUrl: mediaContentUrl,
             }
           : undefined,
         sameAs:
-          material.mediaUrl && !hasDirectAudio ? material.mediaUrl : undefined,
+          material.mediaUrl && !hasDirectAudio ? mediaContentUrl : undefined,
         author: {
           "@type": "Person",
           name: siteConfig.expert,
