@@ -4,6 +4,7 @@ import { DirectionsCards } from "@/components/sections/directions/directions-car
 import { PopularMasterclasses } from "@/components/sections/products/popular-masterclasses";
 import { ProgramsPreview } from "@/components/sections/products/programs-preview";
 import { MaterialsPreview } from "@/components/sections/materials/materials-preview";
+import { RewardsTeaser } from "@/components/rewards/rewards-teaser";
 import { AboutPreview } from "@/components/sections/about/about-preview";
 import { ReviewsSection } from "@/components/sections/reviews/reviews-section";
 import { FaqSection } from "@/components/sections/faq/faq-section";
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ProgramsPreview />
       <MaterialsPreview />
       <AboutPreview />
+      <RewardsTeaser />
       <ReviewsSection />
       <FaqSection />
       <FinalCta />

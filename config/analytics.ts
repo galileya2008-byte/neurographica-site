@@ -12,6 +12,10 @@ export const yandexMetrika = {
     ctaMasterclasses: "cta_masterclasses",
     ctaPrograms: "cta_programs",
     ctaContacts: "cta_contacts",
+    rewardsDaily: "rewards_daily",
+    rewardsUnlock: "rewards_unlock",
+    rewardsPlay: "rewards_play",
+    rewardsUnlock: "rewards_unlock",
   },
 } as const;
 

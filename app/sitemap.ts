@@ -41,6 +41,8 @@ const staticRoutes = [
 
   "/offer",
   "/sessions/individualnaya",
+  "/podarki",
+  "/podarki",
 
 ];
 

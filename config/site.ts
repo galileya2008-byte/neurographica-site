@@ -23,6 +23,7 @@ export const navigation = [
   { label: "Программы", href: "/programs" },
   { label: "Статьи и подкасты", href: "/materials" },
   { label: "Выбери свою тему", href: "/topics" },
+  { label: "Подарки", href: "/podarki" },
   { label: "Обо мне", href: "/about" },
   { label: "Отзывы", href: "/reviews" },
   { label: "FAQ", href: "/faq" },
