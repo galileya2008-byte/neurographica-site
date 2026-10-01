@@ -5,6 +5,7 @@ import { CurvedLines } from "@/components/decor/curved-lines";
 import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
+import { Button } from "@/components/ui/button";
 import {
   AI_EXPERT_META,
   AI_EXPERT_PRICE_LABEL,
@@ -58,15 +59,23 @@ export function HeroSection({ product }: HeroSectionProps) {
               {AI_EXPERT_PRICE_LABEL}
             </p>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <JoinButton
                 product={product}
                 label={hero.ctaLabel}
                 className="w-full sm:w-auto"
               />
+              <Button
+                href={hero.secondaryCtaHref}
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                {hero.secondaryCtaLabel}
+              </Button>
             </div>
             <p className="mt-3 text-sm text-muted">
-              Оплата на GetCourse · доступ сразу после оплаты
+              Обучение и оплата на GetCourse · доступ 3 месяца
             </p>
           </div>
 

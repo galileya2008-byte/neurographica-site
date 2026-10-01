@@ -89,7 +89,7 @@ export function AiSalesTopicPage() {
                       Персональная AI-система для эксперта
                     </p>
                     <p className="mt-1 font-display text-3xl text-foreground">
-                      4 700 ₽
+                      7 700 ₽
                     </p>
                     <BuyButton
                       product={program}
@@ -193,8 +193,8 @@ export function AiSalesTopicPage() {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted">
               В программе «Персональная AI-система для эксперта» эти задачи разобраны
-              в 12 практических уроках: от маркетингового брифа и анализа конкурентов
-              до переписки с клиентом и плана продвижения на 30 дней.
+              в 16 практических уроках: от аудита услуг и анализа аудитории до контента,
+              каруселей, собственного AI-плагина и плана продвижения на 30 дней.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               {program ? (
@@ -205,7 +205,7 @@ export function AiSalesTopicPage() {
                 />
               ) : null}
               <Button href={`${programPath}#program`} variant="secondary" size="lg">
-                Все 12 уроков
+                Все 16 уроков
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

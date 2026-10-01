@@ -15,7 +15,6 @@ export const yandexMetrika = {
     rewardsDaily: "rewards_daily",
     rewardsUnlock: "rewards_unlock",
     rewardsPlay: "rewards_play",
-    rewardsUnlock: "rewards_unlock",
   },
 } as const;
 
