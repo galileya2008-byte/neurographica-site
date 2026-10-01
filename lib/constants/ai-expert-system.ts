@@ -6,6 +6,6 @@ export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
 export const AI_EXPERT_PRICE_LABEL = "7 700 ₽";
 
 export const AI_EXPERT_META =
-  "16 практических уроков · Самостоятельное обучение · Доступ 3 месяца";
+  "16 практических уроков · Самостоятельное обучение · Доступ 6 месяцев";
 
-export const AI_EXPERT_STICKY_META = "16 уроков · доступ 3 месяца";
+export const AI_EXPERT_STICKY_META = "16 уроков · доступ 6 месяцев";

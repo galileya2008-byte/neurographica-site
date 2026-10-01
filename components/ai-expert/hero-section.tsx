@@ -75,7 +75,7 @@ export function HeroSection({ product }: HeroSectionProps) {
               </Button>
             </div>
             <p className="mt-3 text-sm text-muted">
-              Обучение и оплата на GetCourse · доступ 3 месяца
+              Обучение и оплата на GetCourse · доступ 6 месяцев
             </p>
           </div>
 
