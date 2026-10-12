@@ -28,9 +28,16 @@ export function ProgramSection() {
                 <li key={lesson.number}>
                   <article className="flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/90 p-6 md:p-7">
                     <div className="flex items-start justify-between gap-4">
-                      <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-                        Урок {lesson.number}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+                          Урок {lesson.number}
+                        </span>
+                        {lesson.badge ? (
+                          <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
+                            {lesson.badge}
+                          </span>
+                        ) : null}
+                      </div>
                       <span className="font-display text-lg text-gold/80">
                         {String(lesson.number).padStart(2, "0")}
                       </span>
