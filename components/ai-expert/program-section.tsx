@@ -16,28 +16,24 @@ export function ProgramSection() {
       <div className="space-y-12">
         {program.blocks.map((block, blockIndex) => (
           <div key={block.title}>
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <h3 className="text-2xl md:text-3xl">{block.title}</h3>
               <p className="text-sm text-muted">
                 Блок {blockIndex + 1} из {program.blocks.length}
               </p>
             </div>
+            <p className="mb-5 max-w-3xl rounded-2xl border border-accent/15 bg-accent-light/40 px-4 py-3 text-sm leading-relaxed text-foreground md:text-base">
+              {block.benefit}
+            </p>
 
             <ol className="grid gap-4 lg:grid-cols-2">
               {block.lessons.map((lesson) => (
                 <li key={lesson.number}>
                   <article className="flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/90 p-6 md:p-7">
                     <div className="flex items-start justify-between gap-4">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-                          Урок {lesson.number}
-                        </span>
-                        {lesson.badge ? (
-                          <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
-                            {lesson.badge}
-                          </span>
-                        ) : null}
-                      </div>
+                      <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+                        Урок {lesson.number}
+                      </span>
                       <span className="font-display text-lg text-gold/80">
                         {String(lesson.number).padStart(2, "0")}
                       </span>

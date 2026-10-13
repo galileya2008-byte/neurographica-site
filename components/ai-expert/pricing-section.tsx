@@ -25,7 +25,12 @@ export function PricingSection({ product }: PricingSectionProps) {
 
       <article className="mx-auto max-w-xl rounded-[1.75rem] border border-gold/30 bg-card p-7 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] md:p-10">
         <p className="text-center text-sm font-medium text-accent">{AI_EXPERT_META}</p>
-        <p className="mt-5 text-center font-display text-5xl tracking-tight text-accent md:text-6xl">
+        <ul className="mt-5 space-y-2 text-center text-sm leading-relaxed text-muted">
+          {pricing.results.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+        <p className="mt-6 text-center font-display text-5xl tracking-tight text-accent md:text-6xl">
           {AI_EXPERT_PRICE_LABEL}
         </p>
         <p className="mt-5 text-center leading-relaxed text-muted">{pricing.note}</p>

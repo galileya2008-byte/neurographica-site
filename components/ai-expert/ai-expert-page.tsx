@@ -2,8 +2,10 @@ import type { Product } from "@/types/product";
 import { JsonLd } from "@/components/seo/json-ld";
 import { HeroSection } from "@/components/ai-expert/hero-section";
 import { NarrativeSection } from "@/components/ai-expert/narrative-section";
-import { ProgramSection } from "@/components/ai-expert/program-section";
 import { OutcomesSection } from "@/components/ai-expert/outcomes-section";
+import { ProgramSection } from "@/components/ai-expert/program-section";
+import { BonusSection } from "@/components/ai-expert/bonus-section";
+import { AudienceSection } from "@/components/ai-expert/audience-section";
 import { AuthorSection } from "@/components/ai-expert/author-section";
 import { PricingSection } from "@/components/ai-expert/pricing-section";
 import { FaqSection } from "@/components/ai-expert/faq-section";
@@ -46,18 +48,10 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
         tone="warm"
         lines="left"
       />
-      <NarrativeSection
-        title={aiExpertCopy.method.title}
-        paragraphs={aiExpertCopy.method.paragraphs}
-      />
-      <ProgramSection />
       <OutcomesSection />
-      <NarrativeSection
-        eyebrow={aiExpertCopy.audience.eyebrow}
-        title={aiExpertCopy.audience.title}
-        paragraphs={aiExpertCopy.audience.paragraphs}
-        tone="accent"
-      />
+      <ProgramSection />
+      <BonusSection />
+      <AudienceSection />
       <NarrativeSection
         eyebrow={aiExpertCopy.format.eyebrow}
         title={aiExpertCopy.format.title}

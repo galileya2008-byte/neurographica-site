@@ -37,7 +37,7 @@ export function HeroMedia() {
             {AI_EXPERT_PRICE_LABEL}
           </p>
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/80">
-            От аудитории и услуги к контенту и собственному AI-плагину
+            Система продвижения одной услуги и собственный AI-плагин
           </p>
         </div>
       </div>

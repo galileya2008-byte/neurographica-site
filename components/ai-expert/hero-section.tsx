@@ -30,36 +30,48 @@ export function HeroSection({ product }: HeroSectionProps) {
           items={[
             { label: "Главная", href: "/" },
             { label: "Программы", href: "/programs" },
-            { label: hero.title },
+            { label: hero.programName },
           ]}
         />
 
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          <div className="min-w-0">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div className="order-2 min-w-0 lg:order-1">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
               {hero.eyebrow}
             </p>
-            <h1 className="mt-4 text-balance text-3xl leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
-              {hero.title}
+            <p className="mt-3 text-base font-medium text-accent md:text-lg">
+              {hero.programName}
+            </p>
+            <h1 className="mt-3 text-balance text-[1.75rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.1rem]">
+              {hero.headline}
             </h1>
-            <p className="mt-5 max-w-xl text-xl font-medium leading-snug text-foreground md:text-2xl">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
               {hero.subtitle}
             </p>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-              {hero.lead}
-            </p>
-            <p className="mt-4 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-              {hero.details}
-            </p>
+
+            <ul className="mt-6 space-y-3">
+              {hero.highlights.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 rounded-2xl border border-chocolate/10 bg-card/80 px-4 py-3 text-sm leading-relaxed text-foreground md:text-base"
+                >
+                  <span
+                    className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
+                    aria-hidden
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
             <p className="mt-6 text-sm font-medium tracking-wide text-accent md:text-base">
               {AI_EXPERT_META}
             </p>
-            <p className="mt-3 font-display text-4xl tracking-tight text-accent md:text-5xl">
+            <p className="mt-2 font-display text-4xl tracking-tight text-accent md:text-5xl">
               {AI_EXPERT_PRICE_LABEL}
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <JoinButton
                 product={product}
                 label={hero.ctaLabel}
@@ -79,7 +91,7 @@ export function HeroSection({ product }: HeroSectionProps) {
             </p>
           </div>
 
-          <div className="min-w-0">
+          <div className="order-1 min-w-0 lg:order-2">
             <HeroMedia />
           </div>
         </div>

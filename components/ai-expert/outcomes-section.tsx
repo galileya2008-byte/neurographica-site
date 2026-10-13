@@ -5,7 +5,7 @@ export function OutcomesSection() {
   const { outcomes } = aiExpertCopy;
 
   return (
-    <Section tone="warm" lines="right">
+    <Section tone="warm" lines="right" id="results" className="scroll-mt-28">
       <SectionHeader
         eyebrow={outcomes.eyebrow}
         title={outcomes.title}
@@ -13,23 +13,18 @@ export function OutcomesSection() {
       />
 
       <ul className="grid gap-3 sm:grid-cols-2">
-        {outcomes.items.map((item) => (
+        {outcomes.items.map((item, index) => (
           <li
             key={item}
-            className="flex items-start gap-3 rounded-[1.25rem] border border-chocolate/10 bg-card/85 px-5 py-4"
+            className="flex h-full items-start gap-4 rounded-[1.35rem] border border-chocolate/10 bg-card/90 px-5 py-5 shadow-[0_10px_28px_-24px_rgb(26_22_18/0.35)]"
           >
-            <span
-              className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"
-              aria-hidden
-            />
-            <span className="leading-relaxed text-muted">{item}</span>
+            <span className="font-display text-xl leading-none text-gold/80">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="leading-relaxed text-foreground">{item}</span>
           </li>
         ))}
       </ul>
-
-      <p className="mt-8 max-w-3xl text-lg leading-relaxed text-muted">
-        {outcomes.note}
-      </p>
     </Section>
   );
 }
