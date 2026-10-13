@@ -16,16 +16,17 @@ export function FinalCta() {
               Следующий шаг
             </p>
             <h2 className="mt-4 text-balance text-3xl md:text-4xl lg:text-5xl">
-              Начните с намерения — придите к действию
+              Выберите практику Нейрографики и сделайте первый шаг
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
-              Выберите мастер-класс или программу, которая откликается вашему запросу.
-              Оплата и доступ к материалам — на платформе GetCourse.
+              Мастер-класс для быстрого старта или программа для системной работы.
+              Оплата и доступ — на GetCourse.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button
                 href="/masterclasses"
                 size="lg"
+                className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
               >
                 Выбрать мастер-класс
@@ -34,6 +35,7 @@ export function FinalCta() {
                 href="/contacts"
                 variant="secondary"
                 size="lg"
+                className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaContacts}
               >
                 Задать вопрос

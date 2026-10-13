@@ -13,24 +13,27 @@ export function HeroHome() {
       <CurvedLines variant="hero" className="-z-[5] opacity-90" />
       <AutumnLeaves variant="hero" className="theme-seasonal-decor -z-[4] opacity-95" />
 
-      <Container className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
-        <div>
-          <p className="mb-5 font-display text-2xl italic leading-tight text-accent md:text-3xl">
+      <Container className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
+        <div className="order-2 min-w-0 lg:order-1">
+          <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.28em] text-gold md:mb-5">
+            Онлайн-практики Нейрографики
+          </p>
+          <p className="mb-3 font-display text-xl italic leading-tight text-accent md:mb-4 md:text-3xl">
             {siteConfig.brand}
           </p>
-          <h1 className="text-balance text-4xl leading-[1.12] md:text-5xl lg:text-[3.65rem]">
-            Осознанные изменения начинаются с первого шага.
+          <h1 className="text-balance text-[1.85rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.4rem]">
+            Нейрографика онлайн — от намерения к действию
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
-            Авторские мастер-классы и программы, которые помогают работать с
-            намерением, планированием и внутренней ясностью с использованием
-            нейрографики.
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-muted sm:mt-6 sm:text-lg md:text-xl">
+            Мастер-классы и программы Галины Оноприенко: ясность, финансовые цели,
+            продвижение услуги и первые шаги через практику линии.
           </p>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center">
             <Button
               href="/masterclasses"
               size="lg"
+              className="w-full sm:w-auto"
               metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
             >
               Выбрать мастер-класс
@@ -39,25 +42,32 @@ export function HeroHome() {
               href="/programs"
               variant="secondary"
               size="lg"
+              className="w-full sm:w-auto"
               metrikaGoal={yandexMetrika.goals.ctaPrograms}
             >
               Посмотреть программы
             </Button>
           </div>
 
-          <blockquote className="mt-12 max-w-xl border-l border-gold/50 pl-5 text-base italic leading-relaxed text-foreground/75">
+          <p className="mt-4 text-sm text-muted">
+            {siteConfig.expert}
+            <span className="mx-2 text-gold">·</span>
+            17 лет онлайн · 1000+ мастер-классов
+          </p>
+
+          <blockquote className="mt-8 hidden max-w-xl border-l border-gold/50 pl-5 text-base italic leading-relaxed text-foreground/75 md:mt-12 md:block">
             {philosophyQuote.lines.map((line) => (
               <p key={line}>{line}</p>
             ))}
           </blockquote>
         </div>
 
-        <div className="relative">
-          <div className="relative overflow-hidden rounded-[1.75rem] shadow-card">
+        <div className="relative order-1 lg:order-2">
+          <div className="relative mx-auto max-w-sm overflow-hidden rounded-[1.75rem] shadow-card sm:max-w-md lg:max-w-none">
             <div className="relative aspect-[4/5]">
               <SiteImage
                 src="/images/galina/portrait-premium.png"
-                alt={`${siteConfig.expert} — инструктор нейрографики`}
+                alt={`${siteConfig.expert} — инструктор нейрографики, автор практик «От намерения к действию»`}
                 fill
                 priority
                 fetchPriority="high"
@@ -67,11 +77,6 @@ export function HeroHome() {
               <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgb(23_20_17/0.28)_100%)]" />
             </div>
           </div>
-          <p className="mt-4 text-sm tracking-[0.04em] text-muted">
-            {siteConfig.expert}
-            <span className="mx-2 text-gold">·</span>
-            17 лет онлайн-продвижения · 1000+ мастер-классов
-          </p>
         </div>
       </Container>
     </section>

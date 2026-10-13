@@ -7,16 +7,17 @@ import { getAllMasterclasses } from "@/lib/content/products";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Мастер-классы",
+  title: "Мастер-классы по нейрографике",
   description:
-    "Мастер-классы для ясности, мотивации и намерения: самопознание, принятие решений и движение к цели — с использованием нейрографики.",
+    "Онлайн мастер-классы по нейрографике: денежные цели, ясность, намерение и первые шаги. Запись и доступ на GetCourse.",
   path: "/masterclasses",
   keywords: [
-    "мастер-классы онлайн",
+    "мастер-классы нейрографика",
+    "нейрографика онлайн",
+    "нейрографика на деньги",
+    "денежное созвездие",
     "намерение",
     "мотивация",
-    "самопознание",
-    "нейрографика",
   ],
 });
 
@@ -37,10 +38,12 @@ export default function MasterclassesPage() {
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             Каталог
           </p>
-          <h1 className="mt-3 text-4xl md:text-5xl">Мастер-классы</h1>
+          <h1 className="mt-3 text-4xl md:text-5xl">
+            Мастер-классы по нейрографике
+          </h1>
           <p className="mt-4 text-lg leading-relaxed text-muted">
-            Короткие форматы для знакомства с методом и работы с конкретным запросом.
-            Выберите направление — и перейдите к оплате на GetCourse.
+            Короткие онлайн-практики: денежные цели, ясность, намерение и первые шаги.
+            Выберите занятие и перейдите к оплате на GetCourse.
           </p>
         </div>
 

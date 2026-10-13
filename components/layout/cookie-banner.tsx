@@ -34,26 +34,22 @@ export function CookieBanner() {
       role="dialog"
       aria-live="polite"
       aria-label="Уведомление о файлах cookie"
-      className="fixed inset-x-0 bottom-0 z-[60] p-4 sm:p-6"
+      className="fixed inset-x-0 bottom-0 z-[60] p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-6"
     >
-      <div className="mx-auto flex max-w-3xl flex-col gap-4 rounded-[1.5rem] border border-chocolate/15 bg-card/95 p-5 shadow-card backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
-        <p className="text-sm leading-relaxed text-muted">
-          Мы используем файлы cookie, чтобы сайт работал корректно и было удобнее
-          им пользоваться. Продолжая просмотр, вы соглашаетесь с{" "}
+      <div className="mx-auto flex max-w-3xl items-center gap-3 rounded-2xl border border-chocolate/15 bg-card/95 px-3 py-3 shadow-card backdrop-blur-md sm:gap-6 sm:rounded-[1.5rem] sm:p-5">
+        <p className="min-w-0 flex-1 text-xs leading-snug text-muted sm:text-sm sm:leading-relaxed">
+          Сайт использует cookie.{" "}
           <Link
             href="/privacy"
             prefetch={false}
             className="text-accent underline-offset-4 hover:underline"
           >
-            политикой конфиденциальности
+            Политика
           </Link>
-          .
         </p>
-        <div className="flex shrink-0 gap-2">
-          <Button type="button" size="sm" onClick={accept}>
-            Принять
-          </Button>
-        </div>
+        <Button type="button" size="sm" className="shrink-0" onClick={accept}>
+          Принять
+        </Button>
       </div>
     </div>
   );

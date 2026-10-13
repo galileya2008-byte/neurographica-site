@@ -7,16 +7,17 @@ import { getAllPrograms } from "@/lib/content/products";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Программы",
+  title: "Программы по нейрографике и развитию эксперта",
   description:
-    "Программы для системной работы с намерением, планированием и изменениями — от первого шага к устойчивым действиям.",
+    "Онлайн-программы: нейрокомпозиция, персональная AI-система для эксперта и системная работа с намерением. Доступ на GetCourse.",
   path: "/programs",
   keywords: [
-    "программы онлайн",
+    "программы нейрографика",
+    "нейрокомпозиция",
+    "ИИ для экспертов",
+    "продвижение услуги",
     "намерение",
     "планирование",
-    "осознанные изменения",
-    "нейрографика",
   ],
 });
 
@@ -37,10 +38,12 @@ export default function ProgramsPage() {
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             Каталог
           </p>
-          <h1 className="mt-3 text-4xl md:text-5xl">Программы</h1>
+          <h1 className="mt-3 text-4xl md:text-5xl">
+            Программы по нейрографике и развитию эксперта
+          </h1>
           <p className="mt-4 text-lg leading-relaxed text-muted">
-            Структурированные маршруты для тех, кто хочет глубже и системнее работать
-            с намерением, планированием и действиями.
+            Структурированные маршруты: нейрокомпозиция, продвижение услуги с ИИ
+            и системная работа с намерением.
           </p>
         </div>
 

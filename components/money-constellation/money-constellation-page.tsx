@@ -1,5 +1,6 @@
 import type { Product } from "@/types/product";
 import { NarrativeSection } from "@/components/ai-expert/narrative-section";
+import { StickyCta } from "@/components/money-constellation/sticky-cta";
 import { BuyButton } from "@/components/product/buy-button";
 import { ProductFaq } from "@/components/product/product-faq";
 import { AutumnLeaves } from "@/components/decor/autumn-leaves";
@@ -60,32 +61,32 @@ export function MoneyConstellationPage({ product }: MoneyConstellationPageProps)
             ]}
           />
 
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-            <div className="min-w-0">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+            <div className="order-2 min-w-0 lg:order-1">
               <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
                 {hero.eyebrow}
               </p>
-              <h1 className="mt-4 text-balance text-3xl leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+              <h1 className="mt-3 text-balance text-[1.85rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.25rem]">
                 {hero.title}
               </h1>
-              <p className="mt-5 max-w-xl text-xl font-medium leading-snug text-foreground md:text-2xl">
+              <p className="mt-4 max-w-xl text-lg font-medium leading-snug text-foreground md:text-2xl">
                 {hero.subtitle}
               </p>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+              <p className="mt-4 max-w-xl text-base leading-relaxed text-muted md:mt-5 md:text-lg">
                 {hero.lead}
               </p>
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+              <p className="mt-3 hidden max-w-xl text-base leading-relaxed text-muted md:mt-4 md:block md:text-lg">
                 {hero.details}
               </p>
 
-              <p className="mt-6 text-sm font-medium tracking-wide text-accent md:text-base">
+              <p className="mt-5 text-sm font-medium tracking-wide text-accent md:mt-6 md:text-base">
                 {MONEY_CONSTELLATION_META}
               </p>
-              <p className="mt-3 font-display text-4xl tracking-tight text-accent md:text-5xl">
+              <p className="mt-2 font-display text-4xl tracking-tight text-accent md:mt-3 md:text-5xl">
                 {MONEY_CONSTELLATION_PRICE_LABEL}
               </p>
 
-              <div className="mt-8">
+              <div className="mt-6 md:mt-8">
                 <BuyButton
                   product={product}
                   label="Посмотреть занятие"
@@ -97,12 +98,12 @@ export function MoneyConstellationPage({ product }: MoneyConstellationPageProps)
               </p>
             </div>
 
-            <div className="min-w-0">
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-card shadow-card">
+            <div className="order-1 min-w-0 lg:order-2">
+              <div className="relative overflow-hidden rounded-[1.5rem] border border-chocolate/10 bg-card shadow-card sm:rounded-[1.75rem]">
                 <div className="relative aspect-[4/3]">
                   <SiteImage
                     src={product.cover}
-                    alt="Рисунок «Моё денежное созвездие» — пример нейрографической практики"
+                    alt="Рисунок «Моё денежное созвездие» — пример нейрографической практики на деньги"
                     fill
                     priority
                     className="object-cover"
@@ -191,7 +192,7 @@ export function MoneyConstellationPage({ product }: MoneyConstellationPageProps)
         tone="warm"
       />
 
-      <Section>
+      <Section id="join" className="scroll-mt-28">
         <div className="rounded-[1.75rem] border border-chocolate/10 bg-card/80 p-8 shadow-card md:p-12">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             {join.eyebrow}
@@ -225,6 +226,8 @@ export function MoneyConstellationPage({ product }: MoneyConstellationPageProps)
           <ProductFaq items={moneyConstellationFaq} />
         </div>
       </Section>
+
+      <StickyCta product={product} />
     </>
   );
 }
