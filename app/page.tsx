@@ -1,4 +1,5 @@
 import { HeroHome } from "@/components/sections/hero/hero-home";
+import { FlagshipProgram } from "@/components/sections/products/flagship-program";
 import { BenefitsGrid } from "@/components/sections/benefits/benefits-grid";
 import { DirectionsCards } from "@/components/sections/directions/directions-cards";
 import { PopularMasterclasses } from "@/components/sections/products/popular-masterclasses";
@@ -17,6 +18,7 @@ export default function HomePage() {
     <>
       <JsonLd data={faqPageSchema(faqItems.slice(0, 4))} />
       <HeroHome />
+      <FlagshipProgram />
       <BenefitsGrid />
       <DirectionsCards />
       <PopularMasterclasses />
