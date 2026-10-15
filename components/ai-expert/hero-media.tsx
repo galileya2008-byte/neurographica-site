@@ -1,10 +1,10 @@
 "use client";
 
+import { PriceDisplay } from "@/components/ai-expert/price-display";
 import {
   AI_EXPERT_HERO_POSTER,
   AI_EXPERT_HERO_VIDEO,
   AI_EXPERT_META,
-  AI_EXPERT_PRICE_LABEL,
 } from "@/lib/constants/ai-expert-system";
 import { withBasePath } from "@/lib/paths";
 
@@ -33,9 +33,13 @@ export function HeroMedia() {
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 p-5 md:p-6">
           <p className="text-sm font-medium text-white/90">{AI_EXPERT_META}</p>
-          <p className="mt-2 font-display text-3xl tracking-tight text-white md:text-4xl">
-            {AI_EXPERT_PRICE_LABEL}
-          </p>
+          <PriceDisplay
+            className="mt-2"
+            size="md"
+            inverted
+            priceClassName="text-3xl md:text-4xl"
+            oldPriceClassName="text-lg md:text-xl"
+          />
           <p className="mt-2 max-w-xs text-sm leading-relaxed text-white/80">
             Система продвижения одной услуги и собственный AI-плагин
           </p>

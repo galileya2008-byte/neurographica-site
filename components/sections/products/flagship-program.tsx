@@ -3,10 +3,10 @@ import { Section } from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { SiteImage } from "@/components/ui/site-image";
 import { yandexMetrika } from "@/config/analytics";
+import { PriceDisplay } from "@/components/ai-expert/price-display";
 import {
   AI_EXPERT_HERO_POSTER,
   AI_EXPERT_META,
-  AI_EXPERT_PRICE_LABEL,
   AI_EXPERT_SLUG,
 } from "@/lib/constants/ai-expert-system";
 import { getProductBySlug } from "@/lib/content/products";
@@ -59,9 +59,7 @@ export function FlagshipProgram() {
           <p className="mt-5 text-sm font-medium tracking-wide text-accent">
             {AI_EXPERT_META}
           </p>
-          <p className="mt-2 font-display text-4xl tracking-tight text-accent">
-            {AI_EXPERT_PRICE_LABEL}
-          </p>
+          <PriceDisplay className="mt-2" size="md" />
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
             <BuyButton

@@ -88,8 +88,11 @@ export function AiSalesTopicPage() {
                     <p className="text-sm text-muted">
                       Персональная AI-система для эксперта
                     </p>
-                    <p className="mt-1 font-display text-3xl text-foreground">
-                      7 700 ₽
+                    <p className="mt-1 flex flex-wrap items-baseline gap-3 font-display tracking-tight">
+                      <span className="text-xl text-muted line-through decoration-2">
+                        25 000 ₽
+                      </span>
+                      <span className="text-3xl text-foreground">7 700 ₽</span>
                     </p>
                     <BuyButton
                       product={program}

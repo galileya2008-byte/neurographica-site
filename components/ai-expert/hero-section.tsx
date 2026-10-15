@@ -6,10 +6,8 @@ import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import {
-  AI_EXPERT_META,
-  AI_EXPERT_PRICE_LABEL,
-} from "@/lib/constants/ai-expert-system";
+import { PriceDisplay } from "@/components/ai-expert/price-display";
+import { AI_EXPERT_META } from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
 
 type HeroSectionProps = {
@@ -67,9 +65,7 @@ export function HeroSection({ product }: HeroSectionProps) {
             <p className="mt-6 text-sm font-medium tracking-wide text-accent md:text-base">
               {AI_EXPERT_META}
             </p>
-            <p className="mt-2 font-display text-4xl tracking-tight text-accent md:text-5xl">
-              {AI_EXPERT_PRICE_LABEL}
-            </p>
+            <PriceDisplay className="mt-2" size="md" priceClassName="md:text-5xl" />
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <JoinButton

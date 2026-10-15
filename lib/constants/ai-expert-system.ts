@@ -4,6 +4,7 @@ export const AI_EXPERT_HERO_VIDEO = "/media/ai-expert/hero.mp4";
 export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
 
 export const AI_EXPERT_PRICE_LABEL = "7 700 ₽";
+export const AI_EXPERT_OLD_PRICE_LABEL = "25 000 ₽";
 
 export const AI_EXPERT_META =
   "16 практических уроков · Самостоятельное обучение · Доступ 12 месяцев";

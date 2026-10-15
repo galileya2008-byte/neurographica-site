@@ -1,10 +1,8 @@
 import type { Product } from "@/types/product";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { JoinButton } from "@/components/ai-expert/join-button";
-import {
-  AI_EXPERT_META,
-  AI_EXPERT_PRICE_LABEL,
-} from "@/lib/constants/ai-expert-system";
+import { PriceDisplay } from "@/components/ai-expert/price-display";
+import { AI_EXPERT_META } from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
 
 type PricingSectionProps = {
@@ -30,9 +28,7 @@ export function PricingSection({ product }: PricingSectionProps) {
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <p className="mt-6 text-center font-display text-5xl tracking-tight text-accent md:text-6xl">
-          {AI_EXPERT_PRICE_LABEL}
-        </p>
+        <PriceDisplay className="mt-6" align="center" size="lg" />
         <p className="mt-5 text-center leading-relaxed text-muted">{pricing.note}</p>
         <div className="mt-8">
           <JoinButton
