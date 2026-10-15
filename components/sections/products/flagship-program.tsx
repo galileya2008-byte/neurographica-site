@@ -80,12 +80,13 @@ export function FlagshipProgram() {
         </div>
 
         <div className="order-2 min-w-0 lg:order-1">
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-card shadow-card">
+          <div className="premium-card relative overflow-hidden rounded-[1.75rem]">
             <div className="relative aspect-[4/5] sm:aspect-[5/6]">
               <SiteImage
                 src={AI_EXPERT_HERO_POSTER}
                 alt={`${product.title} — программа-флагман`}
                 fill
+                loading="lazy"
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 480px"
               />
@@ -107,7 +108,7 @@ export function FlagshipProgram() {
         {pillars.map((item) => (
           <article
             key={item.title}
-            className="rounded-[1.35rem] border border-chocolate/10 bg-card/90 px-5 py-5 md:px-6 md:py-6"
+            className="premium-card rounded-[1.35rem] px-5 py-5 md:px-6 md:py-6"
           >
             <h3 className="text-lg leading-snug md:text-xl">{item.title}</h3>
             <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">

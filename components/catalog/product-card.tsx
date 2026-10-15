@@ -18,7 +18,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   return (
     <article
       className={cn(
-        "group flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-chocolate/10 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:border-gold/30 hover:shadow-card",
+        "premium-card group flex h-full flex-col overflow-hidden rounded-[1.5rem]",
         getCardColorClass(product.cardColor),
       )}
     >
@@ -27,7 +27,8 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           src={product.cover}
           alt={product.title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          loading="lazy"
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {product.badge ? (

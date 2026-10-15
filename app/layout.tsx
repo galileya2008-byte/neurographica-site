@@ -19,6 +19,8 @@ const playfair = Playfair_Display({
   weight: ["400", "500"],
   variable: "--font-playfair",
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const manrope = Manrope({
@@ -26,6 +28,8 @@ const manrope = Manrope({
   weight: ["400", "500", "600"],
   variable: "--font-manrope",
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {

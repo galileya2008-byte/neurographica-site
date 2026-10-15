@@ -8,17 +8,17 @@ import { Section } from "@/components/layout/section";
 export function FinalCta() {
   return (
     <Section tone="warm" lines="right" autumnDecor>
-      <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-[linear-gradient(135deg,_rgb(252_250_246)_0%,_rgb(235_228_216/0.55)_100%)] shadow-card">
-        <CurvedLines variant="cta" className="opacity-70" />
+      <div className="premium-panel relative overflow-hidden rounded-[1.75rem]">
+        <CurvedLines variant="cta" className="decor-desktop-only opacity-45" />
         <div className="relative grid lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative z-10 flex flex-col justify-center p-8 md:p-12 lg:p-16">
-            <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
+            <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-gold">
               Следующий шаг
             </p>
-            <h2 className="mt-4 text-balance text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="mt-4 text-balance text-[1.85rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
               Выберите практику Нейрографики и сделайте первый шаг
             </h2>
-            <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
               Мастер-класс для быстрого старта или программа для системной работы.
               Оплата и доступ — на GetCourse.
             </p>

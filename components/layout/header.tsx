@@ -29,21 +29,21 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-300",
         isScrolled
-          ? "border-b border-border/50 bg-background/75 shadow-soft backdrop-blur-xl"
-          : "bg-transparent",
+          ? "border-b border-border/40 bg-background/80 shadow-soft backdrop-blur-md supports-[backdrop-filter]:bg-background/70"
+          : "border-b border-transparent bg-transparent",
       )}
     >
-      <div className="mx-auto grid h-[4.75rem] max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 container-padding lg:h-20">
+      <div className="mx-auto grid h-[4.5rem] max-w-7xl grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-4 container-padding lg:h-[4.75rem]">
         <Link
           href="/"
           className="group min-w-0 justify-self-start self-center"
         >
-          <span className="block font-display text-xl font-medium leading-none tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[1.35rem]">
+          <span className="block font-display text-[1.15rem] font-medium leading-none tracking-tight text-foreground transition-colors group-hover:text-accent sm:text-[1.3rem]">
             {siteConfig.brand}
           </span>
-          <span className="mt-1.5 block text-[10px] leading-none tracking-[0.18em] text-muted uppercase sm:text-[11px]">
+          <span className="mt-1.5 block text-[10px] leading-none tracking-[0.16em] text-muted uppercase sm:text-[11px]">
             {siteConfig.expert}
           </span>
         </Link>

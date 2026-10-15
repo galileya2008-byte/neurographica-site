@@ -20,10 +20,6 @@ export const memoryPairLabels: Record<MemoryPairId, string> = {
   gate: "Новая дверь",
 };
 
-type MarkProps = {
-  className?: string;
-};
-
 export function MemoryMark({
   id,
   className,

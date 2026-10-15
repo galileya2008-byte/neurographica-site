@@ -7,13 +7,17 @@ import { Container } from "./container";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-chocolate/10 bg-[linear-gradient(180deg,_rgb(235_228_216/0.9),_rgb(235_228_216))]">
-      <CurvedLines variant="footer" className="opacity-70" />
+    <footer className="relative overflow-hidden border-t border-border/80 tone-section-warm">
+      <CurvedLines variant="footer" className="decor-desktop-only opacity-45" />
       <Container className="section-padding relative z-10 !py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
-            <p className="font-display text-3xl tracking-tight text-foreground">{siteConfig.brand}</p>
-            <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-muted">{siteConfig.expert}</p>
+            <p className="font-display text-2xl tracking-tight text-foreground md:text-3xl">
+              {siteConfig.brand}
+            </p>
+            <p className="mt-2 text-[11px] uppercase tracking-[0.16em] text-muted">
+              {siteConfig.expert}
+            </p>
             <p className="mt-4 max-w-md leading-relaxed text-muted">
               {siteConfig.description}
             </p>

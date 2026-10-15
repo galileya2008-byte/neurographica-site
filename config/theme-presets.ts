@@ -57,29 +57,30 @@ export const themePresets: Record<SiteThemePresetId, SiteThemePreset> = {
   },
   blue: {
     id: "blue",
-    label: "Голубая",
-    description: "Светлые синие и голубые тона — свежий, современный вид.",
+    label: "Жемчужная",
+    description:
+      "Премиальная палитра 2026: жемчужный фон, глубокий чернильно-зелёный акцент и шампань.",
     colors: {
-      background: "#f3f8fc",
-      foreground: "#141c24",
-      muted: "#5a6775",
-      accent: "#1e4a6f",
-      accentForeground: "#f5faff",
-      accentLight: "#dceaf8",
-      border: "#d0e1ef",
-      card: "#fafcfe",
-      warm: "#e3eef8",
-      gold: "#4a8bb8",
-      chocolate: "#3d5568",
+      background: "#f3f5f7",
+      foreground: "#101820",
+      muted: "#5a6570",
+      accent: "#163a36",
+      accentForeground: "#f4f8f6",
+      accentLight: "#e4eeeb",
+      border: "#d7e0e4",
+      card: "#fbfcfd",
+      warm: "#e8eef1",
+      gold: "#a6895f",
+      chocolate: "#3a4650",
     },
     bodyBackground:
-      "radial-gradient(ellipse 80% 50% at 100% -10%, rgb(186 220 245 / 0.65), transparent 50%), radial-gradient(ellipse 60% 40% at 0% 100%, rgb(140 190 230 / 0.28), transparent 45%)",
+      "radial-gradient(ellipse 90% 55% at 100% -12%, rgb(196 220 214 / 0.45), transparent 52%), radial-gradient(ellipse 70% 45% at -5% 105%, rgb(180 198 210 / 0.28), transparent 48%), radial-gradient(ellipse 40% 30% at 70% 60%, rgb(214 196 160 / 0.12), transparent 55%)",
     heroGradient:
-      "radial-gradient(ellipse 70% 55% at 88% -8%, rgb(200 230 250 / 0.9) 0%, transparent 58%), radial-gradient(ellipse 55% 45% at 0% 100%, rgb(100 160 210 / 0.16) 0%, transparent 48%), linear-gradient(180deg, rgb(243 248 252) 0%, transparent 70%)",
+      "radial-gradient(ellipse 65% 50% at 92% -6%, rgb(210 230 224 / 0.85) 0%, transparent 56%), radial-gradient(ellipse 50% 40% at 8% 100%, rgb(166 137 95 / 0.12) 0%, transparent 50%), radial-gradient(ellipse 35% 28% at 55% 18%, rgb(190 210 220 / 0.35) 0%, transparent 60%), linear-gradient(180deg, rgb(243 245 247) 0%, transparent 72%)",
     sectionWarm:
-      "radial-gradient(ellipse at top left, rgb(240 248 255 / 0.85), transparent 55%), linear-gradient(180deg, rgb(220 235 248 / 0.95), rgb(220 235 248 / 0.72))",
+      "radial-gradient(ellipse at top left, rgb(250 252 253 / 0.9), transparent 55%), linear-gradient(180deg, rgb(232 238 241 / 0.95), rgb(232 238 241 / 0.7))",
     sectionAccent:
-      "radial-gradient(ellipse at bottom right, rgb(120 170 220 / 0.12), transparent 50%), linear-gradient(180deg, rgb(210 230 248 / 0.58), rgb(205 225 245 / 0.3))",
+      "radial-gradient(ellipse at bottom right, rgb(22 58 54 / 0.06), transparent 52%), linear-gradient(180deg, rgb(228 238 235 / 0.65), rgb(220 232 236 / 0.28))",
     seasonalDecor: false,
   },
 };

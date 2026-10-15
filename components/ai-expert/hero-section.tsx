@@ -20,8 +20,11 @@ export function HeroSection({ product }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden pt-28 md:pt-32">
       <div className="absolute inset-0 -z-10 site-hero-gradient" />
-      <CurvedLines variant="hero" className="-z-[5] opacity-70" />
-      <AutumnLeaves variant="hero" className="theme-seasonal-decor -z-[4] opacity-90" />
+      <CurvedLines variant="hero" className="decor-desktop-only -z-[5] opacity-55" />
+      <AutumnLeaves
+        variant="hero"
+        className="theme-seasonal-decor decor-desktop-only -z-[4] opacity-80"
+      />
 
       <Container>
         <Breadcrumbs
@@ -51,7 +54,7 @@ export function HeroSection({ product }: HeroSectionProps) {
               {hero.highlights.map((item) => (
                 <li
                   key={item}
-                  className="flex items-start gap-3 rounded-2xl border border-chocolate/10 bg-card/80 px-4 py-3 text-sm leading-relaxed text-foreground md:text-base"
+                  className="premium-card flex items-start gap-3 rounded-2xl px-4 py-3 text-sm leading-relaxed text-foreground md:text-base"
                 >
                   <span
                     className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-gold"

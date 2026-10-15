@@ -28,13 +28,24 @@ export function Section({
 }: SectionProps) {
   return (
     <section
-      className={cn("section-padding relative overflow-hidden", toneClasses[tone], className)}
+      className={cn(
+        "section-padding relative overflow-hidden cv-auto",
+        toneClasses[tone],
+        className,
+      )}
       {...props}
     >
-      {lines === "left" ? <CurvedLines variant="section-left" /> : null}
-      {lines === "right" ? <CurvedLines variant="section-right" /> : null}
+      {lines === "left" ? (
+        <CurvedLines variant="section-left" className="decor-desktop-only opacity-60" />
+      ) : null}
+      {lines === "right" ? (
+        <CurvedLines variant="section-right" className="decor-desktop-only opacity-60" />
+      ) : null}
       {autumnDecor ? (
-        <AutumnLeaves variant="corners" className="theme-seasonal-decor opacity-90" />
+        <AutumnLeaves
+          variant="corners"
+          className="theme-seasonal-decor decor-desktop-only opacity-80"
+        />
       ) : null}
       <Container size={containerSize} className="relative z-10">
         {children}
@@ -67,13 +78,15 @@ export function SectionHeader({
       )}
     >
       {eyebrow ? (
-        <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
+        <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.26em] text-gold">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-balance text-3xl md:text-4xl lg:text-5xl">{title}</h2>
+      <h2 className="text-balance text-[1.85rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
+        {title}
+      </h2>
       {description ? (
-        <p className="mt-4 text-lg leading-relaxed text-muted md:text-xl">
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted md:text-lg lg:text-xl">
           {description}
         </p>
       ) : null}

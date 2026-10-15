@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
 import {
   AI_EXPERT_HERO_POSTER,
@@ -8,22 +9,77 @@ import {
 } from "@/lib/constants/ai-expert-system";
 import { withBasePath } from "@/lib/paths";
 
+/**
+ * На мобиле — только постер (видео ~10 МБ не качается).
+ * На десктопе видео подгружается при появлении в зоне видимости.
+ */
 export function HeroMedia() {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    if (!desktop.matches) return;
+
+    const node = rootRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "120px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoadVideo) return;
+    const video = videoRef.current;
+    if (!video) return;
+    void video.play().catch(() => {
+      // Autoplay может быть заблокирован — остаётся постер
+    });
+  }, [shouldLoadVideo]);
+
+  const poster = withBasePath(AI_EXPERT_HERO_POSTER);
+
   return (
-    <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-card shadow-card">
+    <div
+      ref={rootRef}
+      className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-card shadow-card"
+    >
       <div className="relative aspect-[4/5] bg-chocolate/5">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={withBasePath(AI_EXPERT_HERO_POSTER)}
-          className="h-full w-full object-cover"
-          aria-label="Персональная AI-система для эксперта"
-        >
-          <source src={withBasePath(AI_EXPERT_HERO_VIDEO)} type="video/mp4" />
-        </video>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={poster}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+          decoding="async"
+          fetchPriority="high"
+        />
+
+        {shouldLoadVideo ? (
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="none"
+            poster={poster}
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-label="Персональная AI-система для эксперта"
+          >
+            <source src={withBasePath(AI_EXPERT_HERO_VIDEO)} type="video/mp4" />
+          </video>
+        ) : null}
 
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,_rgb(26_22_18/0.08)_0%,_transparent_35%,_transparent_55%,_rgb(26_22_18/0.72)_100%)]" />
 
