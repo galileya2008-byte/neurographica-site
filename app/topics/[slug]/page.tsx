@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AiSalesTopicPage } from "@/components/topics/ai-sales-topic-page";
+import { FlagshipSeoGuidePage } from "@/components/topics/flagship-seo-guide-page";
 import { TopicPageView } from "@/components/topics/topic-page-view";
 import { aiSalesTopic } from "@/lib/content/ai-sales-topic";
+import { getFlagshipSeoGuide } from "@/lib/content/flagship-seo-guides";
 import { getAllTopics, getTopicBySlug } from "@/lib/content/topics";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -29,6 +31,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     });
   }
 
+  const seoGuide = getFlagshipSeoGuide(slug);
+  if (seoGuide) {
+    return buildPageMetadata({
+      title: seoGuide.title,
+      description: seoGuide.description,
+      path: `/topics/${seoGuide.slug}`,
+      keywords: [...seoGuide.keywords],
+      absoluteTitle: true,
+    });
+  }
+
   return buildPageMetadata({
     title: topic.seoTitle,
     description: topic.seoDescription,
@@ -44,6 +57,11 @@ export default async function TopicPage({ params }: PageProps) {
 
   if (slug === aiSalesTopic.slug) {
     return <AiSalesTopicPage />;
+  }
+
+  const seoGuide = getFlagshipSeoGuide(slug);
+  if (seoGuide) {
+    return <FlagshipSeoGuidePage guide={seoGuide} />;
   }
 
   return <TopicPageView topic={topic} />;

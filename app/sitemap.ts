@@ -4,16 +4,20 @@ import { siteConfig } from "@/config/site";
 
 import { AI_EXPERT_SLUG } from "@/lib/constants/ai-expert-system";
 import { aiSalesTopic } from "@/lib/content/ai-sales-topic";
-
+import {
+  flagshipSeoGuideSlugs,
+  getFlagshipSeoGuide,
+} from "@/lib/content/flagship-seo-guides";
 import { getAllMaterials } from "@/lib/content/materials";
-
 import { getAllMasterclasses, getAllPrograms } from "@/lib/content/products";
-
 import { getAllTopics } from "@/lib/content/topics";
 
-
-
 export const dynamic = "force-static";
+
+const priorityTopicSlugs = new Set<string>([
+  aiSalesTopic.slug,
+  ...flagshipSeoGuideSlugs,
+]);
 
 
 
@@ -142,23 +146,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 
 
-  const topics = getAllTopics().map((topic) => ({
+  const topics = getAllTopics().map((topic) => {
+    const seoGuide = getFlagshipSeoGuide(topic.slug);
+    const isPriority = priorityTopicSlugs.has(topic.slug);
 
-    url: toSitemapUrl(`/topics/${topic.slug}`),
-
-    lastModified:
-      topic.slug === aiSalesTopic.slug
-        ? new Date(aiSalesTopic.updatedAt)
-        : now,
-
-    changeFrequency:
-      topic.slug === aiSalesTopic.slug
-        ? ("weekly" as const)
-        : ("monthly" as const),
-
-    priority: topic.slug === aiSalesTopic.slug ? 0.9 : 0.85,
-
-  }));
+    return {
+      url: toSitemapUrl(`/topics/${topic.slug}`),
+      lastModified: seoGuide
+        ? new Date(seoGuide.updatedAt)
+        : topic.slug === aiSalesTopic.slug
+          ? new Date(aiSalesTopic.updatedAt)
+          : now,
+      changeFrequency: isPriority ? ("weekly" as const) : ("monthly" as const),
+      priority: isPriority ? 0.9 : 0.85,
+    };
+  });
 
 
 

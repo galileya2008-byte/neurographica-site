@@ -232,6 +232,30 @@ export function AiSalesTopicPage() {
                 </section>
               ))}
             </div>
+            <div className="mt-10">
+              <h2 className="text-2xl md:text-3xl">Читайте также</h2>
+              <ul className="mt-5 space-y-3">
+                <li>
+                  <Link
+                    href="/topics/kak-ekspertu-prodvigatsya-samostoyatelno"
+                    prefetch={false}
+                    className="text-accent underline-offset-4 hover:underline"
+                  >
+                    Как эксперту продвигаться самостоятельно
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/topics/fotosessiya-dlya-biznesa-eksperta"
+                    prefetch={false}
+                    className="text-accent underline-offset-4 hover:underline"
+                  >
+                    Как сделать красивую фотосессию для себя и бизнеса
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
             <p className="mt-8 text-sm leading-relaxed text-muted">
               Автор материала —{" "}
               <Link href="/about" className="text-accent hover:underline">

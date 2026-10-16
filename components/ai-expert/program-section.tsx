@@ -56,16 +56,35 @@ export function ProgramSection() {
         ))}
       </div>
 
-      <p className="mt-10 max-w-3xl text-sm leading-relaxed text-muted">
-        Ищете материалы по запросу «ИИ для экспертов»? Смотрите также страницу{" "}
-        <Link
-          href="/topics/ii-dlya-ekspertov"
-          className="text-accent underline-offset-4 hover:underline"
-        >
-          продвижения услуги с помощью нейросетей
-        </Link>
-        .
-      </p>
+      <div className="mt-10 max-w-3xl space-y-2 text-sm leading-relaxed text-muted">
+        <p>Полезные материалы по смежным запросам:</p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>
+            <Link
+              href="/topics/kak-ekspertu-prodvigatsya-samostoyatelno"
+              className="text-accent underline-offset-4 hover:underline"
+            >
+              Как эксперту продвигаться самостоятельно
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/topics/fotosessiya-dlya-biznesa-eksperta"
+              className="text-accent underline-offset-4 hover:underline"
+            >
+              Как сделать красивую фотосессию для себя и бизнеса
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/topics/ii-dlya-ekspertov"
+              className="text-accent underline-offset-4 hover:underline"
+            >
+              Как эксперту увеличить продажи с помощью ИИ
+            </Link>
+          </li>
+        </ul>
+      </div>
     </Section>
   );
 }
