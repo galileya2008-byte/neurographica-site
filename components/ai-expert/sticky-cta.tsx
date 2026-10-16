@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import type { Product } from "@/types/product";
 import { JoinButton } from "@/components/ai-expert/join-button";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
-import { AI_EXPERT_STICKY_META } from "@/lib/constants/ai-expert-system";
+import {
+  AI_EXPERT_PRICE_RISE_NOTICE,
+  AI_EXPERT_STICKY_META,
+} from "@/lib/constants/ai-expert-system";
 
 type StickyCtaProps = {
   product: Product;
@@ -38,8 +41,11 @@ export function StickyCta({ product }: StickyCtaProps) {
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-chocolate/10 bg-background/90 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-soft backdrop-blur-md md:hidden">
       <div className="mx-auto flex max-w-lg items-center justify-between gap-3">
         <div className="min-w-0">
-          <PriceDisplay size="sm" />
-          <p className="mt-1 text-[11px] leading-none text-muted">
+          <PriceDisplay size="sm" showRiseNotice={false} />
+          <p className="mt-1 text-[10px] leading-tight text-chocolate">
+            {AI_EXPERT_PRICE_RISE_NOTICE}
+          </p>
+          <p className="mt-0.5 text-[11px] leading-none text-muted">
             {AI_EXPERT_STICKY_META}
           </p>
         </div>

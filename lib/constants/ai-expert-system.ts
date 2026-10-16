@@ -5,6 +5,14 @@ export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
 
 export const AI_EXPERT_PRICE_LABEL = "7 700 ₽";
 export const AI_EXPERT_OLD_PRICE_LABEL = "25 000 ₽";
+export const AI_EXPERT_NEXT_PRICE_LABEL = "10 999 ₽";
+export const AI_EXPERT_PRICE_RISE_DATE_LABEL = "24 октября";
+
+/** Анонс повышения цены — показывать рядом с текущей стоимостью */
+export const AI_EXPERT_PRICE_RISE_NOTICE =
+  "С 24 октября стоимость программы будет 10 999 ₽";
+
+export const AI_EXPERT_ACCESS_LABEL = "доступ 12 месяцев";
 
 export const AI_EXPERT_META =
   "16 практических уроков · Самостоятельное обучение · Доступ 12 месяцев";

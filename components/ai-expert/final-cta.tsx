@@ -26,6 +26,9 @@ export function FinalCta({ product }: FinalCtaProps) {
           <p className="mt-8 font-display text-2xl text-foreground md:text-3xl">
             {finalCta.priceTitle}
           </p>
+          <p className="mt-2 text-sm font-medium text-chocolate md:text-base">
+            {finalCta.priceNote}
+          </p>
           <p className="mt-3 text-sm font-medium text-accent md:text-base">
             {AI_EXPERT_META}
           </p>
