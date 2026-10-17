@@ -9,6 +9,7 @@ const {
   BEFORE_SHA,
   AFTER_SHA,
   DRY_RUN,
+  FORCE_TOPIC_SLUG,
 } = process.env;
 
 if (!TELEGRAM_CHANNEL_ID) {
@@ -16,39 +17,6 @@ if (!TELEGRAM_CHANNEL_ID) {
 }
 if (!TELEGRAM_BOT_TOKEN && DRY_RUN !== "true") {
   throw new Error("TELEGRAM_BOT_TOKEN is not configured");
-}
-if (!AFTER_SHA) {
-  throw new Error("AFTER_SHA is not configured");
-}
-
-function getAddedMaterialFiles() {
-  const isInitialPush =
-    !BEFORE_SHA || /^0+$/.test(BEFORE_SHA);
-  const args = isInitialPush
-    ? [
-        "diff-tree",
-        "--no-commit-id",
-        "--name-only",
-        "--diff-filter=A",
-        "-r",
-        AFTER_SHA,
-        "--",
-        "content/materials",
-      ]
-    : [
-        "diff",
-        "--name-only",
-        "--diff-filter=A",
-        BEFORE_SHA,
-        AFTER_SHA,
-        "--",
-        "content/materials",
-      ];
-
-  const output = execFileSync("git", args, { encoding: "utf8" }).trim();
-  return output
-    ? output.split(/\r?\n/).filter((file) => file.endsWith(".json"))
-    : [];
 }
 
 function escapeHtml(value) {
@@ -76,6 +44,8 @@ function publicationLabels(type) {
       return { eyebrow: "Новость", button: "Читать на сайте" };
     case "article":
       return { eyebrow: "Новая статья", button: "Читать на сайте" };
+    case "guide":
+      return { eyebrow: "Новый гид", button: "Читать на сайте" };
     default:
       return { eyebrow: "Новая публикация", button: "Открыть на сайте" };
   }
@@ -104,32 +74,30 @@ async function telegramRequest(method, body) {
   return result;
 }
 
-async function publishMaterial(material) {
-  const labels = publicationLabels(material.type);
-  const pageUrl = absoluteUrl(`/materials/${material.slug}/`);
+async function publishPost({ type, title, excerpt, pagePath, cover }) {
+  const labels = publicationLabels(type);
+  const pageUrl = absoluteUrl(pagePath);
   const caption = [
     `<b>${escapeHtml(labels.eyebrow)}</b>`,
     "",
-    `<b>${escapeHtml(material.title)}</b>`,
+    `<b>${escapeHtml(title)}</b>`,
     "",
-    escapeHtml(truncate(material.excerpt, 560)),
+    escapeHtml(truncate(excerpt, 560)),
   ].join("\n");
   const replyMarkup = {
-    inline_keyboard: [
-      [{ text: labels.button, url: pageUrl }],
-    ],
+    inline_keyboard: [[{ text: labels.button, url: pageUrl }]],
   };
 
-  if (material.cover) {
+  if (cover) {
     try {
       await telegramRequest("sendPhoto", {
         chat_id: TELEGRAM_CHANNEL_ID,
-        photo: absoluteUrl(material.cover),
+        photo: absoluteUrl(cover),
         caption,
         parse_mode: "HTML",
         reply_markup: replyMarkup,
       });
-      return;
+      return pageUrl;
     } catch (error) {
       console.warn(`Could not send cover, falling back to text: ${error.message}`);
     }
@@ -145,6 +113,56 @@ async function publishMaterial(material) {
     },
     reply_markup: replyMarkup,
   });
+  return pageUrl;
+}
+
+function getAddedMaterialFiles() {
+  if (!AFTER_SHA) return [];
+
+  const isInitialPush = !BEFORE_SHA || /^0+$/.test(BEFORE_SHA);
+  const args = isInitialPush
+    ? [
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "--diff-filter=A",
+        "-r",
+        AFTER_SHA,
+        "--",
+        "content/materials",
+      ]
+    : [
+        "diff",
+        "--name-only",
+        "--diff-filter=A",
+        BEFORE_SHA,
+        AFTER_SHA,
+        "--",
+        "content/materials",
+      ];
+
+  const output = execFileSync("git", args, { encoding: "utf8" }).trim();
+  return output
+    ? output.split(/\r?\n/).filter((file) => file.endsWith(".json"))
+    : [];
+}
+
+function loadTopicPost(slug) {
+  const topics = JSON.parse(
+    readFileSync(path.resolve("content/topics.json"), "utf8"),
+  );
+  const topic = topics.find((item) => item.slug === slug);
+  if (!topic) {
+    throw new Error(`Topic not found for FORCE_TOPIC_SLUG=${slug}`);
+  }
+
+  return {
+    type: "guide",
+    title: topic.seoTitle || topic.title,
+    excerpt: topic.seoDescription || topic.description || topic.intro,
+    pagePath: `/topics/${slug}/`,
+    cover: "/media/ai-expert/hero-poster.jpg",
+  };
 }
 
 async function validateBotAccess() {
@@ -165,19 +183,36 @@ async function validateBotAccess() {
       `Bot @${me.result.username} must be a channel administrator with permission to post messages`,
     );
   }
-  console.log(`Telegram bot @${me.result.username} can post to ${TELEGRAM_CHANNEL_ID}`);
+  console.log(
+    `Telegram bot @${me.result.username} can post to ${TELEGRAM_CHANNEL_ID}`,
+  );
 }
 
 await validateBotAccess();
 
-const files = getAddedMaterialFiles();
-if (files.length === 0) {
-  console.log("No new publications to send");
-  process.exit(0);
+let published = 0;
+
+if (FORCE_TOPIC_SLUG) {
+  const post = loadTopicPost(FORCE_TOPIC_SLUG.trim());
+  const url = await publishPost(post);
+  console.log(`Published forced topic to Telegram: ${post.title} → ${url}`);
+  published += 1;
 }
 
+const files = getAddedMaterialFiles();
 for (const file of files) {
   const material = JSON.parse(readFileSync(path.resolve(file), "utf8"));
-  await publishMaterial(material);
+  await publishPost({
+    type: material.type,
+    title: material.title,
+    excerpt: material.excerpt,
+    pagePath: `/materials/${material.slug}/`,
+    cover: material.cover,
+  });
   console.log(`Published to Telegram: ${material.title}`);
+  published += 1;
+}
+
+if (published === 0) {
+  console.log("No new publications to send");
 }

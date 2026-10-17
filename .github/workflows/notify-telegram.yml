@@ -1,0 +1,34 @@
+name: Notify Telegram
+
+on:
+  workflow_dispatch:
+    inputs:
+      topic_slug:
+        description: "Slug топика для поста (например kak-ekspertu-prodvigatsya-samostoyatelno)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: "@neiro_galina"
+      SITE_URL: https://siteneirogalina.ru
+      FORCE_TOPIC_SLUG: ${{ inputs.topic_slug }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish topic to Telegram
+        if: env.TELEGRAM_BOT_TOKEN != ''
+        run: node .github/scripts/notify-telegram.mjs
+
+      - name: Fail if bot token missing
+        if: env.TELEGRAM_BOT_TOKEN == ''
+        run: |
+          echo "::error::TELEGRAM_BOT_TOKEN is not configured"
+          exit 1
