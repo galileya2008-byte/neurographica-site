@@ -72,7 +72,7 @@ export function ProgramSection() {
               href="/topics/fotosessiya-dlya-biznesa-eksperta"
               className="text-accent underline-offset-4 hover:underline"
             >
-              Как сделать красивую фотосессию для себя и бизнеса
+              Нейрофотосессия для себя и бизнеса эксперта
             </Link>
           </li>
           <li>
