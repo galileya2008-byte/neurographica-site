@@ -19,6 +19,10 @@ if (!TELEGRAM_BOT_TOKEN && DRY_RUN !== "true") {
   throw new Error("TELEGRAM_BOT_TOKEN is not configured");
 }
 
+const TOPICS_PATH = "content/topics.json";
+const DEFAULT_TOPIC_COVER = "/media/ai-expert/hero-poster.jpg";
+const FALLBACK_TOPIC_COVER = "/images/galina/portrait-premium.png";
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -116,6 +120,39 @@ async function publishPost({ type, title, excerpt, pagePath, cover }) {
   return pageUrl;
 }
 
+function readTopicsAt(ref) {
+  try {
+    const raw = execFileSync("git", ["show", `${ref}:${TOPICS_PATH}`], {
+      encoding: "utf8",
+    });
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+function readCurrentTopics() {
+  return JSON.parse(readFileSync(path.resolve(TOPICS_PATH), "utf8"));
+}
+
+/**
+ * Новые топики = slug, которого не было в BEFORE_SHA.
+ * На первый push репозитория не спамим всеми существующими темами.
+ */
+function getAddedTopicSlugs() {
+  if (!AFTER_SHA) return [];
+  const isInitialPush = !BEFORE_SHA || /^0+$/.test(BEFORE_SHA);
+  if (isInitialPush) {
+    console.log("Initial push detected — skipping auto topic fan-out");
+    return [];
+  }
+
+  const beforeSlugs = new Set(readTopicsAt(BEFORE_SHA).map((topic) => topic.slug));
+  return readCurrentTopics()
+    .filter((topic) => topic.slug && !beforeSlugs.has(topic.slug))
+    .map((topic) => topic.slug);
+}
+
 function getAddedMaterialFiles() {
   if (!AFTER_SHA) return [];
 
@@ -147,13 +184,18 @@ function getAddedMaterialFiles() {
     : [];
 }
 
+function topicCover(topic) {
+  const featured = topic.featuredProgramSlugs ?? [];
+  if (featured.includes("ai-dlya-ekspertov")) {
+    return DEFAULT_TOPIC_COVER;
+  }
+  return FALLBACK_TOPIC_COVER;
+}
+
 function loadTopicPost(slug) {
-  const topics = JSON.parse(
-    readFileSync(path.resolve("content/topics.json"), "utf8"),
-  );
-  const topic = topics.find((item) => item.slug === slug);
+  const topic = readCurrentTopics().find((item) => item.slug === slug);
   if (!topic) {
-    throw new Error(`Topic not found for FORCE_TOPIC_SLUG=${slug}`);
+    throw new Error(`Topic not found: ${slug}`);
   }
 
   return {
@@ -161,7 +203,7 @@ function loadTopicPost(slug) {
     title: topic.seoTitle || topic.title,
     excerpt: topic.seoDescription || topic.description || topic.intro,
     pagePath: `/topics/${slug}/`,
-    cover: "/media/ai-expert/hero-poster.jpg",
+    cover: topicCover(topic),
   };
 }
 
@@ -190,13 +232,24 @@ async function validateBotAccess() {
 
 await validateBotAccess();
 
+const publishedSlugs = new Set();
 let published = 0;
 
-if (FORCE_TOPIC_SLUG) {
-  const post = loadTopicPost(FORCE_TOPIC_SLUG.trim());
+async function publishTopicSlug(slug, reason) {
+  if (publishedSlugs.has(slug)) return;
+  const post = loadTopicPost(slug);
   const url = await publishPost(post);
-  console.log(`Published forced topic to Telegram: ${post.title} → ${url}`);
+  publishedSlugs.add(slug);
   published += 1;
+  console.log(`Published topic (${reason}): ${post.title} → ${url}`);
+}
+
+if (FORCE_TOPIC_SLUG) {
+  await publishTopicSlug(FORCE_TOPIC_SLUG.trim(), "forced");
+}
+
+for (const slug of getAddedTopicSlugs()) {
+  await publishTopicSlug(slug, "new in topics.json");
 }
 
 const files = getAddedMaterialFiles();
@@ -209,7 +262,7 @@ for (const file of files) {
     pagePath: `/materials/${material.slug}/`,
     cover: material.cover,
   });
-  console.log(`Published to Telegram: ${material.title}`);
+  console.log(`Published material: ${material.title}`);
   published += 1;
 }
 
