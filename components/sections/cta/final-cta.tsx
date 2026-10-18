@@ -4,6 +4,7 @@ import { yandexMetrika } from "@/config/analytics";
 import { Button } from "@/components/ui/button";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
+import { siteCopy } from "@/lib/content/site-copy";
 
 export function FinalCta() {
   return (
@@ -13,14 +14,19 @@ export function FinalCta() {
         <div className="relative grid lg:grid-cols-[1.1fr_0.9fr]">
           <div className="relative z-10 flex flex-col justify-center p-8 md:p-12 lg:p-16">
             <p className="text-[11px] font-medium uppercase tracking-[0.26em] text-gold">
-              Следующий шаг
+              {siteCopy("home.finalCta.eyebrow", "Следующий шаг")}
             </p>
             <h2 className="mt-4 text-balance text-[1.85rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
-              Выберите практику Нейрографики и сделайте первый шаг
+              {siteCopy(
+                "home.finalCta.title",
+                "Выберите практику Нейрографики и сделайте первый шаг",
+              )}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-              Мастер-класс для быстрого старта или программа для системной работы.
-              Оплата и доступ — на GetCourse.
+              {siteCopy(
+                "home.finalCta.description",
+                "Мастер-класс для быстрого старта или программа для системной работы. Оплата и доступ — на GetCourse.",
+              )}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button
@@ -29,7 +35,7 @@ export function FinalCta() {
                 className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
               >
-                Выбрать мастер-класс
+                {siteCopy("home.finalCta.ctaPrimary", "Выбрать мастер-класс")}
               </Button>
               <Button
                 href="/contacts"
@@ -38,7 +44,7 @@ export function FinalCta() {
                 className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaContacts}
               >
-                Задать вопрос
+                {siteCopy("home.finalCta.ctaSecondary", "Задать вопрос")}
               </Button>
             </div>
           </div>
@@ -54,7 +60,7 @@ export function FinalCta() {
             <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_40%,rgb(23_20_17/0.62)_100%)]" />
             <div className="absolute inset-x-0 bottom-0 p-6 text-accent-foreground md:p-8">
               <p className="text-[11px] uppercase tracking-[0.22em] text-gold">
-                Профессиональное обучение
+                {siteCopy("home.finalCta.sideEyebrow", "Профессиональное обучение")}
               </p>
               <p className="mt-2 font-display text-xl leading-snug">
                 Создатель метода —{" "}

@@ -3,6 +3,7 @@ import { TrackedLink } from "@/components/analytics/tracked-link";
 import { yandexMetrika } from "@/config/analytics";
 import { legalNavigation, navigation, siteConfig } from "@/config/site";
 import { CurvedLines } from "@/components/decor/curved-lines";
+import { siteCopy } from "@/lib/content/site-copy";
 import { Container } from "./container";
 
 export function Footer() {
@@ -19,7 +20,7 @@ export function Footer() {
               {siteConfig.expert}
             </p>
             <p className="mt-4 max-w-md leading-relaxed text-muted">
-              {siteConfig.description}
+              {siteCopy("site.description", siteConfig.description)}
             </p>
           </div>
 

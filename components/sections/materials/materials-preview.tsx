@@ -1,8 +1,8 @@
 import { Section, SectionHeader } from "@/components/layout/section";
 import { MaterialCard } from "@/components/materials/material-card";
 import { Button } from "@/components/ui/button";
-import { materialsIntro } from "@/config/site";
 import { getFeaturedMaterials } from "@/lib/content/materials";
+import { siteCopy } from "@/lib/content/site-copy";
 
 export function MaterialsPreview() {
   const materials = getFeaturedMaterials(3);
@@ -19,10 +19,16 @@ export function MaterialsPreview() {
 
       <div className="mx-auto mb-12 max-w-3xl space-y-4 text-center">
         <p className="text-lg leading-relaxed text-foreground md:text-xl">
-          {materialsIntro.lead}
+          {siteCopy(
+            "materials.lead",
+            "Практические статьи и подкасты о продвижении, искусственном интеллекте, нейрографике и осознанных изменениях.",
+          )}
         </p>
         <p className="text-base leading-relaxed text-muted md:text-lg">
-          {materialsIntro.description}
+          {siteCopy(
+            "materials.description",
+            "Каждая публикация имеет отдельную страницу, содержательное описание и расшифровку для подкастов — поэтому материал удобно читать, слушать, сохранять и находить через поиск.",
+          )}
         </p>
       </div>
 

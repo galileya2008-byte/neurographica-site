@@ -22,6 +22,8 @@ import {
   uploadPodcastAudio,
   getSiteThemeConfig,
   saveSiteThemeConfig,
+  getSiteCopyConfig,
+  saveSiteCopyConfig,
 } from "@/lib/admin/github";
 import {
   emptyMasterclassForm,
@@ -64,7 +66,9 @@ import { MarkdownEditor } from "@/components/admin/markdown-editor";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { ThemeEditor } from "@/components/admin/theme-editor";
+import { SiteCopyEditor } from "@/components/admin/site-copy-editor";
 import { TopicManager } from "@/components/admin/topic-manager";
+import { siteCopyKeys } from "@/lib/content/site-copy-schema";
 import type { SiteThemePresetId } from "@/types/site-theme";
 import {
   cardColorIds,
@@ -77,6 +81,7 @@ type ContentSection =
   | "programs"
   | "materials"
   | "topics"
+  | "texts"
   | "theme";
 type Mode = "list" | "create" | "edit";
 
@@ -122,6 +127,10 @@ export function AdminApp() {
   const [error, setError] = useState<string | null>(null);
   const [themePresetId, setThemePresetId] = useState<SiteThemePresetId>("autumn");
   const [themeSha, setThemeSha] = useState<string | undefined>();
+  const [siteCopyValues, setSiteCopyValues] = useState<Record<string, string>>(
+    () => Object.fromEntries(siteCopyKeys.map((key) => [key, ""])),
+  );
+  const [siteCopySha, setSiteCopySha] = useState<string | undefined>();
 
   useEffect(() => {
     setAuthed(isAdminAuthenticated());
@@ -203,12 +212,68 @@ export function AdminApp() {
     }
   }
 
+  async function loadSiteCopy(currentToken = token) {
+    if (!currentToken.trim()) {
+      setSiteCopySha(undefined);
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    try {
+      const { copy, sha } = await getSiteCopyConfig(currentToken.trim());
+      const next = Object.fromEntries(
+        siteCopyKeys.map((key) => [key, copy[key] ?? ""]),
+      );
+      setSiteCopyValues(next);
+      setSiteCopySha(sha);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Не удалось загрузить тексты сайта",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSaveSiteCopy() {
+    if (!canSave) {
+      setError("Сначала сохраните GitHub token");
+      return;
+    }
+    setLoading(true);
+    setError(null);
+    setMessage(null);
+    try {
+      const payload = Object.fromEntries(
+        siteCopyKeys.map((key) => [key, siteCopyValues[key] ?? ""]),
+      );
+      await saveSiteCopyConfig(token.trim(), payload, siteCopySha);
+      const refreshed = await getSiteCopyConfig(token.trim());
+      const next = Object.fromEntries(
+        siteCopyKeys.map((key) => [key, refreshed.copy[key] ?? ""]),
+      );
+      setSiteCopyValues(next);
+      setSiteCopySha(refreshed.sha);
+      setMessage("Тексты сохранены. Сайт обновится через 1–2 минуты.");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Не удалось сохранить тексты",
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function refreshList(
     currentToken = token,
     currentSection: ContentSection = section,
   ) {
     if (currentSection === "theme") {
       await loadTheme(currentToken);
+      return;
+    }
+    if (currentSection === "texts") {
+      await loadSiteCopy(currentToken);
       return;
     }
     if (currentSection === "topics") {
@@ -707,7 +772,7 @@ export function AdminApp() {
           <div>
             <h1 className="text-4xl">Админка</h1>
             <p className="mt-2 text-muted">
-              Мастер-классы, программы, публикации, темы и оформление сайта. После
+              Мастер-классы, программы, публикации, тексты, темы и оформление. После
               сохранения GitHub сам обновит сайт.
             </p>
           </div>
@@ -745,6 +810,12 @@ export function AdminApp() {
             onClick={() => switchSection("topics")}
           >
             Выбери свою тему
+          </SectionTab>
+          <SectionTab
+            active={section === "texts"}
+            onClick={() => switchSection("texts")}
+          >
+            Тексты сайта
           </SectionTab>
           <SectionTab
             active={section === "theme"}
@@ -805,6 +876,22 @@ export function AdminApp() {
               presetId={themePresetId}
               onPresetChange={setThemePresetId}
               onSave={() => void handleSaveTheme()}
+              loading={loading}
+              canSave={canSave}
+            />
+          )
+        ) : section === "texts" ? (
+          !canSave ? (
+            <p className="text-muted">Сначала сохраните GitHub token.</p>
+          ) : loading && !siteCopySha ? (
+            <p className="text-muted">Загрузка…</p>
+          ) : (
+            <SiteCopyEditor
+              values={siteCopyValues}
+              onChange={(key, value) =>
+                setSiteCopyValues((prev) => ({ ...prev, [key]: value }))
+              }
+              onSave={() => void handleSaveSiteCopy()}
               loading={loading}
               canSave={canSave}
             />

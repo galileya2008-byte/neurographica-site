@@ -10,50 +10,78 @@ import {
   AI_EXPERT_SLUG,
 } from "@/lib/constants/ai-expert-system";
 import { getProductBySlug } from "@/lib/content/products";
+import { siteCopy } from "@/lib/content/site-copy";
 import { getProductHref } from "@/lib/domain/products";
-
-const pillars = [
-  {
-    title: "Одна услуга — вся система",
-    text: "Не разрозненные уроки, а последовательная работа над вашим предложением, аудиторией и материалами продвижения.",
-  },
-  {
-    title: "Готовые материалы, а не только теория",
-    text: "Профиль, контент-план, публикации, карусель и визуалы — то, что можно сразу использовать в работе.",
-  },
-  {
-    title: "Свой AI-плагин под практику",
-    text: "Создадите помощника, который знает ваш проект и помогает готовить контент без повторных объяснений с нуля.",
-  },
-  {
-    title: "Бонусы под карусели и воронку",
-    text: "Дополнительно — плагины для личных каруселей под вашу аудиторию и для проектирования пути клиента.",
-  },
-] as const;
 
 export function FlagshipProgram() {
   const product = getProductBySlug("program", AI_EXPERT_SLUG);
   if (!product) return null;
 
   const href = getProductHref(product);
+  const pillars = [
+    {
+      title: siteCopy(
+        "home.flagship.pillar1.title",
+        "Одна услуга — вся система",
+      ),
+      text: siteCopy(
+        "home.flagship.pillar1.text",
+        "Не разрозненные уроки, а последовательная работа над вашим предложением, аудиторией и материалами продвижения.",
+      ),
+    },
+    {
+      title: siteCopy(
+        "home.flagship.pillar2.title",
+        "Готовые материалы, а не только теория",
+      ),
+      text: siteCopy(
+        "home.flagship.pillar2.text",
+        "Профиль, контент-план, публикации, карусель и визуалы — то, что можно сразу использовать в работе.",
+      ),
+    },
+    {
+      title: siteCopy(
+        "home.flagship.pillar3.title",
+        "Свой AI-плагин под практику",
+      ),
+      text: siteCopy(
+        "home.flagship.pillar3.text",
+        "Создадите помощника, который знает ваш проект и помогает готовить контент без повторных объяснений с нуля.",
+      ),
+    },
+    {
+      title: siteCopy(
+        "home.flagship.pillar4.title",
+        "Бонусы под карусели и воронку",
+      ),
+      text: siteCopy(
+        "home.flagship.pillar4.text",
+        "Дополнительно — плагины для личных каруселей под вашу аудиторию и для проектирования пути клиента.",
+      ),
+    },
+  ];
 
   return (
     <Section tone="accent" lines="right" autumnDecor>
       <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
         <div className="order-1 min-w-0 lg:order-2">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
-            Программа-флагман
+            {siteCopy("home.flagship.eyebrow", "Программа-флагман")}
           </p>
           <h2 className="mt-3 text-balance text-3xl leading-tight md:text-4xl lg:text-[2.75rem]">
             {product.title}
           </h2>
           <p className="mt-4 max-w-xl text-lg font-medium leading-snug text-foreground md:text-xl">
-            Если вы развиваете свои услуги — эта программа для вас
+            {siteCopy(
+              "home.flagship.lead",
+              "Если вы развиваете свои услуги — эта программа для вас",
+            )}
           </p>
           <p className="mt-4 max-w-xl text-base leading-relaxed text-muted md:text-lg">
-            Не ещё одно обучение «про нейросети», а практическая система: вы
-            работаете на своём проекте и собираете материалы, которые помогут
-            продвигать одну выбранную услугу.
+            {siteCopy(
+              "home.flagship.description",
+              "Не ещё одно обучение «про нейросети», а практическая система: вы работаете на своём проекте и собираете материалы, которые помогут продвигать одну выбранную услугу.",
+            )}
           </p>
 
           <p className="mt-5 text-sm font-medium tracking-wide text-accent">
@@ -64,7 +92,7 @@ export function FlagshipProgram() {
           <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
             <BuyButton
               product={product}
-              label="Начать обучение"
+              label={siteCopy("home.flagship.ctaPrimary", "Начать обучение")}
               className="w-full sm:w-auto"
             />
             <Button
@@ -74,7 +102,7 @@ export function FlagshipProgram() {
               className="w-full sm:w-auto"
               metrikaGoal={yandexMetrika.goals.ctaPrograms}
             >
-              Смотреть программу
+              {siteCopy("home.flagship.ctaSecondary", "Смотреть программу")}
             </Button>
           </div>
         </div>

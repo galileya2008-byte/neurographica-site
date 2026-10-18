@@ -468,3 +468,43 @@ export async function saveSiteThemeConfig(
     }),
   });
 }
+
+export async function getSiteCopyConfig(
+  token: string,
+): Promise<{ copy: Record<string, string>; sha: string }> {
+  const { siteCopyPath, branch } = adminConfig.github;
+  const data = (await githubFetch(
+    `/contents/${siteCopyPath}?ref=${branch}`,
+    token,
+  )) as GithubFileResponse;
+
+  const parsed = JSON.parse(decodeBase64Utf8(data.content)) as Record<
+    string,
+    unknown
+  >;
+  const copy: Record<string, string> = {};
+  for (const [key, value] of Object.entries(parsed)) {
+    if (typeof value === "string") copy[key] = value;
+  }
+
+  return { copy, sha: data.sha };
+}
+
+export async function saveSiteCopyConfig(
+  token: string,
+  copy: Record<string, string>,
+  sha?: string,
+): Promise<void> {
+  const { siteCopyPath, branch } = adminConfig.github;
+  const content = encodeBase64Utf8(`${JSON.stringify(copy, null, 2)}\n`);
+
+  await githubFetch(`/contents/${siteCopyPath}`, token, {
+    method: "PUT",
+    body: JSON.stringify({
+      message: "Update site copy texts",
+      content,
+      branch,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+}

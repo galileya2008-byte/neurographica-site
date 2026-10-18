@@ -14,6 +14,7 @@ export const adminConfig = {
     materialsPath: "content/materials",
     topicsPath: "content/topics.json",
     siteThemePath: "content/site-theme.json",
+    siteCopyPath: "content/site-copy.json",
     /** Путь в репозитории (без public/ в URL сайта) */
     coversRepoPath: "public/images/covers",
     coversPublicPath: "/images/covers",

@@ -1,12 +1,24 @@
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
-import { philosophyQuote, siteConfig } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { yandexMetrika } from "@/config/analytics";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
+import { siteCopy } from "@/lib/content/site-copy";
 
 export function HeroHome() {
+  const quoteLines = [
+    siteCopy(
+      "home.hero.quote1",
+      "Я не обещаю волшебных таблеток.",
+    ),
+    siteCopy(
+      "home.hero.quote2",
+      "Я верю, что каждый человек способен стать автором собственных изменений.",
+    ),
+  ];
+
   return (
     <section className="relative overflow-hidden pt-28 md:pt-36">
       <div className="absolute inset-0 -z-10 site-hero-gradient" />
@@ -19,17 +31,22 @@ export function HeroHome() {
       <Container className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
         <div className="order-2 min-w-0 lg:order-1">
           <p className="reveal-up mb-4 text-[11px] font-medium uppercase tracking-[0.26em] text-gold md:mb-5">
-            Онлайн-практики Нейрографики
+            {siteCopy("home.hero.eyebrow", "Онлайн-практики Нейрографики")}
           </p>
           <p className="reveal-up reveal-delay-1 mb-3 font-display text-xl italic leading-tight text-accent md:mb-4 md:text-3xl">
             {siteConfig.brand}
           </p>
           <h1 className="reveal-up reveal-delay-1 text-balance text-[1.85rem] leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.35rem]">
-            Нейрографика онлайн — от намерения к действию
+            {siteCopy(
+              "home.hero.headline",
+              "Нейрографика онлайн — от намерения к действию",
+            )}
           </h1>
           <p className="reveal-up reveal-delay-2 mt-4 max-w-xl text-base leading-relaxed text-muted sm:mt-6 sm:text-lg md:text-xl">
-            Мастер-классы и программы Галины Оноприенко: ясность, финансовые цели,
-            продвижение услуги и первые шаги через практику линии.
+            {siteCopy(
+              "home.hero.subtitle",
+              "Мастер-классы и программы Галины Оноприенко: ясность, финансовые цели, продвижение услуги и первые шаги через практику линии.",
+            )}
           </p>
 
           <div className="reveal-up reveal-delay-3 mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center">
@@ -39,7 +56,7 @@ export function HeroHome() {
               className="w-full sm:w-auto"
               metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
             >
-              Выбрать мастер-класс
+              {siteCopy("home.hero.ctaPrimary", "Выбрать мастер-класс")}
             </Button>
             <Button
               href="/programs"
@@ -48,18 +65,18 @@ export function HeroHome() {
               className="w-full sm:w-auto"
               metrikaGoal={yandexMetrika.goals.ctaPrograms}
             >
-              Посмотреть программы
+              {siteCopy("home.hero.ctaSecondary", "Посмотреть программы")}
             </Button>
           </div>
 
           <p className="mt-4 text-sm text-muted">
             {siteConfig.expert}
             <span className="mx-2 text-gold">·</span>
-            17 лет онлайн · 1000+ мастер-классов
+            {siteCopy("home.hero.trustLine", "17 лет онлайн · 1000+ мастер-классов")}
           </p>
 
           <blockquote className="mt-8 hidden max-w-xl border-l border-gold/50 pl-5 text-base italic leading-relaxed text-foreground/75 md:mt-12 md:block">
-            {philosophyQuote.lines.map((line) => (
+            {quoteLines.map((line) => (
               <p key={line}>{line}</p>
             ))}
           </blockquote>

@@ -5,14 +5,23 @@ import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { MaterialsCatalog } from "@/components/materials/materials-catalog";
 import { Button } from "@/components/ui/button";
-import { materialsIntro } from "@/config/site";
 import { defaultKeywords } from "@/config/seo";
 import { getAllMaterials } from "@/lib/content/materials";
+import { siteCopy } from "@/lib/content/site-copy";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+
+const materialsLead = siteCopy(
+  "materials.lead",
+  "Практические статьи и подкасты о продвижении, искусственном интеллекте, нейрографике и осознанных изменениях.",
+);
+const materialsDescription = siteCopy(
+  "materials.description",
+  "Каждая публикация имеет отдельную страницу, содержательное описание и расшифровку для подкастов — поэтому материал удобно читать, слушать, сохранять и находить через поиск.",
+);
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Статьи и подкасты",
-  description: `${materialsIntro.lead} ${materialsIntro.description}`,
+  description: `${materialsLead} ${materialsDescription}`,
   path: "/materials",
   keywords: [
     ...defaultKeywords,
@@ -42,10 +51,10 @@ export default function MaterialsPage() {
           </p>
           <h1 className="mt-3 text-4xl md:text-5xl">Статьи и подкасты</h1>
           <p className="mt-6 text-xl leading-relaxed text-foreground md:text-2xl">
-            {materialsIntro.lead}
+            {materialsLead}
           </p>
           <p className="mt-5 text-lg leading-relaxed text-muted">
-            {materialsIntro.description}
+            {materialsDescription}
           </p>
           <div className="mt-7">
             <Button href="/feed.xml" variant="secondary">
