@@ -16,7 +16,7 @@ import { faqItems, faqPageSchema } from "@/config/seo";
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={faqPageSchema(faqItems.slice(0, 4))} />
+      <JsonLd data={faqPageSchema(faqItems)} />
       <HeroHome />
       <FlagshipProgram />
       <BenefitsGrid />

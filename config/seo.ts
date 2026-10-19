@@ -12,6 +12,9 @@ export const defaultKeywords = [
   "принятие решений",
   "самопознание",
   "Галина Оноприенко",
+  "ИИ для экспертов",
+  "продвижение эксперта",
+  "как эксперту продвигаться самостоятельно",
 ] as const;
 
 export type FaqItem = {
@@ -87,6 +90,11 @@ export function faqPageSchema(items: FaqItem[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: "ru-RU",
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "h2", "h3", "[data-faq-answer]"],
+    },
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,

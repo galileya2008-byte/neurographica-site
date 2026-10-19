@@ -32,10 +32,18 @@ export function buildPageMetadata({
   return {
     title: fullTitle,
     description,
+    applicationName: siteConfig.brand,
+    authors: [{ name: siteConfig.expert, url: `${siteConfig.url}/about/` }],
+    creator: siteConfig.expert,
+    publisher: siteConfig.brand,
     ...(keywords?.length ? { keywords } : {}),
     metadataBase: new URL(siteConfig.url),
     alternates: {
       canonical: url,
+      types: {
+        "application/rss+xml": `${siteConfig.url}/feed.xml`,
+        "text/plain": `${siteConfig.url}/llms.txt`,
+      },
     },
     openGraph: {
       type: "website",
@@ -61,6 +69,20 @@ export function buildPageMetadata({
     },
     robots: noIndex
       ? { index: false, follow: false }
-      : { index: true, follow: true },
+      : {
+          index: true,
+          follow: true,
+          googleBot: {
+            index: true,
+            follow: true,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+            "max-video-preview": -1,
+          },
+        },
+    other: {
+      "ai-content": "human-authored",
+      "content-language": "ru",
+    },
   };
 }

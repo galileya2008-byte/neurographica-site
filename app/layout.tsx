@@ -8,7 +8,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/config/site";
 import { defaultKeywords } from "@/config/seo";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { organizationSchema, websiteSchema } from "@/lib/seo/schema";
+import { siteEntityGraph } from "@/lib/seo/schema";
 import { getSiteTheme } from "@/lib/content/site-theme";
 import { SiteThemeStyle } from "@/components/theme/site-theme-style";
 import "./globals.css";
@@ -73,10 +73,16 @@ export default function RootLayout({
           title={`${siteConfig.brand} — новые публикации`}
           href={`${siteConfig.url}/feed.xml`}
         />
+        <link
+          rel="alternate"
+          type="text/plain"
+          title="llms.txt"
+          href={`${siteConfig.url}/llms.txt`}
+        />
         <link rel="preload" as="image" href="/images/galina/portrait-premium.png" />
       </head>
       <body className="relative min-h-screen font-body antialiased">
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
+        <JsonLd data={siteEntityGraph()} />
         <Header />
         <main className="relative z-[1]">{children}</main>
         <div className="relative z-[1]">

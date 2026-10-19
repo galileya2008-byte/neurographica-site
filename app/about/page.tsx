@@ -4,18 +4,36 @@ import { Button } from "@/components/ui/button";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { SiteImage } from "@/components/ui/site-image";
+import { JsonLd } from "@/components/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/product-schema";
+import { personSchema } from "@/lib/seo/schema";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Обо мне",
   description:
     "Галина Оноприенко — дипломированный инструктор нейрографики. 17 лет онлайн-продвижения, 1000+ мастер-классов. Осознанный подход без обещаний «волшебных таблеток».",
   path: "/about",
+  keywords: [
+    "Галина Оноприенко",
+    "инструктор нейрографики",
+    "нейрографика онлайн",
+    "автор практик от намерения к действию",
+  ],
 });
 
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          { "@context": "https://schema.org", ...personSchema() },
+          breadcrumbSchema([
+            { name: "Главная", path: "/" },
+            { name: "Обо мне", path: "/about/" },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden section-padding pt-32">
         <CurvedLines variant="hero" className="opacity-70" />
         <Container className="relative z-10">

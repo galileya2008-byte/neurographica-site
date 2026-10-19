@@ -37,7 +37,10 @@ export function FaqAccordion({ items, defaultOpenIndex = 0 }: FaqAccordionProps)
               />
             </button>
             {isOpen ? (
-              <div className="border-t border-border/60 px-6 pb-5 pt-1 text-muted leading-relaxed">
+              <div
+                data-faq-answer
+                className="border-t border-border/60 px-6 pb-5 pt-1 text-muted leading-relaxed"
+              >
                 {item.answer}
               </div>
             ) : null}

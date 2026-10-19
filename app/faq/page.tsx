@@ -6,6 +6,7 @@ import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { breadcrumbSchema } from "@/lib/seo/product-schema";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "Частые вопросы",
@@ -18,7 +19,15 @@ export const metadata: Metadata = buildPageMetadata({
 export default function FaqPage() {
   return (
     <>
-      <JsonLd data={faqPageSchema(faqItems)} />
+      <JsonLd
+        data={[
+          faqPageSchema(faqItems),
+          breadcrumbSchema([
+            { name: "Главная", path: "/" },
+            { name: "FAQ", path: "/faq/" },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden section-padding pt-32">
         <CurvedLines variant="section-left" />
         <Container className="relative z-10 max-w-3xl">
