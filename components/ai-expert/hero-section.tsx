@@ -7,8 +7,13 @@ import { Container } from "@/components/layout/container";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
-import { AI_EXPERT_META } from "@/lib/constants/ai-expert-system";
+import {
+  AI_EXPERT_META,
+  AI_EXPERT_TIMELESS_OFFER,
+} from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
+import { yandexMetrika } from "@/config/analytics";
+import { siteConfig } from "@/config/site";
 
 type HeroSectionProps = {
   product: Product;
@@ -68,9 +73,12 @@ export function HeroSection({ product }: HeroSectionProps) {
             <p className="mt-6 text-sm font-medium tracking-wide text-accent md:text-base">
               {AI_EXPERT_META}
             </p>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-chocolate md:text-base">
+              {AI_EXPERT_TIMELESS_OFFER}
+            </p>
             <PriceDisplay className="mt-2" size="md" priceClassName="md:text-5xl" />
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <JoinButton
                 product={product}
                 label={hero.ctaLabel}
@@ -84,9 +92,19 @@ export function HeroSection({ product }: HeroSectionProps) {
               >
                 {hero.secondaryCtaLabel}
               </Button>
+              <Button
+                href={siteConfig.social.telegram}
+                variant="ghost"
+                size="lg"
+                className="w-full sm:w-auto"
+                metrikaGoal={yandexMetrika.goals.telegram}
+              >
+                {hero.askLabel}
+              </Button>
             </div>
             <p className="mt-3 text-sm text-muted">
-              Обучение и оплата на GetCourse · доступ 12 месяцев
+              Обучение и оплата на GetCourse · доступ 12 месяцев. Есть вопросы —
+              напишите в Telegram.
             </p>
           </div>
 

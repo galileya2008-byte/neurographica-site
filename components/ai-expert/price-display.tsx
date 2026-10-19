@@ -13,7 +13,7 @@ type PriceDisplayProps = {
   align?: "left" | "center";
   size?: "sm" | "md" | "lg";
   inverted?: boolean;
-  /** Показывать анонс повышения цены с 24 октября */
+  /** Показывать анонс повышения цены с 30 октября */
   showRiseNotice?: boolean;
 };
 

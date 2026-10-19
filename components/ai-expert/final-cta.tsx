@@ -2,8 +2,11 @@ import type { Product } from "@/types/product";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
 import { JoinButton } from "@/components/ai-expert/join-button";
+import { Button } from "@/components/ui/button";
 import { AI_EXPERT_META } from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
+import { yandexMetrika } from "@/config/analytics";
+import { siteConfig } from "@/config/site";
 
 type FinalCtaProps = {
   product: Product;
@@ -32,13 +35,26 @@ export function FinalCta({ product }: FinalCtaProps) {
           <p className="mt-3 text-sm font-medium text-accent md:text-base">
             {AI_EXPERT_META}
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <JoinButton
               product={product}
               label={finalCta.ctaLabel}
               className="w-full sm:w-auto"
             />
+            <Button
+              href={siteConfig.social.telegram}
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto"
+              metrikaGoal={yandexMetrika.goals.telegram}
+            >
+              {finalCta.askLabel}
+            </Button>
           </div>
+          <p className="mt-4 text-sm text-muted">
+            Есть вопросы по программе? Напишите в Telegram{" "}
+            {siteConfig.social.telegramHandle}
+          </p>
         </div>
       </div>
     </Section>

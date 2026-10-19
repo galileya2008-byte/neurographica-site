@@ -8,6 +8,7 @@ import {
   AI_EXPERT_HERO_POSTER,
   AI_EXPERT_META,
   AI_EXPERT_SLUG,
+  AI_EXPERT_TIMELESS_OFFER,
 } from "@/lib/constants/ai-expert-system";
 import { getProductBySlug } from "@/lib/content/products";
 import { siteCopy } from "@/lib/content/site-copy";
@@ -86,6 +87,9 @@ export function FlagshipProgram() {
 
           <p className="mt-5 text-sm font-medium tracking-wide text-accent">
             {AI_EXPERT_META}
+          </p>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-chocolate">
+            {AI_EXPERT_TIMELESS_OFFER}
           </p>
           <PriceDisplay className="mt-2" size="md" />
 

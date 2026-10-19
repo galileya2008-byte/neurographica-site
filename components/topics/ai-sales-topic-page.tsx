@@ -95,7 +95,7 @@ export function AiSalesTopicPage() {
                       <span className="text-3xl text-foreground">7 700 ₽</span>
                     </p>
                     <p className="mt-2 text-sm font-medium text-chocolate">
-                      С 24 октября стоимость программы будет 10 999 ₽
+                      С 30 октября стоимость программы будет 15 000 ₽
                     </p>
                     <p className="mt-1 text-xs text-muted">
                       Доступ к материалам — 12 месяцев
