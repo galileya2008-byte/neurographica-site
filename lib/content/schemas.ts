@@ -75,6 +75,12 @@ export const materialSchema = z.object({
   mediaUrl: z.string().min(1).optional(),
   publishedAt: z.string().min(1),
   readingMinutes: z.number().positive(),
+  relatedCta: z
+    .object({
+      label: z.string().min(1),
+      href: z.string().min(1),
+    })
+    .optional(),
   seo: z
     .object({
       title: z.string().optional(),

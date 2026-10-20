@@ -33,6 +33,11 @@ export type Material = CardSettings & {
   mediaUrl?: string;
   publishedAt: string;
   readingMinutes: number;
+  /** Контекстный переход на продукт или тему вместо общей ссылки на каталог */
+  relatedCta?: {
+    label: string;
+    href: string;
+  };
   seo?: {
     title?: string;
     description?: string;

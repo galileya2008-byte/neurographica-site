@@ -1,5 +1,5 @@
 import { yandexMetrika } from "@/config/analytics";
-import { getPurchaseUrl } from "@/lib/constants/getcourse";
+import { getPurchaseAction } from "@/lib/constants/getcourse";
 import { formatPrice } from "@/lib/utils";
 import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
@@ -18,15 +18,24 @@ export function BuyButton({
   className,
   label = "Купить",
 }: BuyButtonProps) {
+  const action = getPurchaseAction(product);
+  const text = action.isCheckout
+    ? `${label} · ${formatPrice(product.price, product.currency)}`
+    : "Уточнить покупку";
+
   return (
     <Button
-      href={getPurchaseUrl(product)}
+      href={action.href}
       size={size}
       className={cn(className)}
-      metrikaGoal={yandexMetrika.goals.purchase}
+      metrikaGoal={
+        action.isCheckout
+          ? yandexMetrika.goals.purchase
+          : yandexMetrika.goals.telegram
+      }
       metrikaParams={{ product: product.slug }}
     >
-      {label} · {formatPrice(product.price, product.currency)}
+      {text}
     </Button>
   );
 }

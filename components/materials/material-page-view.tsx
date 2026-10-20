@@ -77,7 +77,9 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
           <Button href="/materials" variant="secondary">
             Все статьи и подкасты
           </Button>
-          <Button href="/masterclasses">Выбрать мастер-класс</Button>
+          <Button href={material.relatedCta?.href ?? "/topics/"}>
+            {material.relatedCta?.label ?? "Выбрать практику по теме"}
+          </Button>
         </div>
       </Container>
     </article>

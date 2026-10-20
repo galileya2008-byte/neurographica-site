@@ -19,23 +19,23 @@ export function FinalCta() {
             <h2 className="mt-4 text-balance text-[1.85rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
               {siteCopy(
                 "home.finalCta.title",
-                "Выберите практику Нейрографики и сделайте первый шаг",
+                "Выберите направление и сделайте первый шаг",
               )}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
               {siteCopy(
                 "home.finalCta.description",
-                "Мастер-класс для быстрого старта или программа для системной работы. Оплата и доступ — на GetCourse.",
+                "Практика нейрографики для себя или AI-программа для экспертов. Оплата и доступ — на GetCourse; срок доступа — на странице продукта.",
               )}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button
-                href="/masterclasses"
+                href="/topics/"
                 size="lg"
                 className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
               >
-                {siteCopy("home.finalCta.ctaPrimary", "Выбрать мастер-класс")}
+                {siteCopy("home.finalCta.ctaPrimary", "Выбрать практику")}
               </Button>
               <Button
                 href="/contacts"

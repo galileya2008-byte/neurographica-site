@@ -15,7 +15,7 @@ export function buildPageMetadata({
   title,
   description = siteConfig.description,
   path = "",
-  image = "/images/galina/portrait-premium.png",
+  image = "/images/galina/at-work.png",
   noIndex = false,
   keywords,
   absoluteTitle = false,

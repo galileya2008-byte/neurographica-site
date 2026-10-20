@@ -1,4 +1,5 @@
 import { HeroHome } from "@/components/sections/hero/hero-home";
+import { AudiencePathways } from "@/components/sections/home/audience-pathways";
 import { FlagshipProgram } from "@/components/sections/products/flagship-program";
 import { BenefitsGrid } from "@/components/sections/benefits/benefits-grid";
 import { DirectionsCards } from "@/components/sections/directions/directions-cards";
@@ -18,6 +19,7 @@ export default function HomePage() {
     <>
       <JsonLd data={faqPageSchema(faqItems)} />
       <HeroHome />
+      <AudiencePathways />
       <FlagshipProgram />
       <BenefitsGrid />
       <DirectionsCards />

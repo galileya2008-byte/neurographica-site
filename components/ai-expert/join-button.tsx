@@ -1,7 +1,7 @@
 import { yandexMetrika } from "@/config/analytics";
 import type { Product } from "@/types/product";
 import { Button } from "@/components/ui/button";
-import { getPurchaseUrl } from "@/lib/constants/getcourse";
+import { getPurchaseAction } from "@/lib/constants/getcourse";
 import { cn } from "@/lib/utils";
 
 type JoinButtonProps = {
@@ -17,18 +17,25 @@ export function JoinButton({
   size = "lg",
   className,
 }: JoinButtonProps) {
+  const action = getPurchaseAction(product);
+  const text = action.isCheckout ? label : "Уточнить покупку";
+
   return (
     <Button
-      href={getPurchaseUrl(product)}
+      href={action.href}
       size={size}
       className={cn(
         "max-w-full whitespace-normal text-center sm:whitespace-nowrap",
         className,
       )}
-      metrikaGoal={yandexMetrika.goals.purchase}
+      metrikaGoal={
+        action.isCheckout
+          ? yandexMetrika.goals.purchase
+          : yandexMetrika.goals.telegram
+      }
       metrikaParams={{ product: product.slug }}
     >
-      {label}
+      {text}
     </Button>
   );
 }

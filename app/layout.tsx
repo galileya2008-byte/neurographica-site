@@ -79,7 +79,7 @@ export default function RootLayout({
           title="llms.txt"
           href={`${siteConfig.url}/llms.txt`}
         />
-        <link rel="preload" as="image" href="/images/galina/portrait-premium.png" />
+        <link rel="preload" as="image" href="/images/galina/at-work.png" />
       </head>
       <body className="relative min-h-screen font-body antialiased">
         <JsonLd data={siteEntityGraph()} />

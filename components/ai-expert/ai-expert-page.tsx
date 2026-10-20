@@ -6,6 +6,7 @@ import { OutcomesSection } from "@/components/ai-expert/outcomes-section";
 import { ProgramSection } from "@/components/ai-expert/program-section";
 import { BonusSection } from "@/components/ai-expert/bonus-section";
 import { AudienceSection } from "@/components/ai-expert/audience-section";
+import { ConditionsSection } from "@/components/ai-expert/conditions-section";
 import { AuthorSection } from "@/components/ai-expert/author-section";
 import { PricingSection } from "@/components/ai-expert/pricing-section";
 import { FaqSection } from "@/components/ai-expert/faq-section";
@@ -52,6 +53,7 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
       <ProgramSection />
       <BonusSection />
       <AudienceSection />
+      <ConditionsSection />
       <NarrativeSection
         eyebrow={aiExpertCopy.format.eyebrow}
         title={aiExpertCopy.format.title}

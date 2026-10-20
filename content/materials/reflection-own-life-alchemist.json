@@ -8,6 +8,10 @@
   "cover": "/images/galina/with-pavel-piskarev.png",
   "publishedAt": "2026-02-05",
   "readingMinutes": 4,
+  "relatedCta": {
+    "label": "Посмотреть практики",
+    "href": "/topics/"
+  },
   "seo": {
     "title": "Алхимик собственной жизни",
     "description": "Авторское размышление Галины Оноприенко об осознанных изменениях и личной ответственности."

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { TrackedLink } from "@/components/analytics/tracked-link";
 import { yandexMetrika } from "@/config/analytics";
-import { legalNavigation, navigation, siteConfig } from "@/config/site";
+import {
+  footerExtras,
+  legalNavigation,
+  navigation,
+  siteConfig,
+} from "@/config/site";
 import { CurvedLines } from "@/components/decor/curved-lines";
 import { siteCopy } from "@/lib/content/site-copy";
 import { Container } from "./container";
@@ -30,6 +35,17 @@ export function Footer() {
             </p>
             <ul className="space-y-3">
               {navigation.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    prefetch={false}
+                    className="text-muted transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+              {footerExtras.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}

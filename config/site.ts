@@ -3,7 +3,7 @@ export const siteConfig = {
   expert: "Галина Оноприенко",
   title: "Нейрографика онлайн — от намерения к действию | Галина Оноприенко",
   description:
-    "Мастер-классы и программы по нейрографике: ясность, намерение, финансовые цели и продвижение услуги. Галина Оноприенко — инструктор нейрографики, 17 лет онлайн-продвижения, 1000+ занятий.",
+    "Нейрографика для личных запросов и AI-программа для продвижения экспертной услуги. Галина Оноприенко — инструктор нейрографики. В онлайн-продвижении с 2008 года, 1000+ занятий.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://siteneirogalina.ru",
   locale: "ru_RU",
@@ -25,9 +25,16 @@ export const navigation = [
   { label: "Выбери свою тему", href: "/topics" },
   { label: "Подарки", href: "/podarki" },
   { label: "Обо мне", href: "/about" },
-  { label: "Отзывы", href: "/reviews" },
   { label: "FAQ", href: "/faq" },
   { label: "Контакты", href: "/contacts" },
+] as const;
+
+/** Дополнительные ссылки в подвале — без перегрузки шапки */
+export const footerExtras = [
+  {
+    label: "AI-программа для экспертов",
+    href: "/programs/ai-dlya-ekspertov/",
+  },
 ] as const;
 
 export const legalNavigation = [
@@ -44,9 +51,9 @@ export const materialsIntro = {
 
 export const benefits = [
   {
-    value: "17 лет",
-    label: "онлайн-продвижения",
-    description: "Опыт продвижения образовательных проектов в интернете с 2008 года.",
+    value: "с 2008",
+    label: "в онлайн-продвижении",
+    description: "В онлайн-продвижении с 2008 года — образовательные проекты и практики в интернете.",
   },
   {
     value: "1000+",

@@ -7,6 +7,7 @@ import { ProductFaq } from "@/components/product/product-faq";
 import { ProductSupplementSection } from "@/components/product/product-supplement";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SiteImage } from "@/components/ui/site-image";
+import { hasConfiguredPurchaseUrl } from "@/lib/constants/getcourse";
 import { getCatalogHref } from "@/lib/domain/products";
 import { getDirectionLabel } from "@/lib/domain/products";
 import {
@@ -113,8 +114,12 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
               <div className="mt-8 space-y-3">
                 <BuyButton product={product} />
                 <p className="text-sm text-muted">
-                  После нажатия вы перейдёте на платформу GetCourse для оплаты и
-                  получения доступа.
+                  {hasConfiguredPurchaseUrl(product)
+                    ? "После нажатия вы перейдёте на страницу оформления этого продукта на GetCourse."
+                    : "Ссылка на оформление этого продукта уточняется. Напишите в Telegram — помогу с записью."}
+                </p>
+                <p className="text-sm text-muted">
+                  Срок доступа указан на странице выбранного занятия или программы.
                 </p>
               </div>
             </div>
@@ -198,7 +203,11 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
           <SectionHeader
             eyebrow="Смотрите также"
             title="Похожие предложения"
-            description="Другие форматы в близких направлениях."
+            description={
+              product.slug === "planning" || product.slug === "neyroplanirovanie"
+                ? "Сравните форматы планирования по длительности, цене и итогу работы — выберите под свою задачу."
+                : "Другие форматы по близкой задаче и направлениям."
+            }
           />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {related.map((item) => (

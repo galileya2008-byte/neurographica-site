@@ -8,6 +8,10 @@
   "cover": "/images/galina/at-work.png",
   "publishedAt": "2026-03-01",
   "readingMinutes": 4,
+  "relatedCta": {
+    "label": "Практики про намерение",
+    "href": "/topics/dvigatsya-k-tseli/"
+  },
   "seo": {
     "title": "Намерение и первый шаг",
     "description": "Статья о том, как намерение и маленькие действия запускают осознанные изменения."
