@@ -5,6 +5,8 @@ import { NarrativeSection } from "@/components/ai-expert/narrative-section";
 import { OutcomesSection } from "@/components/ai-expert/outcomes-section";
 import { ProgramSection } from "@/components/ai-expert/program-section";
 import { BonusSection } from "@/components/ai-expert/bonus-section";
+import { PluginsSpotlight } from "@/components/ai-expert/plugins-spotlight";
+import { PremiumCarousel } from "@/components/ai-expert/premium-carousel";
 import { AudienceSection } from "@/components/ai-expert/audience-section";
 import { ConditionsSection } from "@/components/ai-expert/conditions-section";
 import { AuthorSection } from "@/components/ai-expert/author-section";
@@ -50,6 +52,8 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
         lines="left"
       />
       <OutcomesSection />
+      <PluginsSpotlight />
+      <PremiumCarousel />
       <ProgramSection />
       <BonusSection />
       <AudienceSection />

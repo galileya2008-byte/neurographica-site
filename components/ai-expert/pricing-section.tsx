@@ -5,6 +5,7 @@ import { PriceDisplay } from "@/components/ai-expert/price-display";
 import { Button } from "@/components/ui/button";
 import {
   AI_EXPERT_META,
+  AI_EXPERT_PAYMENT_NOTE,
   AI_EXPERT_TIMELESS_OFFER,
 } from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
@@ -37,8 +38,16 @@ export function PricingSection({ product }: PricingSectionProps) {
             <li key={item}>{item}</li>
           ))}
         </ul>
-        <PriceDisplay className="mt-6" align="center" size="lg" />
-        <p className="mt-5 text-center leading-relaxed text-muted">{pricing.note}</p>
+        <PriceDisplay
+          className="mt-6"
+          align="center"
+          size="lg"
+          showStages
+        />
+        <p className="mt-5 text-center text-sm leading-relaxed text-chocolate md:text-base">
+          {AI_EXPERT_PAYMENT_NOTE}
+        </p>
+        <p className="mt-3 text-center leading-relaxed text-muted">{pricing.note}</p>
         <div className="mt-8 space-y-3">
           <JoinButton
             product={product}

@@ -3,7 +3,10 @@ import { CurvedLines } from "@/components/decor/curved-lines";
 import { Section } from "@/components/layout/section";
 import { JoinButton } from "@/components/ai-expert/join-button";
 import { Button } from "@/components/ui/button";
-import { AI_EXPERT_META } from "@/lib/constants/ai-expert-system";
+import {
+  AI_EXPERT_META,
+  AI_EXPERT_PAYMENT_NOTE,
+} from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
 import { yandexMetrika } from "@/config/analytics";
 import { siteConfig } from "@/config/site";
@@ -51,7 +54,10 @@ export function FinalCta({ product }: FinalCtaProps) {
               {finalCta.askLabel}
             </Button>
           </div>
-          <p className="mt-4 text-sm text-muted">
+          <p className="mt-4 text-sm leading-relaxed text-muted">
+            {AI_EXPERT_PAYMENT_NOTE}
+          </p>
+          <p className="mt-2 text-sm text-muted">
             Есть вопросы по программе? Напишите в Telegram{" "}
             {siteConfig.social.telegramHandle}
           </p>

@@ -7,7 +7,11 @@ import { BuyButton } from "@/components/product/buy-button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { AI_EXPERT_SLUG } from "@/lib/constants/ai-expert-system";
+import { PriceDisplay } from "@/components/ai-expert/price-display";
+import {
+  AI_EXPERT_PAYMENT_NOTE,
+  AI_EXPERT_SLUG,
+} from "@/lib/constants/ai-expert-system";
 import { aiSalesTopic } from "@/lib/content/ai-sales-topic";
 import { getProductBySlug } from "@/lib/content/products";
 import { faqSchema } from "@/lib/seo/product-schema";
@@ -88,17 +92,9 @@ export function AiSalesTopicPage() {
                     <p className="text-sm text-muted">
                       Персональная AI-система для эксперта
                     </p>
-                    <p className="mt-1 flex flex-wrap items-baseline gap-3 font-display tracking-tight">
-                      <span className="text-xl text-muted line-through decoration-2">
-                        25 000 ₽
-                      </span>
-                      <span className="text-3xl text-foreground">7 700 ₽</span>
-                    </p>
-                    <p className="mt-2 text-sm font-medium text-chocolate">
-                      С 30 октября стоимость программы будет 15 000 ₽
-                    </p>
-                    <p className="mt-1 text-xs text-muted">
-                      Доступ к материалам — 12 месяцев
+                    <PriceDisplay className="mt-1" size="md" showStages />
+                    <p className="mt-2 text-xs leading-relaxed text-muted">
+                      Доступ к материалам — 12 месяцев. {AI_EXPERT_PAYMENT_NOTE}
                     </p>
                     <BuyButton
                       product={program}

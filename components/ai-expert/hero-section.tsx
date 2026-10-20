@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
 import {
   AI_EXPERT_META,
+  AI_EXPERT_PAYMENT_NOTE,
   AI_EXPERT_TIMELESS_OFFER,
 } from "@/lib/constants/ai-expert-system";
 import { aiExpertCopy } from "@/lib/content/ai-expert-system";
@@ -76,7 +77,12 @@ export function HeroSection({ product }: HeroSectionProps) {
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-chocolate md:text-base">
               {AI_EXPERT_TIMELESS_OFFER}
             </p>
-            <PriceDisplay className="mt-2" size="md" priceClassName="md:text-5xl" />
+            <PriceDisplay
+              className="mt-2"
+              size="md"
+              priceClassName="md:text-5xl"
+              showStages
+            />
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <JoinButton
@@ -102,9 +108,9 @@ export function HeroSection({ product }: HeroSectionProps) {
                 {hero.askLabel}
               </Button>
             </div>
-            <p className="mt-3 text-sm text-muted">
-              Обучение и оплата на GetCourse · доступ 12 месяцев. Есть вопросы —
-              напишите в Telegram.
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              Обучение и оплата на GetCourse · доступ 12 месяцев. {AI_EXPERT_PAYMENT_NOTE}{" "}
+              Есть вопросы — напишите в Telegram.
             </p>
           </div>
 
