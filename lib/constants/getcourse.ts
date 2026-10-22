@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 import type { Product } from "@/types/product";
 import {
-  AI_EXPERT_PAYMENT_FALLBACK_URL,
+  AI_EXPERT_CHECKOUT_URL,
   AI_EXPERT_SLUG,
 } from "@/lib/constants/ai-expert-system";
 import {
@@ -66,7 +66,7 @@ export function hasConfiguredPurchaseUrl(product: Product): boolean {
 export function getPurchaseAction(product: Product): PurchaseAction {
   if (product.slug === AI_EXPERT_SLUG) {
     return {
-      href: withCampaignParams(AI_EXPERT_PAYMENT_FALLBACK_URL, product.slug),
+      href: withCampaignParams(AI_EXPERT_CHECKOUT_URL, product.slug),
       isCheckout: true,
     };
   }

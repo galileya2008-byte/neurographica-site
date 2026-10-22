@@ -64,7 +64,7 @@ export function FlagshipProgram() {
 
   return (
     <Section tone="accent" lines="right" autumnDecor>
-      <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-10 xl:grid-cols-[minmax(0,30rem)_1.1fr] xl:gap-12">
         <div className="order-1 min-w-0 lg:order-2">
           <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
             {siteCopy("home.flagship.eyebrow", "Программа-флагман")}
@@ -112,17 +112,16 @@ export function FlagshipProgram() {
         </div>
 
         <div className="order-2 min-w-0 lg:order-1">
-          <div className="premium-card relative overflow-hidden rounded-[1.75rem] bg-[#0b1a2e]">
-            <div className="relative aspect-[1024/682] w-full">
-              <SiteImage
-                src={AI_EXPERT_PROMO_IMAGE}
-                alt={`${product.title} — 10 990 ₽, три личных плагина, Сплит и рассрочка`}
-                fill
-                loading="lazy"
-                className="object-contain object-center"
-                sizes="(max-width: 1024px) 100vw, 560px"
-              />
-            </div>
+          <div className="premium-card overflow-hidden rounded-[1.75rem] bg-[#0b1a2e]">
+            <SiteImage
+              src={AI_EXPERT_PROMO_IMAGE}
+              alt={`${product.title} — 10 990 ₽, три личных плагина, Сплит и рассрочка`}
+              width={1024}
+              height={682}
+              loading="lazy"
+              className="h-auto w-full"
+              sizes="(max-width: 1024px) 100vw, 480px"
+            />
           </div>
         </div>
       </div>

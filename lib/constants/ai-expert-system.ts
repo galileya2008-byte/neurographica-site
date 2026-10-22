@@ -11,9 +11,10 @@ export const AI_EXPERT_WIDGET_SCRIPT_ID =
   "202fa7c18c5076ce734ab9771116a57a6b40ef2b";
 export const AI_EXPERT_WIDGET_SCRIPT_SRC =
   `https://neirogalina.ru/pl/lite/widget/script?id=${AI_EXPERT_WIDGET_ID}`;
-export const AI_EXPERT_WIDGET_IFRAME_SRC =
+/** Прямой переход к оплате (виджет / форма GetCourse) */
+export const AI_EXPERT_CHECKOUT_URL =
   `https://neirogalina.ru/pl/lite/widget/widget?id=${AI_EXPERT_WIDGET_ID}`;
-/** Запасная страница оффера, если виджет недоступен */
+/** Запасная страница оффера */
 export const AI_EXPERT_PAYMENT_FALLBACK_URL =
   "https://neirogalina.ru/page239";
 

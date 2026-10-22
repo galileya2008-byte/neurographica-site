@@ -41,7 +41,7 @@ export function HeroSection({ product }: HeroSectionProps) {
           ]}
         />
 
-        <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div className="grid items-start gap-8 lg:grid-cols-[1fr_minmax(0,28rem)] lg:gap-10 xl:grid-cols-[1.15fr_minmax(0,32rem)] xl:gap-12">
           <div className="order-2 min-w-0 lg:order-1">
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-gold">
               {hero.eyebrow}
