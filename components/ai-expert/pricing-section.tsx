@@ -1,6 +1,7 @@
 import type { Product } from "@/types/product";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { JoinButton } from "@/components/ai-expert/join-button";
+import { PaymentWidgetFrame } from "@/components/ai-expert/payment-widget-frame";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,7 +49,13 @@ export function PricingSection({ product }: PricingSectionProps) {
           {AI_EXPERT_PAYMENT_NOTE}
         </p>
         <p className="mt-3 text-center leading-relaxed text-muted">{pricing.note}</p>
-        <div className="mt-8 space-y-3">
+        <div className="mt-8 overflow-hidden rounded-[1.25rem] border border-border/80 bg-background/70 p-2 sm:p-3">
+          <p className="mb-2 text-center text-[11px] font-medium uppercase tracking-[0.18em] text-gold">
+            Форма оплаты
+          </p>
+          <PaymentWidgetFrame minHeight={360} />
+        </div>
+        <div className="mt-6 space-y-3">
           <JoinButton
             product={product}
             label={pricing.ctaLabel}
@@ -65,7 +72,7 @@ export function PricingSection({ product }: PricingSectionProps) {
           </Button>
         </div>
         <p className="mt-3 text-center text-sm text-muted">
-          После оплаты — переход на GetCourse. Вопросы — в Telegram{" "}
+          Оплата через виджет GetCourse. Вопросы — в Telegram{" "}
           {siteConfig.social.telegramHandle}
         </p>
       </article>

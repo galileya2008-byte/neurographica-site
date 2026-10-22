@@ -5,6 +5,18 @@ export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
 /** Актуальный промо-баннер программы (цена и условия на изображении) */
 export const AI_EXPERT_PROMO_IMAGE = "/media/ai-expert/promo-10990.jpg";
 
+/** GetCourse lite-виджет оплаты программы */
+export const AI_EXPERT_WIDGET_ID = "1672623";
+export const AI_EXPERT_WIDGET_SCRIPT_ID =
+  "202fa7c18c5076ce734ab9771116a57a6b40ef2b";
+export const AI_EXPERT_WIDGET_SCRIPT_SRC =
+  `https://neirogalina.ru/pl/lite/widget/script?id=${AI_EXPERT_WIDGET_ID}`;
+export const AI_EXPERT_WIDGET_IFRAME_SRC =
+  `https://neirogalina.ru/pl/lite/widget/widget?id=${AI_EXPERT_WIDGET_ID}`;
+/** Запасная страница оффера, если виджет недоступен */
+export const AI_EXPERT_PAYMENT_FALLBACK_URL =
+  "https://neirogalina.ru/page239";
+
 export const AI_EXPERT_PRICE_LABEL = "10 990 ₽";
 export const AI_EXPERT_OLD_PRICE_LABEL = "25 000 ₽";
 export const AI_EXPERT_NEXT_PRICE_LABEL = "15 000 ₽";

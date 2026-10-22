@@ -1,6 +1,10 @@
 import { siteConfig } from "@/config/site";
 import type { Product } from "@/types/product";
 import {
+  AI_EXPERT_PAYMENT_FALLBACK_URL,
+  AI_EXPERT_SLUG,
+} from "@/lib/constants/ai-expert-system";
+import {
   COURSE_PAYMENT_URL,
   NEUROCOMPOSITION_SLUG,
 } from "@/lib/constants/neurocomposition";
@@ -49,6 +53,9 @@ function isPlaceholderPurchaseUrl(rawUrl: string): boolean {
 }
 
 export function hasConfiguredPurchaseUrl(product: Product): boolean {
+  if (product.slug === AI_EXPERT_SLUG) {
+    return true;
+  }
   if (product.slug === NEUROCOMPOSITION_SLUG) {
     return Boolean(COURSE_PAYMENT_URL);
   }
@@ -57,6 +64,13 @@ export function hasConfiguredPurchaseUrl(product: Product): boolean {
 }
 
 export function getPurchaseAction(product: Product): PurchaseAction {
+  if (product.slug === AI_EXPERT_SLUG) {
+    return {
+      href: withCampaignParams(AI_EXPERT_PAYMENT_FALLBACK_URL, product.slug),
+      isCheckout: true,
+    };
+  }
+
   if (product.slug === NEUROCOMPOSITION_SLUG) {
     if (!COURSE_PAYMENT_URL) {
       return { href: siteConfig.social.telegram, isCheckout: false };

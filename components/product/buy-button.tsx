@@ -1,9 +1,12 @@
+"use client";
+
 import { yandexMetrika } from "@/config/analytics";
-import { getPurchaseAction } from "@/lib/constants/getcourse";
-import { formatPrice } from "@/lib/utils";
-import type { Product } from "@/types/product";
+import { AiExpertPayButton } from "@/components/ai-expert/pay-button";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { AI_EXPERT_SLUG } from "@/lib/constants/ai-expert-system";
+import { getPurchaseAction } from "@/lib/constants/getcourse";
+import { formatPrice, cn } from "@/lib/utils";
+import type { Product } from "@/types/product";
 
 type BuyButtonProps = {
   product: Product;
@@ -18,6 +21,18 @@ export function BuyButton({
   className,
   label = "Купить",
 }: BuyButtonProps) {
+  if (product.slug === AI_EXPERT_SLUG) {
+    return (
+      <AiExpertPayButton
+        product={product}
+        label={label}
+        size={size}
+        className={className}
+        showPrice
+      />
+    );
+  }
+
   const action = getPurchaseAction(product);
   const text = action.isCheckout
     ? `${label} · ${formatPrice(product.price, product.currency)}`
