@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Section, SectionHeader } from "@/components/layout/section";
 import { SiteImage } from "@/components/ui/site-image";
@@ -11,6 +11,7 @@ export function PremiumCarousel() {
   const { eyebrow, title, description, slides } = AI_EXPERT_CAROUSEL_EXAMPLE;
   const [index, setIndex] = useState(0);
   const total = slides.length;
+  const touchStartX = useRef<number | null>(null);
 
   const go = useCallback(
     (direction: -1 | 1) => {
@@ -40,7 +41,21 @@ export function PremiumCarousel() {
       />
 
       <div className="mx-auto max-w-xl">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-chocolate/15 bg-[linear-gradient(160deg,_#1a2430_0%,_#101820_55%,_#0c1218_100%)] shadow-[0_28px_60px_-28px_rgb(16_24_32/0.75)]">
+        <div
+          className="relative overflow-hidden rounded-[1.25rem] border border-chocolate/15 bg-[linear-gradient(160deg,_#1a2430_0%,_#101820_55%,_#0c1218_100%)] shadow-[0_28px_60px_-28px_rgb(16_24_32/0.75)] sm:rounded-[1.75rem]"
+          onTouchStart={(event) => {
+            touchStartX.current = event.changedTouches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(event) => {
+            const start = touchStartX.current;
+            const end = event.changedTouches[0]?.clientX;
+            touchStartX.current = null;
+            if (start == null || end == null) return;
+            const delta = end - start;
+            if (Math.abs(delta) < 40) return;
+            go(delta < 0 ? 1 : -1);
+          }}
+        >
           <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
           <div className="relative aspect-[4/5] w-full">
             <SiteImage
@@ -54,7 +69,7 @@ export function PremiumCarousel() {
             />
           </div>
 
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-5 pb-5 pt-16">
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-4 pb-4 pt-14 sm:px-5 sm:pb-5 sm:pt-16">
             <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-gold">
               Слайд {index + 1} из {total}
             </p>
@@ -66,7 +81,7 @@ export function PremiumCarousel() {
           <button
             type="button"
             onClick={() => go(-1)}
-            className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white backdrop-blur-sm transition hover:bg-black/55"
+            className="absolute left-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/55 sm:left-3 sm:h-10 sm:w-10"
             aria-label="Предыдущий слайд"
           >
             <ChevronLeft className="h-5 w-5" />
@@ -74,7 +89,7 @@ export function PremiumCarousel() {
           <button
             type="button"
             onClick={() => go(1)}
-            className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/35 text-white backdrop-blur-sm transition hover:bg-black/55"
+            className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/55 sm:right-3 sm:h-10 sm:w-10"
             aria-label="Следующий слайд"
           >
             <ChevronRight className="h-5 w-5" />

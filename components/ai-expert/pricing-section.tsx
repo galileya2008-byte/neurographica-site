@@ -29,7 +29,7 @@ export function PricingSection({ product }: PricingSectionProps) {
         description={pricing.description}
       />
 
-      <article className="mx-auto max-w-xl rounded-[1.75rem] border border-gold/30 bg-card p-7 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] md:p-10">
+      <article className="mx-auto max-w-xl rounded-[1.5rem] border border-gold/30 bg-card p-5 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] sm:rounded-[1.75rem] sm:p-7 md:p-10">
         <p className="text-center text-sm font-medium text-accent">{AI_EXPERT_META}</p>
         <p className="mt-3 text-center text-sm leading-relaxed text-chocolate">
           {AI_EXPERT_TIMELESS_OFFER}
@@ -43,12 +43,16 @@ export function PricingSection({ product }: PricingSectionProps) {
           className="mt-6"
           align="center"
           size="lg"
+          priceClassName="text-4xl md:text-6xl"
           showStages
         />
         <p className="mt-5 text-center text-sm leading-relaxed text-chocolate md:text-base">
-          {AI_EXPERT_PAYMENT_NOTE}
+          <span className="sm:hidden">Сплит · рассрочка без % · карты и СБП</span>
+          <span className="hidden sm:inline">{AI_EXPERT_PAYMENT_NOTE}</span>
         </p>
-        <p className="mt-3 text-center leading-relaxed text-muted">{pricing.note}</p>
+        <p className="mt-3 text-center text-sm leading-relaxed text-muted md:text-base">
+          {pricing.note}
+        </p>
         <div className="mt-6 space-y-3">
           <JoinButton
             product={product}

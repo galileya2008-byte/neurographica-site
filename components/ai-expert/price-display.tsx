@@ -106,7 +106,7 @@ export function PriceDisplay({
       {showStages ? (
         <ol
           className={cn(
-            "mt-4 grid w-full gap-2 sm:grid-cols-3",
+            "mt-4 grid w-full grid-cols-2 gap-2",
             align === "center" && "mx-auto max-w-lg",
           )}
         >

@@ -13,11 +13,11 @@ export function PluginsSpotlight() {
         description={pluginsSpotlight.intro}
       />
 
-      <div className="grid gap-5 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {pluginsSpotlight.items.map((item) => (
           <article
             key={item.title}
-            className="flex h-full flex-col rounded-[1.75rem] border border-gold/35 bg-[linear-gradient(160deg,_rgb(252_250_246)_0%,_rgb(235_228_216/0.9)_52%,_rgb(228_238_232/0.75)_100%)] p-6 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] md:p-7"
+            className="flex h-full flex-col rounded-[1.35rem] border border-gold/35 bg-[linear-gradient(160deg,_rgb(252_250_246)_0%,_rgb(235_228_216/0.9)_52%,_rgb(228_238_232/0.75)_100%)] p-5 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.5)] sm:rounded-[1.75rem] sm:p-6 md:p-7"
           >
             <p className="inline-flex w-fit rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground">
               {item.badge}

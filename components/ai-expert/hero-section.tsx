@@ -49,10 +49,10 @@ export function HeroSection({ product }: HeroSectionProps) {
             <p className="mt-3 text-base font-medium text-accent md:text-lg">
               {hero.programName}
             </p>
-            <h1 className="mt-3 text-balance text-[1.75rem] leading-[1.15] sm:text-4xl md:text-5xl lg:text-[3.1rem]">
+            <h1 className="mt-3 text-balance text-[1.55rem] leading-[1.18] sm:text-4xl md:text-5xl lg:text-[3.1rem]">
               {hero.headline}
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
+            <p className="mt-4 max-w-xl text-[0.95rem] leading-relaxed text-muted sm:mt-5 sm:text-base md:text-lg">
               {hero.subtitle}
             </p>
 
@@ -80,7 +80,7 @@ export function HeroSection({ product }: HeroSectionProps) {
             <PriceDisplay
               className="mt-2"
               size="md"
-              priceClassName="md:text-5xl"
+              priceClassName="text-3xl sm:text-4xl md:text-5xl"
               showStages
             />
 
@@ -109,8 +109,9 @@ export function HeroSection({ product }: HeroSectionProps) {
               </Button>
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted">
-              Обучение и оплата на GetCourse · доступ 12 месяцев. {AI_EXPERT_PAYMENT_NOTE}{" "}
-              Есть вопросы — напишите в Telegram.
+              Оплата на GetCourse · доступ 12 месяцев.{" "}
+              <span className="sm:hidden">Сплит и рассрочка без %.</span>
+              <span className="hidden sm:inline">{AI_EXPERT_PAYMENT_NOTE}</span>
             </p>
           </div>
 

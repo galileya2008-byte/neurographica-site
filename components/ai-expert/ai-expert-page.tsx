@@ -42,7 +42,7 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
   ].filter(Boolean);
 
   return (
-    <>
+    <div className="pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
       <JsonLd data={schemas as Record<string, unknown>[]} />
       <HeroSection product={product} />
       <NarrativeSection
@@ -73,6 +73,6 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
       <FaqSection items={aiExpertFaq} />
       <FinalCta product={product} />
       <StickyCta product={product} />
-    </>
+    </div>
   );
 }
