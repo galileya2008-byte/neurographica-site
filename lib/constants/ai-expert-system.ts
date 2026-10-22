@@ -2,17 +2,17 @@ export const AI_EXPERT_SLUG = "ai-dlya-ekspertov";
 
 export const AI_EXPERT_HERO_VIDEO = "/media/ai-expert/hero.mp4";
 export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
+/** Актуальный промо-баннер программы (цена и условия на изображении) */
+export const AI_EXPERT_PROMO_IMAGE = "/media/ai-expert/promo-10990.jpg";
 
-export const AI_EXPERT_PRICE_LABEL = "7 700 ₽";
+export const AI_EXPERT_PRICE_LABEL = "10 990 ₽";
 export const AI_EXPERT_OLD_PRICE_LABEL = "25 000 ₽";
-export const AI_EXPERT_STAGE1_PRICE_LABEL = "10 990 ₽";
-export const AI_EXPERT_STAGE1_DATE_LABEL = "23 октября";
 export const AI_EXPERT_NEXT_PRICE_LABEL = "15 000 ₽";
 export const AI_EXPERT_PRICE_RISE_DATE_LABEL = "30 октября";
 
-/** Анонс двухэтапного повышения цены */
+/** Анонс следующего повышения цены */
 export const AI_EXPERT_PRICE_RISE_NOTICE =
-  "Повышение в 2 этапа: с 23 октября — 10 990 ₽, с 30 октября — 15 000 ₽";
+  "С 30 октября стоимость программы будет 15 000 ₽";
 
 export const AI_EXPERT_PRICE_STAGES = [
   {
@@ -21,19 +21,14 @@ export const AI_EXPERT_PRICE_STAGES = [
     note: "текущая стоимость",
   },
   {
-    dateLabel: `с ${AI_EXPERT_STAGE1_DATE_LABEL}`,
-    priceLabel: AI_EXPERT_STAGE1_PRICE_LABEL,
-    note: "первый этап",
-  },
-  {
     dateLabel: `с ${AI_EXPERT_PRICE_RISE_DATE_LABEL}`,
     priceLabel: AI_EXPERT_NEXT_PRICE_LABEL,
-    note: "второй этап",
+    note: "следующий этап",
   },
 ] as const;
 
 export const AI_EXPERT_PAYMENT_NOTE =
-  "Доступны все варианты оплаты: банковские и кредитные карты, а также рассрочка без % (Долями, Сплит и аналогичные сервисы на странице оплаты GetCourse).";
+  "Сплит · беспроцентная рассрочка · карты и СБП. Условия оплаты — при оформлении на GetCourse (Долями, Сплит, СБП, Яндекс, Т-Банк, Альфа Pay и другие доступные способы).";
 
 export const AI_EXPERT_ACCESS_LABEL = "доступ 12 месяцев";
 

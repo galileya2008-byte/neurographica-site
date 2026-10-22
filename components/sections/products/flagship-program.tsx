@@ -5,8 +5,8 @@ import { SiteImage } from "@/components/ui/site-image";
 import { yandexMetrika } from "@/config/analytics";
 import { PriceDisplay } from "@/components/ai-expert/price-display";
 import {
-  AI_EXPERT_HERO_POSTER,
   AI_EXPERT_META,
+  AI_EXPERT_PROMO_IMAGE,
   AI_EXPERT_SLUG,
   AI_EXPERT_TIMELESS_OFFER,
 } from "@/lib/constants/ai-expert-system";
@@ -112,25 +112,16 @@ export function FlagshipProgram() {
         </div>
 
         <div className="order-2 min-w-0 lg:order-1">
-          <div className="premium-card relative overflow-hidden rounded-[1.75rem]">
-            <div className="relative aspect-[4/5] sm:aspect-[5/6]">
+          <div className="premium-card relative overflow-hidden rounded-[1.75rem] bg-[#0b1a2e]">
+            <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5]">
               <SiteImage
-                src={AI_EXPERT_HERO_POSTER}
-                alt={`${product.title} — программа-флагман`}
+                src={AI_EXPERT_PROMO_IMAGE}
+                alt={`${product.title} — 10 990 ₽, три личных плагина, Сплит и рассрочка`}
                 fill
                 loading="lazy"
-                className="object-cover"
+                className="object-cover object-center"
                 sizes="(max-width: 1024px) 100vw, 480px"
               />
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_45%,rgb(26_22_18/0.55)_100%)]" />
-              <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
-                <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/80">
-                  Практический результат
-                </p>
-                <p className="mt-2 max-w-xs text-sm leading-relaxed text-white md:text-base">
-                  Предложение, контент и собственный AI-плагин для вашей услуги
-                </p>
-              </div>
             </div>
           </div>
         </div>
