@@ -113,14 +113,14 @@ export function FlagshipProgram() {
 
         <div className="order-2 min-w-0 lg:order-1">
           <div className="premium-card relative overflow-hidden rounded-[1.75rem] bg-[#0b1a2e]">
-            <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5]">
+            <div className="relative aspect-[1024/682] w-full">
               <SiteImage
                 src={AI_EXPERT_PROMO_IMAGE}
                 alt={`${product.title} — 10 990 ₽, три личных плагина, Сплит и рассрочка`}
                 fill
                 loading="lazy"
-                className="object-cover object-center"
-                sizes="(max-width: 1024px) 100vw, 480px"
+                className="object-contain object-center"
+                sizes="(max-width: 1024px) 100vw, 560px"
               />
             </div>
           </div>
