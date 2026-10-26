@@ -60,7 +60,7 @@ export const geoPriorityLinks = [
     path: "/programs/ai-dlya-ekspertov/",
     title: "Персональная AI-система для эксперта",
     blurb:
-      "Флагман: 16 уроков самостоятельного продвижения одной услуги с ИИ, доступ 12 месяцев.",
+      "Флагман: 26 уроков, включая доступ к прошлым; отдельные уроки по плагинам каруселей и воронок продаж. Доступ 12 месяцев.",
   },
   {
     path: "/topics/kak-ekspertu-prodvigatsya-samostoyatelno/",

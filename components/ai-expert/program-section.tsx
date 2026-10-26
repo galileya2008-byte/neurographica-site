@@ -27,16 +27,33 @@ export function ProgramSection() {
             </p>
 
             <ol className="grid gap-4 lg:grid-cols-2">
-              {block.lessons.map((lesson) => (
+              {block.lessons.map((lesson) => {
+                const isFeatured = Boolean(lesson.featured);
+                const badge = lesson.badge ?? `Урок ${lesson.number}`;
+                return (
                 <li key={lesson.number}>
-                  <article className="flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/90 p-6 md:p-7">
+                  <article
+                    className={
+                      isFeatured
+                        ? "flex h-full flex-col rounded-[1.5rem] border border-gold/50 bg-[linear-gradient(135deg,_rgb(252_250_246)_0%,_rgb(235_228_216/0.9)_50%,_rgb(228_238_232/0.75)_100%)] p-6 shadow-[0_18px_40px_-24px_rgb(154_123_85/0.55)] md:p-7"
+                        : "flex h-full flex-col rounded-[1.5rem] border border-chocolate/10 bg-card/90 p-6 md:p-7"
+                    }
+                  >
                     <div className="flex items-start justify-between gap-4">
-                      <span className="rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-                        Урок {lesson.number}
+                      <span
+                        className={
+                          isFeatured
+                            ? "rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-accent-foreground"
+                            : "rounded-full bg-accent-light px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-accent"
+                        }
+                      >
+                        {badge}
                       </span>
-                      <span className="font-display text-lg text-gold/80">
-                        {String(lesson.number).padStart(2, "0")}
-                      </span>
+                      {!isFeatured ? (
+                        <span className="font-display text-lg text-gold/80">
+                          {String(lesson.number).padStart(2, "0")}
+                        </span>
+                      ) : null}
                     </div>
                     <h4 className="mt-4 text-xl leading-snug">{lesson.title}</h4>
                     <p className="mt-4 text-sm leading-relaxed text-muted md:text-base">
@@ -50,11 +67,18 @@ export function ProgramSection() {
                     </p>
                   </article>
                 </li>
-              ))}
+              );
+              })}
             </ol>
           </div>
         ))}
       </div>
+
+      {program.accessNote ? (
+        <p className="mt-10 max-w-3xl rounded-2xl border border-gold/35 bg-accent-light/50 px-5 py-4 text-sm leading-relaxed text-foreground md:text-base">
+          {program.accessNote}
+        </p>
+      ) : null}
 
       <div className="mt-10 max-w-3xl space-y-2 text-sm leading-relaxed text-muted">
         <p>Полезные материалы по смежным запросам:</p>

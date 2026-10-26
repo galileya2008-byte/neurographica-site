@@ -208,7 +208,7 @@ export function FlagshipSeoGuidePage({ guide }: FlagshipSeoGuidePageProps) {
                 />
               ) : null}
               <Button href={`${programPath}#program`} variant="secondary" size="lg">
-                Все 16 уроков
+                Все 26 уроков
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>

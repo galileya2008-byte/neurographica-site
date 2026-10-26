@@ -45,10 +45,12 @@ export const AI_EXPERT_PAYMENT_NOTE =
 
 export const AI_EXPERT_ACCESS_LABEL = "доступ 12 месяцев";
 
-export const AI_EXPERT_META =
-  "16 практических уроков · Самостоятельное обучение · Доступ 12 месяцев";
+export const AI_EXPERT_LESSON_COUNT = 26;
 
-export const AI_EXPERT_STICKY_META = "16 уроков · доступ 12 месяцев";
+export const AI_EXPERT_META =
+  "26 уроков, включая доступ к прошлым · Самостоятельное обучение · Доступ 12 месяцев";
+
+export const AI_EXPERT_STICKY_META = "26 уроков · доступ 12 месяцев";
 
 export const AI_EXPERT_TIMELESS_OFFER =
   "Вы осваиваете работу с аудиторией, предложением и контекстом своего проекта. Инструкции по конкретным сервисам могут обновляться — навык проверки и адаптации ответов ИИ остаётся с вами.";

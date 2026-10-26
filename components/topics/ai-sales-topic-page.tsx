@@ -198,8 +198,9 @@ export function AiSalesTopicPage() {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-muted">
               В программе «Персональная AI-система для эксперта» эти задачи разобраны
-              в 16 практических уроках: от аудита услуг и анализа аудитории до контента,
-              каруселей, AI-плагина и плана продвижения на 30 дней.
+              в 26 уроках, включая доступ к прошлым: от аудита услуг и анализа аудитории
+              до контента, каруселей, AI-плагинов и плана продвижения. Отдельно выделены
+              уроки по плагину каруселей для соцсетей и плагину воронок продаж.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               {program ? (
@@ -210,7 +211,7 @@ export function AiSalesTopicPage() {
                 />
               ) : null}
               <Button href={`${programPath}#program`} variant="secondary" size="lg">
-                Все 16 уроков
+                Все 26 уроков
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </div>
