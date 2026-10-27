@@ -10,6 +10,7 @@ import { PremiumCarousel } from "@/components/ai-expert/premium-carousel";
 import { AudienceSection } from "@/components/ai-expert/audience-section";
 import { ConditionsSection } from "@/components/ai-expert/conditions-section";
 import { AuthorSection } from "@/components/ai-expert/author-section";
+import { GraduatesSection } from "@/components/ai-expert/graduates-section";
 import { PricingSection } from "@/components/ai-expert/pricing-section";
 import { FaqSection } from "@/components/ai-expert/faq-section";
 import { FinalCta } from "@/components/ai-expert/final-cta";
@@ -69,6 +70,7 @@ export function AiExpertPage({ product }: AiExpertPageProps) {
         lines="right"
       />
       <AuthorSection />
+      <GraduatesSection />
       <PricingSection product={product} />
       <FaqSection items={aiExpertFaq} />
       <FinalCta product={product} />
