@@ -115,7 +115,7 @@ export function FlagshipProgram() {
           <div className="premium-card overflow-hidden rounded-[1.75rem] bg-[#0b1a2e]">
             <SiteImage
               src={AI_EXPERT_PROMO_IMAGE}
-              alt={`${product.title} — 10 990 ₽, три личных плагина, Сплит и рассрочка`}
+              alt={`${product.title} — 15 000 ₽, три личных плагина, Сплит и рассрочка`}
               width={1024}
               height={682}
               loading="lazy"

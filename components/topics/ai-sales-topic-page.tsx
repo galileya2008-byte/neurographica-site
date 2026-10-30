@@ -92,7 +92,7 @@ export function AiSalesTopicPage() {
                     <p className="text-sm text-muted">
                       Персональная AI-система для эксперта
                     </p>
-                    <PriceDisplay className="mt-1" size="md" showStages />
+                    <PriceDisplay className="mt-1" size="md" />
                     <p className="mt-2 text-xs leading-relaxed text-muted">
                       Доступ к материалам — 12 месяцев. {AI_EXPERT_PAYMENT_NOTE}
                     </p>

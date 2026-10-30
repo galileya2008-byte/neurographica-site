@@ -81,7 +81,6 @@ export function HeroSection({ product }: HeroSectionProps) {
               className="mt-2"
               size="md"
               priceClassName="text-3xl sm:text-4xl md:text-5xl"
-              showStages
             />
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">

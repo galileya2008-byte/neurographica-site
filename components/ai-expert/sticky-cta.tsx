@@ -5,7 +5,7 @@ import type { Product } from "@/types/product";
 import { JoinButton } from "@/components/ai-expert/join-button";
 import {
   AI_EXPERT_PRICE_LABEL,
-  AI_EXPERT_PRICE_RISE_NOTICE,
+  AI_EXPERT_STICKY_META,
 } from "@/lib/constants/ai-expert-system";
 
 const COOKIE_KEY = "ng_cookie_consent";
@@ -75,7 +75,7 @@ export function StickyCta({ product }: StickyCtaProps) {
             {AI_EXPERT_PRICE_LABEL}
           </p>
           <p className="mt-1 line-clamp-2 text-[10px] leading-tight text-chocolate">
-            {AI_EXPERT_PRICE_RISE_NOTICE}
+            {AI_EXPERT_STICKY_META}
           </p>
         </div>
         <JoinButton

@@ -3,7 +3,7 @@ export const AI_EXPERT_SLUG = "ai-dlya-ekspertov";
 export const AI_EXPERT_HERO_VIDEO = "/media/ai-expert/hero.mp4";
 export const AI_EXPERT_HERO_POSTER = "/media/ai-expert/hero-poster.jpg";
 /** Актуальный промо-баннер программы (цена и условия на изображении) */
-export const AI_EXPERT_PROMO_IMAGE = "/media/ai-expert/promo-10990.jpg";
+export const AI_EXPERT_PROMO_IMAGE = "/media/ai-expert/promo-15000.jpg";
 
 /** GetCourse lite-виджет оплаты программы */
 export const AI_EXPERT_WIDGET_ID = "1672623";
@@ -18,28 +18,8 @@ export const AI_EXPERT_CHECKOUT_URL =
 export const AI_EXPERT_PAYMENT_FALLBACK_URL =
   "https://neirogalina.ru/page239";
 
-export const AI_EXPERT_PRICE_LABEL = "10 990 ₽";
+export const AI_EXPERT_PRICE_LABEL = "15 000 ₽";
 export const AI_EXPERT_OLD_PRICE_LABEL = "25 000 ₽";
-export const AI_EXPERT_NEXT_PRICE_LABEL = "15 000 ₽";
-export const AI_EXPERT_PRICE_RISE_DATE_LABEL = "30 октября";
-
-/** Анонс следующего повышения цены */
-export const AI_EXPERT_PRICE_RISE_NOTICE =
-  "С 30 октября стоимость программы будет 15 000 ₽";
-
-export const AI_EXPERT_PRICE_STAGES = [
-  {
-    dateLabel: "сейчас",
-    priceLabel: AI_EXPERT_PRICE_LABEL,
-    note: "текущая стоимость",
-  },
-  {
-    dateLabel: `с ${AI_EXPERT_PRICE_RISE_DATE_LABEL}`,
-    priceLabel: AI_EXPERT_NEXT_PRICE_LABEL,
-    note: "следующий этап",
-  },
-] as const;
-
 export const AI_EXPERT_PAYMENT_NOTE =
   "Сплит · беспроцентная рассрочка · карты и СБП. Условия оплаты — при оформлении на GetCourse (Долями, Сплит, СБП, Яндекс, Т-Банк, Альфа Pay и другие доступные способы).";
 

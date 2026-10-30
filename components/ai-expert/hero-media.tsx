@@ -9,7 +9,7 @@ export function HeroMedia() {
     <div className="overflow-hidden rounded-[1.75rem] border border-chocolate/10 bg-[#0b1a2e] shadow-card">
       <SiteImage
         src={AI_EXPERT_PROMO_IMAGE}
-        alt="Персональная AI-система для эксперта — 10 990 ₽. Три личных плагина, Сплит и беспроцентная рассрочка"
+        alt="Персональная AI-система для эксперта — 15 000 ₽. Три личных плагина, Сплит и беспроцентная рассрочка"
         width={1024}
         height={682}
         priority

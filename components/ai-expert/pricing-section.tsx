@@ -44,7 +44,6 @@ export function PricingSection({ product }: PricingSectionProps) {
           align="center"
           size="lg"
           priceClassName="text-4xl md:text-6xl"
-          showStages
         />
         <p className="mt-5 text-center text-sm leading-relaxed text-chocolate md:text-base">
           <span className="sm:hidden">Сплит · рассрочка без % · карты и СБП</span>
