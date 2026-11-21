@@ -25,7 +25,7 @@ export const navigation = [
   { label: "Выбери свою тему", href: "/topics" },
   { label: "Подарки", href: "/podarki" },
   { label: "Обо мне", href: "/about" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Вопросы и ответы", href: "/faq" },
   { label: "Контакты", href: "/contacts" },
 ] as const;
 
@@ -74,6 +74,11 @@ export const benefits = [
 
 /** Короткие ярлыки для каталога и админки */
 export const directions = [
+  {
+    id: "expert-marketing",
+    label: "ИИ и продвижение эксперта",
+    description: "Аудитория, предложение услуги, контент и AI-помощники.",
+  },
   {
     id: "intention",
     label: "Намерение",

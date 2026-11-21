@@ -258,8 +258,8 @@ export function AiSalesTopicPage() {
               <Link href="/about" className="text-accent hover:underline">
                 {siteConfig.expert}
               </Link>
-              , маркетолог, SMM-специалист и промпт-инженер с 17-летним опытом
-              онлайн-продвижения.
+              , маркетолог, SMM-специалист и промпт-инженер с опытом
+              онлайн-продвижения с 2008 года.
             </p>
           </Container>
         </section>

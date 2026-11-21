@@ -30,7 +30,6 @@ export function organizationSchema() {
     image: `${siteConfig.url}/images/galina/at-work.png`,
     description: geoSiteSummary,
     email: siteConfig.email,
-    foundingDate: "2008",
     areaServed: {
       "@type": "Country",
       name: "Russia",

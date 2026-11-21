@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CatalogClient } from "@/components/catalog/catalog-client";
+import { ProductGrid } from "@/components/catalog/product-grid";
 import { getAllPrograms } from "@/lib/content/products";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -48,11 +49,7 @@ export default function ProgramsPage() {
         </div>
 
         <Suspense
-          fallback={
-            <div className="rounded-[1.5rem] border border-chocolate/10 bg-warm/50 px-6 py-16 text-center text-muted">
-              Загрузка каталога…
-            </div>
-          }
+          fallback={<ProductGrid products={products} />}
         >
           <CatalogClient products={products} typeLabel="программу" />
         </Suspense>

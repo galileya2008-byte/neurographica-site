@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CatalogClient } from "@/components/catalog/catalog-client";
+import { ProductGrid } from "@/components/catalog/product-grid";
 import { getAllMasterclasses } from "@/lib/content/products";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -47,18 +48,10 @@ export default function MasterclassesPage() {
           </p>
         </div>
 
-        <Suspense fallback={<CatalogFallback />}>
+        <Suspense fallback={<ProductGrid products={products} />}>
           <CatalogClient products={products} typeLabel="мастер-класс" />
         </Suspense>
       </Container>
     </section>
-  );
-}
-
-function CatalogFallback() {
-  return (
-    <div className="rounded-[1.5rem] border border-chocolate/10 bg-warm/50 px-6 py-16 text-center text-muted">
-      Загрузка каталога…
-    </div>
   );
 }
