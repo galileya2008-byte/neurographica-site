@@ -1520,7 +1520,7 @@ function MaterialEditor({
           label={
             form.type === "podcast"
               ? "Длительность выпуска, минут"
-              : "Время чтения, минут"
+              : form.type === "interactive" ? "Длительность практики, минут" : "Время чтения, минут"
           }
         >
           <input
@@ -1534,6 +1534,13 @@ function MaterialEditor({
           />
         </Field>
       </div>
+
+      {form.type === "interactive" ? (
+        <Field label="Адрес интерактива на сайте">
+          <input required value={form.interactiveUrl} placeholder="/pismo-dedu-morozu/" className={inputClass}
+            onChange={(e) => setForm((prev) => ({ ...prev, interactiveUrl: e.target.value }))} />
+        </Field>
+      ) : null}
 
       {form.type === "podcast" ? (
         <div className="space-y-4 rounded-3xl border border-border/70 bg-warm/40 p-5">

@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Какое желание просится наружу? — Письмо Деду Морозу</title>
+<meta name="description" content="Новогодний мини-тест для взрослых девочек: узнайте, какое желание ждёт своего часа." />
+<meta property="og:title" content="Какое желание просится наружу?" />
+<meta property="og:description" content="Новогодний мини-тест и письмо Деду Морозу от взрослой девочки." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://siteneirogalina.ru/pismo-dedu-morozu/" />
+<meta property="og:url" content="https://siteneirogalina.ru/pismo-dedu-morozu/" />
+<meta property="og:image" content="https://siteneirogalina.ru/images/covers/pismo-dedu-morozu.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marck+Script&family=Prata&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --background: oklch(0.2 0.045 260);
+  --foreground: oklch(0.95 0.02 85);
+  --card: oklch(0.96 0.025 85);
+  --card-foreground: oklch(0.28 0.06 20);
+  --primary: oklch(0.78 0.12 80);
+  --primary-foreground: oklch(0.22 0.05 260);
+  --secondary: oklch(0.38 0.13 20);
+  --secondary-foreground: oklch(0.95 0.02 85);
+  --muted-foreground: oklch(0.48 0.05 30);
+  --border: oklch(0.78 0.12 80 / 40%);
+  --gold: oklch(0.78 0.12 80);
+  --gradient-night: radial-gradient(ellipse at top, oklch(0.32 0.07 265), oklch(0.17 0.04 260) 70%);
+  --wax: oklch(0.42 0.16 22);
+  --wax-deep: oklch(0.28 0.11 20);
+  --wax-light: oklch(0.58 0.17 25);
+  --gradient-gold: linear-gradient(135deg, oklch(0.88 0.1 88), oklch(0.72 0.13 75) 50%, oklch(0.86 0.1 85));
+  --shadow-glow: 0 20px 60px -15px oklch(0.78 0.12 80 / 45%);
+  --font-display: "Cormorant Garamond", serif;
+  --font-script: "Marck Script", cursive;
+  --font-imperial: "Prata", serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  background-image: var(--gradient-night);
+  min-height: 100vh;
+  font-family: var(--font-display);
+}
+main { position: relative; display: flex; min-height: 100vh; align-items: center; justify-content: center; overflow: hidden; padding: 2.5rem 1rem 6rem; }
+.wrap { position: relative; z-index: 10; width: 100%; max-width: 36rem; }
+.center { text-align: center; }
+.hidden { display: none; }
+
+@keyframes snow { to { transform: translateY(110vh) translateX(30px); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.snowflake { position: fixed; top: -10px; color: oklch(1 0 0 / 70%); animation: snow linear infinite; pointer-events: none; }
+.fade-up { animation: fadeUp .6s ease both; }
+@keyframes eq { 0%, 100% { height: 5px; } 50% { height: 15px; } }
+.eq-bar { height: 5px; animation: eq 1.1s ease-in-out infinite; width: 2px; border-radius: 9999px; background: var(--primary); }
+
+.imperial { font-family: var(--font-imperial); letter-spacing: .04em; }
+.script { font-family: var(--font-script); }
+.damask { position: fixed; inset: 0; pointer-events: none; opacity: .07;
+  background-image: radial-gradient(circle at 50% 50%, var(--gold) 1.5px, transparent 2px), radial-gradient(circle at 0 0, var(--gold) 1px, transparent 1.5px);
+  background-size: 44px 44px, 44px 44px; background-position: 0 0, 22px 22px; }
+.gold-frame { position: relative; border: 1px solid oklch(0.78 0.12 80 / 55%); outline: 1px solid oklch(0.78 0.12 80 / 25%); outline-offset: 6px; }
+.gold-frame::before, .gold-frame::after { content: "❦"; position: absolute; left: 50%; transform: translateX(-50%); color: var(--gold); background: var(--background); padding: 0 .6rem; font-size: 1.1rem; line-height: 1; }
+.gold-frame::before { top: -.6rem; } .gold-frame::after { bottom: -.6rem; transform: translateX(-50%) rotate(180deg); }
+.btn-gold { background: var(--gradient-gold); color: var(--primary-foreground); box-shadow: var(--shadow-glow); font-family: var(--font-imperial); letter-spacing: .08em; }
+.btn { display: inline-block; border: none; cursor: pointer; border-radius: 9999px; padding: .75rem 2.25rem; font-size: 1rem; text-transform: uppercase; text-decoration: none; transition: transform .2s; }
+.btn:hover { transform: scale(1.05); }
+.ornament { display: flex; align-items: center; gap: .8rem; color: var(--gold); justify-content: center; }
+.ornament::before, .ornament::after { content: ""; height: 1px; width: 4.5rem; background: linear-gradient(90deg, transparent, var(--gold)); }
+.ornament::after { transform: scaleX(-1); }
+
+.paper { background: var(--card); background-image: repeating-linear-gradient(transparent 0 31px, oklch(0.78 0.12 80 / 25%) 31px 32px); }
+
+.progress { margin-bottom: 1.5rem; display: flex; justify-content: center; gap: .5rem; }
+.progress span { height: 6px; width: 2.5rem; border-radius: 9999px; background: oklch(0.95 0.02 85 / 20%); }
+.progress span.on { background: var(--primary); }
+
+.answer { display: block; width: 100%; text-align: left; cursor: pointer; border-radius: 2px; border: 1px solid var(--border); background: oklch(0.95 0.02 85 / 5%); padding: 1rem 1.5rem; font-size: 1.25rem; font-style: italic; font-family: var(--font-display); color: var(--foreground); backdrop-filter: blur(4px); transition: border-color .2s, background .2s; }
+.answer:hover { border-color: var(--primary); background: oklch(0.78 0.12 80 / 15%); }
+.answers { margin-top: 2rem; display: grid; gap: .75rem; }
+
+.card-blur { background: oklch(0.95 0.02 85 / 5%); backdrop-filter: blur(4px); }
+
+/* Envelope + wax seal */
+.envelope { position: relative; width: min(340px, 82vw); aspect-ratio: 3 / 2; margin: 0 auto; perspective: 900px; }
+.env-body { position: absolute; inset: 0; background: var(--card); border-radius: 6px; box-shadow: 0 30px 60px -20px oklch(0 0 0 / 60%);
+  background-image: linear-gradient(to top right, transparent 49.6%, oklch(0.78 0.12 80 / 35%) 50%, transparent 50.4%), linear-gradient(to top left, transparent 49.6%, oklch(0.78 0.12 80 / 35%) 50%, transparent 50.4%); }
+.env-letter { position: absolute; left: 8%; right: 8%; top: 8%; height: 80%; animation: letterIn 1s ease .1s both; border-radius: 2px; padding: .75rem; color: var(--card-foreground); font-family: var(--font-script); text-align: left; overflow: hidden; }
+.env-letter p { font-size: 1.125rem; line-height: 2rem; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.env-flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; transform-origin: top; clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: oklch(0.92 0.03 85); transform: rotateX(180deg); animation: flapClose .9s cubic-bezier(.6,0,.3,1) 1.1s forwards; z-index: 2; }
+.wax-seal { position: absolute; left: 50%; top: 58%; width: 84px; height: 84px; margin: -42px 0 0 -42px; z-index: 3; opacity: 0;
+  animation: stamp .7s cubic-bezier(.3,1.6,.5,1) 2.1s forwards; filter: drop-shadow(0 6px 8px oklch(0 0 0 / 45%)); }
+@keyframes letterIn { from { transform: translateY(-70%); } to { transform: translateY(0); } }
+@keyframes flapClose { to { transform: rotateX(0deg); } }
+@keyframes stamp { 0% { opacity: 0; transform: scale(2.4) rotate(-25deg); } 60% { opacity: 1; transform: scale(.92) rotate(4deg); } 100% { opacity: 1; transform: scale(1) rotate(-6deg); } }
+.after-seal { animation: fadeUp .8s ease 3s both; }
+
+textarea.wish { margin-top: .5rem; width: 100%; resize: none; background: transparent; font-size: 1.5rem; line-height: 2rem; outline: none; border: none; font-family: var(--font-script); color: var(--card-foreground); }
+textarea.wish::placeholder { color: var(--muted-foreground); }
+
+.music-btn { position: fixed; bottom: 1.25rem; right: 1.25rem; z-index: 20; display: inline-flex; align-items: center; gap: .625rem; border-radius: 9999px; border: 1px solid oklch(0.78 0.12 80 / 50%); background: oklch(0.95 0.02 85 / 10%); padding: .5rem 1rem; font-size: .875rem; letter-spacing: .025em; color: oklch(0.95 0.02 85 / 85%); backdrop-filter: blur(4px); cursor: pointer; font-family: var(--font-display); transition: border-color .2s, background .2s, color .2s; }
+.music-btn:hover { border-color: var(--primary); background: oklch(0.78 0.12 80 / 15%); color: var(--foreground); }
+.music-icon { display: flex; height: 1rem; width: 1rem; align-items: flex-end; justify-content: center; gap: 2px; }
+
+h1 { font-size: 1.875rem; line-height: 1.4; font-weight: 400; }
+h2 { font-size: 1.5rem; line-height: 1.4; font-weight: 400; }
+.mt-3 { margin-top: .75rem; } .mt-4 { margin-top: 1rem; } .mt-5 { margin-top: 1.25rem; } .mt-6 { margin-top: 1.5rem; } .mt-8 { margin-top: 2rem; } .mt-10 { margin-top: 2.5rem; }
+.text-lg { font-size: 1.125rem; } .text-xl { font-size: 1.25rem; }
+.dim { color: oklch(0.95 0.02 85 / 80%); } .dimmer { color: oklch(0.95 0.02 85 / 70%); } .faint { color: oklch(0.95 0.02 85 / 60%); }
+.gold { color: var(--primary); }
+.uppercase { text-transform: uppercase; }
+.tracking { letter-spacing: .3em; } .tracking-wide { letter-spacing: .4em; } .tracking-widest { letter-spacing: .1em; }
+.leading-relaxed { line-height: 1.625; }
+.maxw { max-width: 28rem; margin-left: auto; margin-right: auto; }
+.link-restart { background: none; border: none; cursor: pointer; color: oklch(0.95 0.02 85 / 60%); font-size: 1rem; font-family: var(--font-display); text-underline-offset: 4px; }
+.link-restart:hover { text-decoration: underline; }
+.offer-list { margin-top: 1rem; list-style: none; display: grid; gap: .5rem; font-size: 1.125rem; color: oklch(0.95 0.02 85 / 85%); }
+.offer-row { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+.price { font-size: 2.25rem; font-weight: 600; color: var(--primary); }
+.btn-outline { display: inline-block; border-radius: 9999px; border: 1px solid oklch(0.78 0.12 80 / 60%); padding: .75rem 2rem; font-size: 1rem; text-transform: uppercase; letter-spacing: .1em; color: var(--primary); background: none; cursor: pointer; font-family: var(--font-imperial); transition: transform .2s, background .2s; }
+.btn-outline:hover { transform: scale(1.05); background: oklch(0.78 0.12 80 / 10%); }
+.btn-outline:disabled { opacity: .4; transform: none; }
+.btn-seal { margin-top: 1rem; border: none; cursor: pointer; border-radius: 9999px; background: var(--secondary); color: var(--secondary-foreground); padding: .75rem 2rem; font-size: 1.125rem; font-weight: 600; font-family: var(--font-display); transition: transform .2s; }
+.btn-seal:hover { transform: scale(1.05); }
+.btn-seal:disabled { opacity: .4; transform: none; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .snowflake, .eq-bar { animation: none; } .env-letter, .env-flap, .wax-seal, .after-seal, .fade-up { animation-duration: .01ms; animation-delay: 0s; } }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; }
+@media (max-width: 480px) { .btn { padding-inline: 1.25rem; font-size: .9rem; } .offer-row { align-items: stretch; flex-direction: column; } }
+</style>
+</head>
+<body>
+<a href="/" style="position:relative;z-index:30;display:inline-block;margin:1rem;color:var(--gold);text-underline-offset:4px">На сайт Галины</a>
+<noscript><p style="padding:2rem">Для прохождения интерактива включите JavaScript в браузере. <a href="/materials/pismo-dedu-morozu/">Открыть описание практики</a></p></noscript>
+<main>
+  <div class="damask"></div>
+  <div id="snow"></div>
+  <div class="wrap" id="app"></div>
+</main>
+
+<audio id="music" src="pismo_dedu_morozu_music.mp3" loop preload="none"></audio>
+<button type="button" class="music-btn" id="musicBtn" aria-pressed="false" title="Включить тихую новогоднюю музыку">
+  <span class="music-icon" id="musicIcon" aria-hidden="true"><span style="font-size:1rem;line-height:1;color:var(--primary)">♪</span></span>
+  <span id="musicLabel">Включить музыку</span>
+</button>
+
+<script>
+"use strict";
+
+/* ===== Настройки ===== */
+const PURCHASE_URL = "https://neirogalina.ru/novogodnee-pismo-urok";
+const SUPABASE_URL = "https://c--441d4872-4b3e-430c-a46d-9fcc429765eb-prod.lovable.cloud";
+const SUPABASE_KEY = "sb_publishable_S2fIL7NQy3Q178xqm4aqvA_jTP-upwC";
+
+function logStep(step) {
+  fetch(SUPABASE_URL + "/rest/v1/funnel_events", {
+    method: "POST",
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization": "Bearer " + SUPABASE_KEY,
+      "Content-Type": "application/json",
+      "Prefer": "return=minimal"
+    },
+    body: JSON.stringify({ event: step })
+  }).catch(() => {});
+}
+
+/* ===== Данные теста ===== */
+const QUESTIONS = [
+  { q: "Новогодний вечер. Чего хочется больше всего?", a: [
+    { t: "Тёплых объятий и разговоров до утра", k: "love" },
+    { t: "Тишины, пледа и времени только для себя", k: "self" },
+    { t: "Красивого стола, где всего в изобилии", k: "abundance" },
+    { t: "Бенгальских огней, танцев и смеха", k: "joy" } ] },
+  { q: "Какой подарок под ёлкой заставил бы сердце замереть?", a: [
+    { t: "Записка от близкого человека", k: "love" },
+    { t: "Путёвка в ретрит у моря", k: "self" },
+    { t: "Конверт, который решает все вопросы", k: "abundance" },
+    { t: "Билет туда, где я никогда не была", k: "joy" } ] },
+  { q: "Что вы чаще всего откладываете «на потом»?", a: [
+    { t: "Близость — открыться, довериться", k: "love" },
+    { t: "Заботу о себе и своём теле", k: "self" },
+    { t: "Своё дело, рост, деньги", k: "abundance" },
+    { t: "Хобби и маленькие радости", k: "joy" } ] },
+  { q: "Какой ёлочный шар вы бы выбрали?", a: [
+    { t: "Бархатный бордовый", k: "love" },
+    { t: "Молочный, жемчужный", k: "self" },
+    { t: "Сияющий золотой", k: "abundance" },
+    { t: "Разноцветный, с блёстками", k: "joy" } ] },
+  { q: "Закончите фразу: «В следующем году я наконец…»", a: [
+    { t: "…позволю себя любить", k: "love" },
+    { t: "…выберу себя", k: "self" },
+    { t: "…разрешу себе больше", k: "abundance" },
+    { t: "…начну жить легко", k: "joy" } ] },
+];
+
+const RESULTS = {
+  love: { title: "Желание быть любимой", text: "Внутри вас живёт девочка, которая очень ждёт тепла, нежности и настоящей близости. Вы так много отдаёте другим — пора разрешить себе получать.", letter: "Дорогой Дедушка Мороз, в этом году я хочу…" },
+  self: { title: "Желание вернуться к себе", text: "Ваша душа просит паузы. Тишины, заботы, времени, в котором не нужно никому соответствовать. Это желание — не каприз, а возвращение домой, к себе.", letter: "Дорогой Дедушка Мороз, я прошу для себя…" },
+  abundance: { title: "Желание изобилия", text: "Вы готовы к большему: к деньгам, росту, к жизни, где не надо выбирать «или-или». Осталось одно — по-настоящему себе это разрешить.", letter: "Дорогой Дедушка Мороз, я готова принять…" },
+  joy: { title: "Желание лёгкости и радости", text: "Внутри вас искрится девочка, которая устала быть серьёзной. Ей хочется приключений, смеха и чудес — прямо сейчас, а не «когда-нибудь».", letter: "Дорогой Дедушка Мороз, подари мне…" },
+};
+
+/* ===== Состояние ===== */
+let step = -1;
+let answers = [];
+let wish = "";
+let sealed = false;
+let letterImage = null;
+
+const app = document.getElementById("app");
+
+function resultKey() {
+  const c = { love: 0, self: 0, abundance: 0, joy: 0 };
+  answers.forEach((k) => c[k]++);
+  return Object.keys(c).reduce((a, b) => (c[b] > c[a] ? b : a));
+}
+
+function esc(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+const WAX_SVG = `
+<svg viewBox="0 0 100 100" class="wax-seal" aria-label="Сургучная печать">
+  <defs>
+    <radialGradient id="wax" cx="38%" cy="32%" r="70%">
+      <stop offset="0%" stop-color="var(--wax-light)" /><stop offset="60%" stop-color="var(--wax)" /><stop offset="100%" stop-color="var(--wax-deep)" />
+    </radialGradient>
+  </defs>
+  <path fill="url(#wax)" d="M50 3c8 0 10 5 17 7s13-1 17 6 0 11 3 17 8 9 8 17-5 10-8 17 1 12-3 17-11 3-17 6-9 7-17 7-10-4-17-7-13 1-17-6 0-11-3-17-8-9-8-17 5-10 8-17-1-12 3-17 11-3 17-6S42 3 50 3z" />
+  <circle cx="50" cy="50" r="30" fill="none" stroke="var(--wax-deep)" stroke-width="2.5" opacity=".7" />
+  <circle cx="50" cy="50" r="26" fill="none" stroke="var(--wax-light)" stroke-width="1" opacity=".6" />
+  <text x="50" y="62" text-anchor="middle" font-size="34" fill="var(--wax-deep)" style="font-family: var(--font-script)">Д</text>
+  <text x="50" y="27" text-anchor="middle" font-size="9" fill="var(--wax-light)">✦</text>
+</svg>`;
+
+function render() {
+  const r = RESULTS[resultKey()];
+  app.className = "wrap fade-up";
+
+  if (step === -1) {
+    app.innerHTML = `
+      <section class="gold-frame center" style="padding: 3rem 1.5rem">
+        <p class="script gold" style="font-size: 3.75rem; line-height: 1.1">Письмо Деду Морозу</p>
+        <p class="imperial mt-3 dimmer uppercase tracking-wide" style="font-size: .875rem">от взрослой девочки</p>
+        <div class="ornament" style="margin: 2rem 0">❦</div>
+        <h1 class="imperial">Какое желание просится наружу?</h1>
+        <p class="maxw mt-4 text-lg dim">Пять вопросов — и вы узнаете, о чём на самом деле мечтает ваше сердце в этом Новом году.</p>
+        <button class="btn btn-gold mt-10" id="startBtn">Начать ✨</button>
+      </section>`;
+    document.getElementById("startBtn").onclick = () => { step = 0; logStep("quiz_started"); render(); };
+    return;
+  }
+
+  if (step < QUESTIONS.length) {
+    const q = QUESTIONS[step];
+    app.innerHTML = `
+      <section>
+        <div class="progress">${QUESTIONS.map((_, i) => `<span class="${i <= step ? "on" : ""}"></span>`).join("")}</div>
+        <h2 class="imperial center">${q.q}</h2>
+        <div class="answers">${q.a.map((a, i) => `<button class="answer" data-i="${i}">${a.t}</button>`).join("")}</div>
+      </section>`;
+    app.querySelectorAll(".answer").forEach((btn) => {
+      btn.onclick = () => {
+        answers.push(q.a[Number(btn.dataset.i)].k);
+        if (step === QUESTIONS.length - 1) logStep("quiz_completed");
+        step++;
+        render();
+      };
+    });
+    return;
+  }
+
+  if (step === QUESTIONS.length) {
+    app.innerHTML = `
+      <section class="gold-frame card-blur center" style="padding: 2rem">
+        <p class="uppercase tracking gold" style="font-size: .875rem">Ваше желание</p>
+        <h2 class="imperial mt-3" style="font-size: 1.875rem">${r.title}</h2>
+        <p class="mt-5 text-lg leading-relaxed dim">${r.text}</p>
+        <button class="btn btn-gold mt-8" id="writeBtn">Написать письмо ✉</button>
+      </section>`;
+    document.getElementById("writeBtn").onclick = () => { step++; render(); };
+    return;
+  }
+
+  if (step === QUESTIONS.length + 1 && !sealed) {
+    app.innerHTML = `
+      <section class="paper" style="border-radius: 1.5rem; padding: 2rem; color: var(--card-foreground); box-shadow: 0 25px 50px -12px oklch(0 0 0 / 50%)">
+        <p class="script" style="font-size: 1.875rem; line-height: 2rem">${r.letter}</p>
+        <textarea aria-label="Твоё письмо Деду Морозу" class="wish" id="wishInput" rows="5" placeholder="Напишите своё желание — смело, как в детстве…">${esc(wish)}</textarea>
+        <div class="center">
+          <button class="btn-seal" id="sealBtn" disabled>Запечатать письмо</button>
+        </div>
+      </section>`;
+    const ta = document.getElementById("wishInput");
+    const sealBtn = document.getElementById("sealBtn");
+    ta.focus();
+    ta.oninput = () => { wish = ta.value; sealBtn.disabled = !wish.trim(); };
+    sealBtn.disabled = !wish.trim();
+    sealBtn.onclick = () => { sealed = true; logStep("letter_sealed"); render(); };
+    return;
+  }
+
+  /* Запечатанное письмо + оффер */
+  app.innerHTML = `
+    <section class="center">
+      <div class="envelope">
+        <div class="env-body"></div>
+        <div class="env-letter paper"><p>${esc(wish)}</p></div>
+        <div class="env-flap"></div>
+        ${WAX_SVG}
+      </div>
+      <p class="ornament mt-8" style="font-size: .875rem">✦</p>
+      <div class="after-seal">
+        <p class="script gold mt-4" style="font-size: 2.25rem">Письмо запечатано</p>
+        <button class="btn-outline mt-6" id="downloadBtn" disabled>Готовим письмо…</button>
+        <p class="maxw mt-4 text-lg dim">Вы только что разрешили себе мечтать. Но желанию нужна сила, чтобы сбыться. Давайте оживим его вместе.</p>
+        <div class="gold-frame card-blur mt-10" style="padding: 1.75rem; text-align: left">
+          <h3 class="imperial text-xl" style="line-height: 1.4; font-weight: 400">Письмо Деду Морозу и Нейрографическая карта желаний</h3>
+          <ul class="offer-list">
+            <li>✦ Онлайн-занятие в своём темпе</li>
+            <li>✦ Нейрографика, которая «оживляет» мечты</li>
+            <li>✦ Ваша личная карта желаний на новый год</li>
+            <li>✦ Доступ сразу после покупки</li>
+          </ul>
+          <div class="offer-row">
+            <span class="price">590 ₽</span>
+            <a href="${PURCHASE_URL}" target="_top" rel="noopener" class="btn btn-gold" id="buyBtn">Хочу на занятие</a>
+          </div>
+        </div>
+        <button class="link-restart mt-6" id="restartBtn">Пройти ещё раз</button>
+      </div>
+    </section>`;
+  document.getElementById("buyBtn").onclick = () => logStep("purchase_clicked");
+  document.getElementById("restartBtn").onclick = () => {
+    step = -1; answers = []; wish = ""; sealed = false; letterImage = null; render();
+  };
+  const dlBtn = document.getElementById("downloadBtn");
+  renderLetterImage(r.letter, wish).then((blob) => {
+    letterImage = blob;
+    dlBtn.disabled = false;
+    dlBtn.textContent = "Скачать письмо ✦";
+  }).catch(() => { dlBtn.textContent = "Не удалось подготовить письмо"; });
+  dlBtn.onclick = () => { if (letterImage) deliverFile(letterImage, "pismo-dedu-morozu.png"); };
+}
+
+/* ===== Снег ===== */
+(function snow() {
+  const host = document.getElementById("snow");
+  for (let i = 0; i < 28; i++) {
+    const s = document.createElement("span");
+    s.className = "snowflake";
+    s.textContent = "❄";
+    s.style.left = ((i * 37) % 100) + "%";
+    s.style.animationDuration = (8 + ((i * 7) % 10)) + "s";
+    s.style.animationDelay = (-((i * 3) % 12)) + "s";
+    s.style.fontSize = (8 + ((i * 5) % 12)) + "px";
+    host.appendChild(s);
+  }
+})();
+
+/* ===== Музыка: тихая подложка, только по нажатию ===== */
+(function music() {
+  const audio = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
+  const label = document.getElementById("musicLabel");
+  const icon = document.getElementById("musicIcon");
+  const TARGET = 0.3, FADE_IN = 1600, FADE_OUT = 500, STEP = 40;
+  let playing = false, timer = null;
+
+  function ramp(to, ms, done) {
+    if (timer) clearInterval(timer);
+    const from = audio.volume;
+    const steps = Math.max(1, Math.round(ms / STEP));
+    let i = 0;
+    timer = setInterval(() => {
+      i++;
+      const p = Math.min(1, i / steps);
+      audio.volume = Math.max(0, Math.min(1, from + (to - from) * p));
+      if (p >= 1) { clearInterval(timer); timer = null; if (done) done(); }
+    }, STEP);
+  }
+
+  btn.onclick = async () => {
+    if (playing) {
+      ramp(0, FADE_OUT, () => audio.pause());
+      playing = false;
+    } else {
+      audio.volume = 0;
+      try {
+        await audio.play();
+        playing = true;
+        ramp(TARGET, FADE_IN);
+      } catch { playing = false; }
+    }
+    btn.setAttribute("aria-pressed", String(playing));
+    btn.title = playing ? "Остановить музыку" : "Включить тихую новогоднюю музыку";
+    label.textContent = playing ? "Пауза" : "Включить музыку";
+    icon.innerHTML = playing
+      ? [0, 1, 2].map((i) => `<span class="eq-bar" style="animation-delay: ${i * 0.18}s"></span>`).join("")
+      : '<span style="font-size:1rem;line-height:1;color:var(--primary)">♪</span>';
+  };
+})();
+
+/* ===== Картинка письма (PNG) ===== */
+const IMG_W = 900, IMG_H = 1200;
+const IMG_PAPER = "#f6eeda", IMG_INK = "#4a2e2a", IMG_GOLD = "#a9822f", IMG_GOLD_SOFT = "rgba(169, 130, 47, 0.28)";
+
+function wrapText(ctx, text, maxWidth) {
+  const lines = [];
+  for (const paragraph of text.split("\n")) {
+    const words = paragraph.split(/\s+/).filter(Boolean);
+    let line = "";
+    for (const word of words) {
+      const test = line ? line + " " + word : word;
+      if (line && ctx.measureText(test).width > maxWidth) { lines.push(line); line = word; }
+      else line = test;
+    }
+    lines.push(line);
+  }
+  return lines;
+}
+
+async function renderLetterImage(intro, wishText) {
+  await Promise.all([
+    document.fonts.load('46px "Marck Script"'),
+    document.fonts.load('30px "Prata"'),
+  ]);
+  await document.fonts.ready;
+
+  const canvas = document.createElement("canvas");
+  canvas.width = IMG_W; canvas.height = IMG_H;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas 2D is not available");
+
+  ctx.fillStyle = IMG_PAPER;
+  ctx.fillRect(0, 0, IMG_W, IMG_H);
+
+  ctx.strokeStyle = IMG_GOLD_SOFT;
+  ctx.lineWidth = 1;
+  for (let y = 330; y < IMG_H - 120; y += 52) {
+    ctx.beginPath(); ctx.moveTo(90, y); ctx.lineTo(IMG_W - 90, y); ctx.stroke();
+  }
+
+  ctx.strokeStyle = IMG_GOLD;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(30, 30, IMG_W - 60, IMG_H - 60);
+  ctx.lineWidth = 1;
+  ctx.strokeRect(44, 44, IMG_W - 88, IMG_H - 88);
+
+  ctx.fillStyle = IMG_GOLD;
+  ctx.font = '26px "Prata", serif';
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  for (const [x, y] of [[30, 30], [IMG_W - 30, 30], [30, IMG_H - 30], [IMG_W - 30, IMG_H - 30]]) {
+    ctx.fillText("✦", x, y);
+  }
+
+  ctx.font = '34px "Prata", serif';
+  ctx.fillText("Письмо Деду Морозу", IMG_W / 2, 110);
+  ctx.font = '24px "Prata", serif';
+  ctx.fillText("✦", IMG_W / 2, 160);
+
+  ctx.textAlign = "left";
+  ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = IMG_INK;
+  ctx.font = '46px "Marck Script", cursive';
+
+  const maxWidth = IMG_W - 180;
+  let y = 290;
+  const lineHeight = 52;
+  for (const line of wrapText(ctx, intro, maxWidth)) { ctx.fillText(line, 90, y); y += lineHeight; }
+  y += 10;
+  for (const line of wrapText(ctx, wishText, maxWidth)) {
+    if (y > IMG_H - 170) break;
+    ctx.fillText(line, 90, y);
+    y += lineHeight;
+  }
+
+  ctx.textAlign = "center";
+  ctx.fillStyle = IMG_GOLD;
+  ctx.font = '24px "Prata", serif';
+  ctx.fillText("✦", IMG_W / 2, IMG_H - 110);
+  ctx.font = '40px "Marck Script", cursive';
+  ctx.fillStyle = IMG_INK;
+  ctx.fillText("с верой в чудо", IMG_W / 2, IMG_H - 70);
+
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+  if (!blob) throw new Error("Could not export the letter image");
+  return blob;
+}
+
+/* ===== Скачивание / «Поделиться» ===== */
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a);
+  a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 30000);
+}
+
+async function deliverFile(blob, filename) {
+  const file = new File([blob], filename, { type: blob.type });
+  const touch = matchMedia("(pointer: coarse)").matches;
+  if (touch && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      await navigator.share({ files: [file], title: filename });
+      return;
+    } catch (e) {
+      if (e && e.name === "AbortError") return;
+    }
+  }
+  downloadBlob(blob, filename);
+}
+
+render();
+</script>
+</body>
+</html>

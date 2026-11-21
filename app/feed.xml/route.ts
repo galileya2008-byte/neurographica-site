@@ -67,12 +67,17 @@ export async function GET() {
           : "";
       const platformLink = listenUrl ? ` Слушать выпуск: ${listenUrl}` : "";
 
+      const actionUrl = material.type === "interactive" && material.interactiveUrl
+        ? absoluteUrl(material.interactiveUrl)
+        : url;
+      const actionLabel = material.type === "interactive" ? "Пройти интерактив" : "Читать далее на сайте";
+
       // RSS descriptions accept entity-encoded HTML. Keep full articles on the
       // website, and include an explicit link for readers that show only text.
       const description =
         `<p><img src="${escapeXml(coverUrl)}" alt="${escapeXml(material.title)}" /></p>` +
         `<p>${escapeXml(`${material.excerpt}${platformLink}`)}</p>` +
-        `<p><a href="${escapeXml(url)}">Читать далее на сайте →</a></p>`;
+        `<p><a href="${escapeXml(actionUrl)}">${actionLabel}</a></p>`;
 
       const enclosure =
         material.type === "podcast" &&

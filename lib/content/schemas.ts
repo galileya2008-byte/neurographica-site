@@ -73,6 +73,7 @@ export const materialSchema = z.object({
     ),
   cover: z.string().optional(),
   mediaUrl: z.string().min(1).optional(),
+  interactiveUrl: z.string().startsWith("/").optional(),
   publishedAt: z.string().min(1),
   readingMinutes: z.number().positive(),
   relatedCta: z

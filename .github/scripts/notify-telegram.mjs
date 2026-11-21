@@ -42,6 +42,8 @@ function absoluteUrl(value) {
 
 function publicationLabels(type) {
   switch (type) {
+    case "interactive":
+      return { eyebrow: "Новый интерактив", button: "Написать письмо" };
     case "podcast":
       return { eyebrow: "Новый подкаст", button: "Слушать на сайте" };
     case "news":
@@ -78,6 +80,12 @@ async function telegramRequest(method, body) {
   return result;
 }
 
+function logPublishedMessage(result) {
+  const username = result?.result?.chat?.username;
+  const messageId = result?.result?.message_id;
+  if (username && messageId) console.log(`Telegram message: https://t.me/${username}/${messageId}`);
+}
+
 async function publishPost({ type, title, excerpt, pagePath, cover }) {
   const labels = publicationLabels(type);
   const pageUrl = absoluteUrl(pagePath);
@@ -94,20 +102,21 @@ async function publishPost({ type, title, excerpt, pagePath, cover }) {
 
   if (cover) {
     try {
-      await telegramRequest("sendPhoto", {
+      const sent = await telegramRequest("sendPhoto", {
         chat_id: TELEGRAM_CHANNEL_ID,
         photo: absoluteUrl(cover),
         caption,
         parse_mode: "HTML",
         reply_markup: replyMarkup,
       });
+      logPublishedMessage(sent);
       return pageUrl;
     } catch (error) {
       console.warn(`Could not send cover, falling back to text: ${error.message}`);
     }
   }
 
-  await telegramRequest("sendMessage", {
+  const sent = await telegramRequest("sendMessage", {
     chat_id: TELEGRAM_CHANNEL_ID,
     text: caption,
     parse_mode: "HTML",
@@ -117,6 +126,7 @@ async function publishPost({ type, title, excerpt, pagePath, cover }) {
     },
     reply_markup: replyMarkup,
   });
+  logPublishedMessage(sent);
   return pageUrl;
 }
 
@@ -259,7 +269,9 @@ for (const file of files) {
     type: material.type,
     title: material.title,
     excerpt: material.excerpt,
-    pagePath: `/materials/${material.slug}/`,
+    pagePath: material.type === "interactive" && material.interactiveUrl
+      ? material.interactiveUrl
+      : `/materials/${material.slug}/`,
     cover: material.cover,
   });
   console.log(`Published material: ${material.title}`);

@@ -1,6 +1,7 @@
 import type { CardSettings } from "@/types/card-settings";
 
 export const materialTypeIds = [
+  "interactive",
   "news",
   "article",
   "podcast",
@@ -12,6 +13,7 @@ export const materialTypeIds = [
 export type MaterialType = (typeof materialTypeIds)[number];
 
 export const materialTypeLabels: Record<MaterialType, string> = {
+  interactive: "Интерактив",
   news: "Новость",
   article: "Статья",
   podcast: "Подкаст",
@@ -31,6 +33,8 @@ export type Material = CardSettings & {
   cover?: string;
   /** Ссылка на аудиофайл или страницу выпуска на внешней платформе */
   mediaUrl?: string;
+  /** Standalone interactive page, hosted on this site. */
+  interactiveUrl?: string;
   publishedAt: string;
   readingMinutes: number;
   /** Контекстный переход на продукт или тему вместо общей ссылки на каталог */

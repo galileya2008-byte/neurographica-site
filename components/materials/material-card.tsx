@@ -12,6 +12,7 @@ type MaterialCardProps = {
 export function MaterialCard({ material }: MaterialCardProps) {
   const href = `/materials/${material.slug}`;
   const isPodcast = material.type === "podcast";
+  const isInteractive = material.type === "interactive" && Boolean(material.interactiveUrl);
 
   return (
     <article
@@ -50,7 +51,7 @@ export function MaterialCard({ material }: MaterialCardProps) {
           <span className="text-gold">{materialTypeLabels[material.type]}</span>
           <span className="text-gold">·</span>
           <span>
-            {material.readingMinutes} мин {isPodcast ? "аудио" : "чтения"}
+            {material.readingMinutes} мин {isPodcast ? "аудио" : isInteractive ? "практики" : "чтения"}
           </span>
         </div>
 
@@ -65,8 +66,8 @@ export function MaterialCard({ material }: MaterialCardProps) {
         </p>
 
         <div className="mt-6">
-          <Button href={href} variant="secondary" size="sm">
-            {isPodcast ? "Слушать" : "Читать"}
+          <Button href={isInteractive ? material.interactiveUrl : href} variant="secondary" size="sm">
+            {isPodcast ? "Слушать" : isInteractive ? "Пройти интерактив" : "Читать"}
           </Button>
         </div>
       </div>

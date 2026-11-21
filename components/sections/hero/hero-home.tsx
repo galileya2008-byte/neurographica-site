@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
 import { yandexMetrika } from "@/config/analytics";
@@ -31,6 +32,9 @@ export function HeroHome() {
                   {siteCopy("home.hero.ctaSecondary", "ИИ для моей работы")}
                 </Button>
               </div>
+              <Link href="/pismo-dedu-morozu/" prefetch={false} className="mt-5 text-sm leading-relaxed text-[#e8d6b2] underline decoration-[#e8d6b2]/40 underline-offset-4 hover:decoration-[#e8d6b2]">
+                Новогодний интерактив: письмо Деду Морозу
+              </Link>
               <p className="mt-8 max-w-md border-t border-white/15 pt-5 text-sm leading-relaxed text-[#bdd0c6]">
                 {siteCopy("home.hero.trustLine", "Инструктор Нейрографики · маркетолог · промпт-инженер")}
               </p>

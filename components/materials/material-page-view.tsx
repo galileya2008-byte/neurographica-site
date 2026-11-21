@@ -38,9 +38,13 @@ export function MaterialPageView({ material }: MaterialPageViewProps) {
         <h1 className="mt-3 text-balance text-4xl md:text-5xl">{material.title}</h1>
         <p className="mt-4 text-sm text-muted">
           {formatDate(material.publishedAt)} · {material.readingMinutes} мин{" "}
-          {isPodcast ? "прослушивания" : "чтения"}
+          {isPodcast ? "прослушивания" : material.type === "interactive" ? "практики" : "чтения"}
         </p>
         <p className="mt-6 text-lg leading-relaxed text-muted">{material.excerpt}</p>
+
+        {material.type === "interactive" && material.interactiveUrl ? (
+          <div className="mt-8"><Button href={material.interactiveUrl} size="lg">Пройти интерактив бесплатно</Button></div>
+        ) : null}
 
         {material.cover ? (
           <div className="relative mt-10 aspect-[16/10] overflow-hidden rounded-[1.75rem] shadow-card">

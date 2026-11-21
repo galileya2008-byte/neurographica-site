@@ -12,6 +12,7 @@ export type MaterialFormState = {
   contentText: string;
   cover: string;
   mediaUrl: string;
+  interactiveUrl: string;
   readingMinutes: string;
   sortOrder: string;
   cardColor: CardColorId;
@@ -27,6 +28,7 @@ export function emptyMaterialForm(cover = ""): MaterialFormState {
     contentText: "",
     cover,
     mediaUrl: "",
+    interactiveUrl: "",
     readingMinutes: "5",
     sortOrder: "100",
     cardColor: "default",
@@ -43,6 +45,7 @@ export function materialToForm(material: Material): MaterialFormState {
     contentText: material.content,
     cover: material.cover ?? "",
     mediaUrl: material.mediaUrl ?? "",
+    interactiveUrl: material.interactiveUrl ?? "",
     readingMinutes: String(material.readingMinutes),
     sortOrder: String(material.sortOrder ?? 100),
     cardColor: material.cardColor ?? "default",
@@ -77,6 +80,10 @@ export function formToMaterial(
   const excerpt = form.excerpt.trim();
   const cover = form.cover.trim() || undefined;
   const mediaUrl = form.mediaUrl.trim() || undefined;
+  const interactiveUrl = form.interactiveUrl.trim();
+  if (form.type === "interactive" && (!interactiveUrl.startsWith("/") || interactiveUrl.startsWith("//"))) {
+    throw new Error("Укажите адрес интерактива на сайте, начиная с /");
+  }
 
   if (form.type === "podcast" && !mediaUrl) {
     throw new Error("Для подкаста загрузите OGG-файл или укажите ссылку на выпуск");
@@ -96,6 +103,7 @@ export function formToMaterial(
     content,
     ...(cover ? { cover } : {}),
     ...(mediaUrl ? { mediaUrl } : {}),
+    ...(form.type === "interactive" ? { interactiveUrl } : {}),
     sortOrder,
     cardColor: form.cardColor,
     ...(form.badge.trim() ? { badge: form.badge.trim() } : {}),
