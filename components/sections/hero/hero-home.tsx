@@ -1,5 +1,3 @@
-import { CurvedLines } from "@/components/decor/curved-lines";
-import { AutumnLeaves } from "@/components/decor/autumn-leaves";
 import { SiteImage } from "@/components/ui/site-image";
 import { siteConfig } from "@/config/site";
 import { yandexMetrika } from "@/config/analytics";
@@ -8,93 +6,43 @@ import { Container } from "@/components/layout/container";
 import { siteCopy } from "@/lib/content/site-copy";
 
 export function HeroHome() {
-  const quoteLines = [
-    siteCopy(
-      "home.hero.quote1",
-      "Я не обещаю волшебных таблеток.",
-    ),
-    siteCopy(
-      "home.hero.quote2",
-      "Я верю, что каждый человек способен стать автором собственных изменений.",
-    ),
-  ];
-
   return (
-    <section className="relative overflow-hidden pt-28 md:pt-36">
-      <div className="absolute inset-0 -z-10 site-hero-gradient" />
-      <CurvedLines variant="hero" className="decor-desktop-only -z-[5] opacity-55" />
-      <AutumnLeaves
-        variant="hero"
-        className="theme-seasonal-decor decor-desktop-only -z-[4] opacity-80"
-      />
-
-      <Container className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20">
-        <div className="order-2 min-w-0 lg:order-1">
-          <p className="reveal-up mb-4 text-[11px] font-medium uppercase tracking-[0.26em] text-gold md:mb-5">
-            {siteCopy("home.hero.eyebrow", "Онлайн-практики Нейрографики")}
-          </p>
-          <h1 className="reveal-up reveal-delay-1 text-balance text-[1.85rem] leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.35rem]">
-            {siteCopy(
-              "home.hero.headline",
-              "Нейрографика онлайн — от намерения к действию",
-            )}
-          </h1>
-          <p className="reveal-up reveal-delay-2 mt-4 max-w-xl text-base leading-relaxed text-muted sm:mt-6 sm:text-lg md:text-xl">
-            {siteCopy(
-              "home.hero.subtitle",
-              "Мастер-классы и программы Галины Оноприенко: ясность, финансовые цели, продвижение услуги и первые шаги через практику линии.",
-            )}
-          </p>
-
-          <div className="reveal-up reveal-delay-3 mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center">
-            <Button
-              href="/topics/"
-              size="lg"
-              className="w-full sm:w-auto"
-              metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
-            >
-              {siteCopy("home.hero.ctaPrimary", "Выбрать практику")}
-            </Button>
-            <Button
-              href="/programs/ai-dlya-ekspertov/"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-              metrikaGoal={yandexMetrika.goals.ctaPrograms}
-            >
-              {siteCopy("home.hero.ctaSecondary", "AI-программа для экспертов")}
-            </Button>
-          </div>
-
-          <p className="mt-4 text-sm text-muted">
-            {siteConfig.expert}
-            <span className="mx-2 text-gold">·</span>
-            {siteCopy(
-              "home.hero.trustLine",
-              "Инструктор Нейрографики · маркетолог · промпт-инженер",
-            )}
-          </p>
-
-          <blockquote className="mt-8 hidden max-w-xl border-l border-gold/50 pl-5 text-base italic leading-relaxed text-foreground/75 md:mt-12 md:block">
-            {quoteLines.map((line) => (
-              <p key={line}>{line}</p>
-            ))}
-          </blockquote>
-        </div>
-
-        <div className="relative order-1 lg:order-2">
-          <div className="premium-card relative mx-auto max-w-sm overflow-hidden rounded-[1.75rem] sm:max-w-md lg:max-w-none">
-            <div className="relative aspect-[4/5]">
-              <SiteImage
-                src="/images/galina/at-work.png"
-                alt={`${siteConfig.expert} — инструктор нейрографики за работой с материалами практики`}
-                fill
-                priority
-                fetchPriority="high"
-                className="object-cover object-[center_15%]"
-                sizes="(max-width: 1024px) 100vw, 520px"
-              />
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_58%,rgb(16_24_32/0.18)_100%)]" />
+    <section className="home-hero pb-8 pt-24 md:pb-12 md:pt-28">
+      <Container size="wide">
+        <div className="hero-surface relative isolate overflow-hidden rounded-[2rem] lg:rounded-[2.75rem]">
+          <div className="hero-orbit" aria-hidden="true" />
+          <div className="relative grid lg:grid-cols-[1.15fr_0.85fr]">
+            <div className="relative z-10 flex flex-col justify-center px-6 py-10 sm:px-10 sm:py-14 lg:px-14 lg:py-16 xl:px-16">
+              <p className="mb-7 flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-[#dec9a0]">
+                <span className="h-px w-8 bg-[#dec9a0]/60" aria-hidden="true" />
+                {siteCopy("home.hero.eyebrow", "Практика. Творчество. Развитие.")}
+              </p>
+              <h1 className="max-w-2xl whitespace-pre-line text-[2.35rem] leading-[1.12] !text-[#f8faf7] sm:text-5xl lg:text-[3.25rem] xl:text-[3.8rem]">
+                {siteCopy("home.hero.headline", "Нейрографика для себя.\nИИ для экспертов.")}
+              </h1>
+              <p className="mt-6 max-w-lg text-base leading-relaxed text-[#d3e2db] sm:text-lg">
+                {siteCopy("home.hero.subtitle", "Прояснить свои желания, сделать шаг к цели или собрать систему продвижения — выберите то, что нужно вам сейчас.")}
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button href="#practice" size="lg" className="!bg-[#e8d6b2] !text-[#183b32] hover:!bg-[#f2e4c8]" metrikaGoal={yandexMetrika.goals.ctaMasterclasses}>
+                  {siteCopy("home.hero.ctaPrimary", "Выбрать практику")}
+                </Button>
+                <Button href="/programs/ai-dlya-ekspertov/" variant="secondary" size="lg" className="!border-white/25 !bg-white/5 !text-white hover:!bg-white/10" metrikaGoal={yandexMetrika.goals.ctaPrograms}>
+                  {siteCopy("home.hero.ctaSecondary", "ИИ для моей работы")}
+                </Button>
+              </div>
+              <p className="mt-8 max-w-md border-t border-white/15 pt-5 text-sm leading-relaxed text-[#bdd0c6]">
+                {siteCopy("home.hero.trustLine", "Инструктор Нейрографики · маркетолог · промпт-инженер")}
+              </p>
+            </div>
+            <div className="relative mx-5 mb-5 min-h-[320px] overflow-hidden rounded-[1.5rem] sm:mx-8 sm:mb-8 sm:min-h-[400px] lg:my-5 lg:ml-0 lg:mr-5 lg:min-h-[560px] lg:rounded-[2rem]">
+              <SiteImage src="/images/galina/at-work.png" alt={`${siteConfig.expert} — инструктор Нейрографики`} fill priority fetchPriority="high" className="object-cover object-[center_35%]" sizes="(max-width: 1024px) 100vw, 520px" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0d2c24]/85 via-transparent to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                <p className="text-xs uppercase tracking-[0.16em] text-[#e8d6b2]">Автор и преподаватель</p>
+                <p className="mt-2 font-display text-2xl text-white sm:text-3xl">{siteConfig.expert}</p>
+                <p className="mt-2 text-sm text-white/80">Учу думать, а не повторять</p>
+              </div>
             </div>
           </div>
         </div>

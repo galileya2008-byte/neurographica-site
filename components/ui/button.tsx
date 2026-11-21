@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-medium tracking-[0.01em] transition-[transform,background-color,box-shadow,border-color,color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-normal text-center rounded-full text-sm font-medium tracking-[0.01em] transition-[transform,background-color,box-shadow,border-color,color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/45 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
   {
     variants: {
       variant: {
@@ -22,9 +22,9 @@ const buttonVariants = cva(
         link: "text-accent underline-offset-4 hover:underline",
       },
       size: {
-        default: "h-12 px-7",
-        sm: "h-10 px-5 text-sm",
-        lg: "min-h-14 px-8 text-base md:px-9",
+        default: "min-h-12 px-7 py-3",
+        sm: "min-h-11 px-5 py-2 text-sm",
+        lg: "min-h-14 px-7 py-3.5 text-base md:px-8",
         icon: "h-10 w-10",
       },
     },

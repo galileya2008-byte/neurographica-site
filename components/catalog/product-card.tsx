@@ -8,7 +8,7 @@ import { getCardColorClass } from "@/lib/card-settings";
 
 type ProductCardProps = {
   product: Product;
-  variant?: "default" | "compact";
+  variant?: "default" | "compact" | "feature";
 };
 
 export function ProductCard({ product, variant = "default" }: ProductCardProps) {
@@ -18,11 +18,12 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
   return (
     <article
       className={cn(
-        "premium-card group flex h-full flex-col overflow-hidden rounded-[1.5rem]",
+        "premium-card product-card group flex h-full flex-col overflow-hidden rounded-[1.5rem]",
+        variant === "feature" && "md:grid md:grid-cols-2",
         getCardColorClass(product.cardColor),
       )}
     >
-      <Link href={href} prefetch={false} className="relative block aspect-[4/3] overflow-hidden">
+      <Link href={href} prefetch={false} className={cn("relative block aspect-[4/3] overflow-hidden", variant === "feature" && "md:aspect-auto md:min-h-[340px]")}>
         <SiteImage
           src={product.cover}
           alt={product.title}
@@ -39,7 +40,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
       </Link>
 
       <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
-        <div className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.14em] text-muted">
+        <div className="mb-3 flex flex-wrap gap-x-3 gap-y-1 text-xs tracking-[0.04em] text-muted">
           {product.isPopular && !product.badge ? (
             <>
               <span className="text-gold">Популярное</span>
@@ -73,7 +74,7 @@ export function ProductCard({ product, variant = "default" }: ProductCardProps) 
           {levelLabels[product.level]}
         </div>
 
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="mt-6 flex items-center justify-between gap-4 border-t border-border/70 pt-5">
           <p className="font-display text-xl text-accent">
             {formatPrice(product.price, product.currency)}
           </p>

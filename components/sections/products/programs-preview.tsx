@@ -19,9 +19,9 @@ export function ProgramsPreview() {
         description="Курсы для развития навыков рисования и самостоятельной практики."
       />
 
-      <div className={products.length === 1 ? "mx-auto grid max-w-xl gap-5" : "grid gap-5 lg:grid-cols-2"}>
+      <div className={products.length === 1 ? "grid gap-5" : "grid gap-5 lg:grid-cols-2"}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product.id} product={product} variant={products.length === 1 ? "feature" : "default"} />
         ))}
       </div>
 

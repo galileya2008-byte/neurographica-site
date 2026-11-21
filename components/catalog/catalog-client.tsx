@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { ChevronDown, Search, X } from "lucide-react";
 import { directions } from "@/config/site";
 import { filterProducts } from "@/lib/domain/products";
 import { ProductGrid } from "@/components/catalog/product-grid";
@@ -51,6 +51,7 @@ const sortLabels: Record<NonNullable<CatalogFilters["sort"]>, string> = {
 };
 
 export function CatalogClient({ products, typeLabel }: CatalogClientProps) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -104,7 +105,12 @@ export function CatalogClient({ products, typeLabel }: CatalogClientProps) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[260px_1fr] lg:gap-10">
-      <aside className="h-fit space-y-6 rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-5 shadow-soft lg:sticky lg:top-28">
+      <aside className="h-fit rounded-[1.5rem] border border-chocolate/10 bg-card/80 p-5 shadow-soft lg:sticky lg:top-28">
+        <button type="button" className="flex min-h-11 w-full items-center justify-between gap-3 text-left font-medium lg:hidden" aria-expanded={filtersOpen} aria-controls="catalog-filters" onClick={() => setFiltersOpen((open) => !open)}>
+          Поиск и фильтры{hasActiveFilters ? " · применены" : ""}
+          <ChevronDown className={cn("h-5 w-5 transition-transform", filtersOpen && "rotate-180")} aria-hidden="true" />
+        </button>
+        <div id="catalog-filters" className={cn("space-y-6", filtersOpen ? "mt-5 lg:mt-0" : "hidden lg:block")}>
         <div>
           <label htmlFor="catalog-search" className="mb-2 block text-sm font-medium">
             Поиск
@@ -209,10 +215,11 @@ export function CatalogClient({ products, typeLabel }: CatalogClientProps) {
             Сбросить фильтры
           </button>
         ) : null}
+        </div>
       </aside>
 
       <div>
-        <p className="mb-5 text-sm text-muted">
+        <p className="mb-5 text-sm text-muted" role="status" aria-live="polite">
           Найдено: {filtered.length} из {products.length}
         </p>
         <ProductGrid products={filtered} />
@@ -234,6 +241,7 @@ function FilterChip({
     <button
       type="button"
       onClick={onClick}
+      aria-pressed={active}
       className={cn(
         "rounded-full px-3 py-1.5 text-xs transition-colors",
         active

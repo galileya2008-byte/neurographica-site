@@ -13,7 +13,7 @@ import { Container } from "./container";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border/80 tone-section-warm">
+    <footer className="site-footer relative overflow-hidden border-t border-border/80">
       <CurvedLines variant="footer" className="decor-desktop-only opacity-45" />
       <Container className="section-padding relative z-10 !py-16">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">

@@ -16,9 +16,9 @@ export default function HomePage() {
     <>
       <JsonLd data={faqPageSchema(faqItems)} />
       <HeroHome />
-      <FlagshipProgram />
       <DirectionsCards />
       <PopularMasterclasses />
+      <FlagshipProgram />
       <ProgramsPreview />
       <MaterialsPreview />
       <AboutPreview />
