@@ -33,9 +33,6 @@ export function HeroHome() {
           <p className="reveal-up mb-4 text-[11px] font-medium uppercase tracking-[0.26em] text-gold md:mb-5">
             {siteCopy("home.hero.eyebrow", "Онлайн-практики Нейрографики")}
           </p>
-          <p className="reveal-up reveal-delay-1 mb-3 font-display text-xl italic leading-tight text-accent md:mb-4 md:text-3xl">
-            {siteConfig.brand}
-          </p>
           <h1 className="reveal-up reveal-delay-1 text-balance text-[1.85rem] leading-[1.12] sm:text-4xl md:text-5xl lg:text-[3.35rem]">
             {siteCopy(
               "home.hero.headline",
@@ -74,7 +71,7 @@ export function HeroHome() {
             <span className="mx-2 text-gold">·</span>
             {siteCopy(
               "home.hero.trustLine",
-              "В онлайн-продвижении с 2008 года · 1000+ мастер-классов",
+              "Инструктор Нейрографики · маркетолог · промпт-инженер",
             )}
           </p>
 

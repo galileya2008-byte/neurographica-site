@@ -11,11 +11,11 @@ export function DirectionsCards() {
       <SectionHeader
         eyebrow="Практика по запросу"
         title="Выберите практику по своему запросу"
-        description="Начните с того, что откликается прямо сейчас — от знакомства с методом до работы с целями, телом и отношениями."
+        description="Знакомство с Нейрографикой, работа с желаниями, целями и планированием — выберите свою тему."
       />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {topics.map((request) => (
+        {topics.filter((request) => request.directionId !== "expert-marketing").map((request) => (
           <Link
             key={request.id}
             href={`/topics/${request.slug}`}

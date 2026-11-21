@@ -19,13 +19,13 @@ export function FinalCta() {
             <h2 className="mt-4 text-balance text-[1.85rem] leading-[1.15] md:text-4xl lg:text-[2.75rem]">
               {siteCopy(
                 "home.finalCta.title",
-                "Выберите направление и сделайте первый шаг",
+                "Не уверены, какое занятие выбрать?",
               )}
             </h2>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted md:text-lg">
               {siteCopy(
                 "home.finalCta.description",
-                "Практика нейрографики для себя или AI-программа для экспертов. Оплата и доступ — на GetCourse; срок доступа — на странице продукта.",
+                "Расскажите о своём запросе — помогу выбрать подходящий формат и разобраться с условиями до оплаты.",
               )}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -35,7 +35,7 @@ export function FinalCta() {
                 className="w-full sm:w-auto"
                 metrikaGoal={yandexMetrika.goals.ctaMasterclasses}
               >
-                {siteCopy("home.finalCta.ctaPrimary", "Выбрать практику")}
+                {siteCopy("home.finalCta.ctaPrimary", "Посмотреть все темы")}
               </Button>
               <Button
                 href="/contacts"

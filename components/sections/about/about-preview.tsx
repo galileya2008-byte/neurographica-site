@@ -21,7 +21,7 @@ export function AboutPreview() {
           <SectionHeader
             eyebrow="Обо мне"
             title={siteConfig.expert}
-            description="Я верю, что настоящие изменения начинаются с человека — через намерение, осознанные действия и готовность идти своим путём."
+            description="Учу понимать принципы практики и применять их к своим задачам."
             className="mb-8"
           />
 
