@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { CookieBanner } from "@/components/layout/cookie-banner";
@@ -12,25 +11,6 @@ import { siteEntityGraph } from "@/lib/seo/schema";
 import { getSiteTheme } from "@/lib/content/site-theme";
 import { SiteThemeStyle } from "@/components/theme/site-theme-style";
 import "./globals.css";
-
-const playfair = Playfair_Display({
-  subsets: ["cyrillic", "latin"],
-  style: ["normal", "italic"],
-  weight: ["400", "500"],
-  variable: "--font-playfair",
-  display: "swap",
-  preload: true,
-  adjustFontFallback: true,
-});
-
-const manrope = Manrope({
-  subsets: ["cyrillic", "latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-manrope",
-  display: "swap",
-  preload: true,
-  adjustFontFallback: true,
-});
 
 export const metadata: Metadata = {
   ...buildPageMetadata({
@@ -63,7 +43,6 @@ export default function RootLayout({
     <html
       lang="ru"
       data-seasonal-decor={theme.seasonalDecor ? "on" : "off"}
-      className={`${playfair.variable} ${manrope.variable}`}
     >
       <head>
         <SiteThemeStyle theme={theme} />
