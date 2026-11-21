@@ -46,7 +46,6 @@ const staticRoutes = [
   "/offer",
   "/sessions/individualnaya",
   "/podarki",
-  "/podarki",
 
 ];
 
@@ -164,7 +163,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
 
 
-  return [...staticEntries, ...topics, ...masterclasses, ...programs, ...materials];
+  const entries = [...staticEntries, ...topics, ...masterclasses, ...programs, ...materials];
+  return Array.from(new Map(entries.map((entry) => [entry.url, entry])).values());
 
 }
 

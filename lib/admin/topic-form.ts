@@ -12,6 +12,9 @@ export type TopicFormState = {
   intro: string;
   description: string;
   featuredProgramSlugsText: string;
+  useCuratedProducts: boolean;
+  masterclassSlugsText: string;
+  programSlugsText: string;
   sortOrder: string;
   cardColor: CardColorId;
   badge: string;
@@ -28,6 +31,9 @@ export function emptyTopicForm(): TopicFormState {
     intro: "",
     description: "",
     featuredProgramSlugsText: "",
+    useCuratedProducts: false,
+    masterclassSlugsText: "",
+    programSlugsText: "",
     sortOrder: "100",
     cardColor: "default",
     badge: "",
@@ -45,6 +51,9 @@ export function topicToForm(topic: Topic): TopicFormState {
     intro: topic.intro,
     description: topic.description,
     featuredProgramSlugsText: (topic.featuredProgramSlugs ?? []).join("\n"),
+    useCuratedProducts: topic.masterclassSlugs !== undefined || topic.programSlugs !== undefined,
+    masterclassSlugsText: (topic.masterclassSlugs ?? []).join("\n"),
+    programSlugsText: (topic.programSlugs ?? topic.featuredProgramSlugs ?? []).join("\n"),
     sortOrder: String(topic.sortOrder ?? 100),
     cardColor: topic.cardColor ?? "default",
     badge: topic.badge ?? "",
@@ -88,6 +97,10 @@ export function formToTopic(
     intro: form.intro.trim(),
     description: form.description.trim(),
     ...(featuredProgramSlugs.length ? { featuredProgramSlugs } : {}),
+    ...(form.useCuratedProducts ? {
+      masterclassSlugs: form.masterclassSlugsText.split("\n").map((value) => value.trim()).filter(Boolean),
+      programSlugs: form.programSlugsText.split("\n").map((value) => value.trim()).filter(Boolean),
+    } : {}),
     sortOrder,
     cardColor: form.cardColor,
     ...(form.badge.trim() ? { badge: form.badge.trim() } : {}),

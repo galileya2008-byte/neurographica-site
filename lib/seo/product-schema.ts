@@ -1,5 +1,5 @@
 import type { Product } from "@/types/product";
-import { geoKnowsAbout } from "@/config/geo";
+import { getDirectionLabel } from "@/lib/domain/products";
 import { siteConfig } from "@/config/site";
 
 function productUrl(product: Product) {
@@ -13,11 +13,10 @@ function productUrl(product: Product) {
 export function productSchema(product: Product) {
   const url = productUrl(product);
   const description = product.seo?.description ?? product.shortDescription;
-  const isProgram = product.type === "program";
 
   return {
     "@context": "https://schema.org",
-    "@type": isProgram ? ["Product", "Course"] : ["Product", "Course"],
+    "@type": ["Product", "Course"],
     "@id": `${url}#product`,
     name: product.title,
     description,
@@ -37,7 +36,7 @@ export function productSchema(product: Product) {
       "@type": "Person",
       name: siteConfig.expert,
     },
-    about: [...geoKnowsAbout.slice(0, 6)],
+    about: product.directions.map(getDirectionLabel),
     offers: {
       "@type": "Offer",
       url,

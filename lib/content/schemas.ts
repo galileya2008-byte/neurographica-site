@@ -101,6 +101,8 @@ export const topicSchema = z.object({
   intro: z.string().min(1),
   description: z.string().min(1),
   featuredProgramSlugs: z.array(z.string()).optional(),
+  masterclassSlugs: z.array(z.string()).optional(),
+  programSlugs: z.array(z.string()).optional(),
 });
 
 export const topicsSchema = z.array(topicSchema);

@@ -12,4 +12,7 @@ export type Topic = CardSettings & {
   intro: string;
   description: string;
   featuredProgramSlugs?: string[];
+  /** Explicit selection; an empty list means no suitable published product. */
+  masterclassSlugs?: string[];
+  programSlugs?: string[];
 };

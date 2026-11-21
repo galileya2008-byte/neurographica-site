@@ -344,6 +344,24 @@ export function TopicManager({
             </Field>
           </div>
 
+          <label className="flex items-center gap-3 text-sm">
+            <input type="checkbox" checked={form.useCuratedProducts}
+              onChange={(e) => setForm((prev) => ({ ...prev, useCuratedProducts: e.target.checked }))} />
+            Подобрать занятия вручную под запрос клиента
+          </label>
+          {form.useCuratedProducts ? (
+            <div className="grid gap-5 md:grid-cols-2">
+              <Field label="Slug мастер-классов (каждый с новой строки)">
+                <textarea rows={4} className={textareaClass} value={form.masterclassSlugsText}
+                  onChange={(e) => setForm((prev) => ({ ...prev, masterclassSlugsText: e.target.value }))} />
+              </Field>
+              <Field label="Slug программ (каждый с новой строки)">
+                <textarea rows={4} className={textareaClass} value={form.programSlugsText}
+                  onChange={(e) => setForm((prev) => ({ ...prev, programSlugsText: e.target.value }))} />
+              </Field>
+              <p className="text-sm text-muted md:col-span-2">Пустой список означает, что подходящих занятий нет. Случайные продукты вместо них не подставляются.</p>
+            </div>
+          ) : (
           <Field label="Slug программ по теме (необязательно, каждый с новой строки)">
             <textarea
               rows={3}
@@ -357,6 +375,7 @@ export function TopicManager({
               className={textareaClass}
             />
           </Field>
+          )}
 
           <div className="grid gap-5 rounded-3xl border border-border/70 bg-warm/35 p-5 md:grid-cols-3">
             <Field label="Порядок (меньше — выше)">

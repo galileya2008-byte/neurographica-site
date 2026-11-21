@@ -3,11 +3,9 @@ import { siteConfig } from "@/config/site";
 import type { Topic } from "@/lib/content/topics";
 import { getAllTopics } from "@/lib/content/topics";
 import {
-  getAllMasterclasses,
-  getAllPrograms,
-  getProductBySlug,
+  getAllProducts,
 } from "@/lib/content/products";
-import { filterProducts } from "@/lib/domain/products";
+import { getTopicProducts } from "@/lib/domain/topic-products";
 import { Breadcrumbs } from "@/components/layout/breadcrumbs";
 import { Container } from "@/components/layout/container";
 import { CurvedLines } from "@/components/decor/curved-lines";
@@ -21,26 +19,13 @@ type TopicPageViewProps = {
 };
 
 export function TopicPageView({ topic }: TopicPageViewProps) {
-  const masterclasses = filterProducts(getAllMasterclasses(), {
-    direction: topic.directionId,
-  }).slice(0, 6);
-
-  const featuredSlugs =
-    "featuredProgramSlugs" in topic ? topic.featuredProgramSlugs : undefined;
-
-  const featuredPrograms = (featuredSlugs ?? [])
-    .map((slug) => getProductBySlug("program", slug))
-    .filter((product): product is NonNullable<typeof product> => Boolean(product));
-
-  const programsByDirection = filterProducts(getAllPrograms(), {
-    direction: topic.directionId,
-  }).slice(0, 3);
-
-  const featuredSlugSet = new Set(featuredPrograms.map((product) => product.slug));
-  const programs = [
-    ...featuredPrograms,
-    ...programsByDirection.filter((product) => !featuredSlugSet.has(product.slug)),
-  ].slice(0, 4);
+  const { masterclasses, programs } = getTopicProducts(topic, getAllProducts());
+  const hasProducts = masterclasses.length > 0 || programs.length > 0;
+  const primaryHref = masterclasses.length > 0
+    ? `/masterclasses/${masterclasses[0].slug}`
+    : programs.length > 0
+      ? `/programs/${programs[0].slug}`
+      : "/contacts";
 
   return (
     <>
@@ -106,7 +91,7 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
               <div>
                 <h2 className="text-3xl md:text-4xl">Программы по теме</h2>
                 <p className="mt-3 max-w-2xl text-muted leading-relaxed">
-                  Более глубокие форматы с пошаговым сопровождением.
+                  Программы для последовательной работы с этим запросом.
                 </p>
               </div>
               <Button
@@ -130,15 +115,16 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
         <CurvedLines variant="cta" />
         <Container className="relative z-10 max-w-3xl text-center">
           <h2 className="text-balance text-3xl md:text-4xl">
-            Начните с того, что откликается
+            {hasProducts ? "Выберите формат под свой запрос" : "Уточните подходящий формат"}
           </h2>
           <p className="mx-auto mt-5 text-lg leading-relaxed text-muted">
-            {siteConfig.expert} — инструктор нейрографики с 17-летним опытом
-            онлайн-продвижения. Оплата и доступ к занятиям — на GetCourse.
+            {hasProducts
+              ? `${siteConfig.expert} — инструктор нейрографики. Оплата — на GetCourse; формат и срок доступа указаны на странице выбранного занятия.`
+              : "Отдельное занятие по этой теме сейчас не опубликовано в каталоге. Напишите Галине, чтобы уточнить возможность работы с вашим запросом и подходящий формат."}
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button href={`/masterclasses?direction=${topic.directionId}`} size="lg">
-              Выбрать мастер-класс
+            <Button href={primaryHref} size="lg">
+              {hasProducts ? "Посмотреть подходящее занятие" : "Уточнить формат у Галины"}
             </Button>
             <Button href="/materials" variant="secondary" size="lg">
               Статьи и подкасты
@@ -147,7 +133,8 @@ export function TopicPageView({ topic }: TopicPageViewProps) {
           <p className="mt-8 text-sm text-muted">
             Другие запросы:{" "}
             {getAllTopics()
-              .filter((item) => item.slug !== topic.slug)
+              .filter((item) => item.slug !== topic.slug &&
+                (item.directionId === "expert-marketing") === (topic.directionId === "expert-marketing"))
               .slice(0, 4)
               .map((item, index, arr) => (
               <span key={item.slug}>
