@@ -45,6 +45,13 @@ export default function RootLayout({
       data-seasonal-decor={theme.seasonalDecor ? "on" : "off"}
     >
       <head>
+        {/* Yandex Autoplacement 20487668 */}
+        <script src="https://yandex.ru/ads/system/context.js" async />
+        <script
+          data-page-id="20487668"
+          src="https://yandex.ru/ads/system/ap-loader.js"
+          async
+        />
         <SiteThemeStyle theme={theme} />
         <link
           rel="alternate"
