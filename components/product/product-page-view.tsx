@@ -60,7 +60,7 @@ export function ProductPageView({ product, related }: ProductPageViewProps) {
           <Breadcrumbs items={crumbs} />
 
           <div className="grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card">
+            <div className={product.slug === "hrustalny-most" ? "relative aspect-[4/3] overflow-hidden rounded-[1.75rem] shadow-card" : "relative aspect-[4/5] overflow-hidden rounded-[1.75rem] shadow-card"}>
               <SiteImage
                 src={product.cover}
                 alt={product.title}
